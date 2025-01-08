@@ -8,6 +8,19 @@
   border: 1px solid black;
 }
 
+ul {
+  display: flex;
+  list-style: none;
+}
+
+li {
+  margin: 20px
+}
+
+#start-btn {
+  border: 1px solid black;
+}
+
 .attendance {
   grid-column: 1 / span 2; /* 첫 번째와 두 번째 열을 차지 */
 }
