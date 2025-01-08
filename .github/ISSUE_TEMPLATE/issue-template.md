@@ -1,7 +1,7 @@
 ---
 name: issue template
 about: Describe this issue template's purpose here.
-title: ''
+title: "[타입] 제목 작성"
 labels: ''
 assignees: ''
 
