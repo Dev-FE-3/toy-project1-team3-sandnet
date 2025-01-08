@@ -1,0 +1,13 @@
+.wrapper {
+  display: grid;
+  grid-template-rows: 300px 400px;  /* 두 개의 열로 나눈다 */
+  grid-template-columns: 300px 350px;  /* 두 개의 행으로 나눈다 */
+}
+
+.item {
+  border: 1px solid black;
+}
+
+.attendance {
+  grid-column: 1 / span 2; /* 첫 번째와 두 번째 열을 차지 */
+}
