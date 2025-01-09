@@ -1,7 +1,9 @@
 .wrapper {
   display: grid;
-  grid-template-rows: 300px 400px;  /* 두 개의 열로 나눈다 */
-  grid-template-columns: 300px 350px;  /* 두 개의 행으로 나눈다 */
+  grid-template-rows: 300px 400px; /* 두 개의 열로 나눈다 */
+  grid-template-columns: 300px 350px; /* 두 개의 행으로 나눈다 */
+  margin-left: 200px;
+  padding: 20px;
 }
 
 .item {
@@ -14,7 +16,7 @@ ul {
 }
 
 li {
-  margin: 20px
+  margin: 20px;
 }
 
 #start-btn {
@@ -23,4 +25,37 @@ li {
 
 .attendance {
   grid-column: 1 / span 2; /* 첫 번째와 두 번째 열을 차지 */
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 200px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-menu li {
+  padding: 15px 25px;
+  width: 100%;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+.nav-menu a:hover {
+  color: #007bff;
 }
