@@ -20,37 +20,49 @@
       </nav>
     </div>
     <main class="wrapper">
-      <div class="item">
-        <p>프로필</p>
+      <div class="section profile-section">
+        <p class="section-title">프로필</p>
         <!-- 프로필 이미지, 정보 -->
       </div>
-      <div class="item">
-        <!-- 시간관리 -->
-        <div>
+      <!-- 시간관리 -->
+      <div class="section time-management-section">
+        <div class="current-time">
           <!-- 현재시각 -->
+          <p>현재시각</p>
           <p>11:30</p>
         </div>
-        <ul>
-          <li>
+        <ul class="work-time-list">
+          <li class="work-time-item">
             <!-- 근무 시작 시간 -->
-            <p>근무 시작</p>
-            <p>-</p>
+            <p class="time-label">근무 시작</p>
+            <p class="time-value">-</p>
           </li>
-          <li>
+          <li class="work-time-item">
             <!-- 근무 종료 시간 -->
-            <p>근무 종료</p>
-            <p>-</p>
+            <p class="time-label">근무 종료</p>
+            <p class="time-value">-</p>
           </li>
         </ul>
-        <div>
-          <!-- 근무 시작 버튼 -->
-          <div id="start-btn">근무 시작 버튼</div>
+        <!-- 근무 시작 버튼 -->
+        <button id="work-btn">근무 시작</button>
+      </div>
+
+      <div class="section attendance-section">
+        <!-- 근태 신청 내역 -->
+        <p class="section-title">근태 내역</p>
+        <div class="attendance-header">
+          <div class="header-item">제목</div>
+          <div class="header-item">종류</div>
+          <div class="header-item">일자</div>
+          <div class="header-item">작성자</div>
+        </div>
+        <div class="attendance-list">
+          <div class="attendance-item">
+            <div class="profile-circle"></div>
+            <div class="attendance-content">연차 신청합니다</div>
+          </div>
         </div>
       </div>
-      <a href="attendance.html" class="item attendance">
-        <!-- 근태 신청 내역 -->
-        <p>근태 내역</p>
-      </a>
     </main>
   </body>
 </html>
