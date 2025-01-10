@@ -112,6 +112,7 @@
 
 /* 근태 내역 섹션 */
 .attendance-section {
+  position: relative;
   padding: 20px;
   text-decoration: none;
   color: inherit;
@@ -133,16 +134,20 @@
 .attendance-header {
   display: flex;
   background-color: transparent;
-  padding: 15px;
+  padding: 15px 0;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin: 0 15px 10px 70px;
 }
 
 .header-item {
   flex: 1;
-  text-align: center;
+  text-align: left;
   font-weight: bold;
   color: #aaa;
+}
+
+.header-item.title {
+  flex: 1.5;
 }
 
 .attendance-list {
@@ -168,4 +173,37 @@
 
 .attendance-content {
   color: #333;
+}
+
+.add-attendance-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #aaa;
+  color: white;
+  border: none;
+  font-size: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  z-index: 1;
+}
+
+.add-attendance-btn:hover {
+  background-color: #666;
+}
+
+.item-content {
+  flex: 1;
+  text-align: left;
+}
+
+.item-content.title {
+  flex: 1.5;
 }
