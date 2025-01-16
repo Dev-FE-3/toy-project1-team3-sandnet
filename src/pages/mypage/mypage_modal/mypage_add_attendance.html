@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="mypage_modal.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="modal">
+      <div class="modal-content">
+        <div class="attendance-form-modal">
+          <h2>근태 신청</h2>
+        <div class="attendance-type-buttons">
+          <button class="type-btn">연차</button>
+          <button class="type-btn">반차</button>
+          <button class="type-btn">조퇴</button>
+          <button class="type-btn">기타</button>
+        </div>
+        <div class="attendance-form">
+          <div class="date-picker-container">
+            <label for="start-date">시작일</label>
+            <input type="date" id="start-date" class="date-picker" />
+
+            <label for="end-date">종료일</label>
+            <input type="date" id="end-date" class="date-picker" />
+          </div>
+          <button class="submit-btn">신청</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
