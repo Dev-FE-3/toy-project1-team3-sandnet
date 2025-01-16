@@ -1,0 +1,285 @@
+@import "../../reset.css";
+
+@font-face {
+  font-family: 'BMDOHYEON';
+  src: url('../../../assets/fonts/BMDOHYEON_ttf.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'ChosunGu';
+  src: url('../../../assets/fonts/ChosunGu.TTF') format('truetype');
+}
+
+body {
+  margin: 0;
+  font-family: 'ChosunGu';
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar 스타일 */
+.sidebar {
+  width: 10%;
+  min-width: 200px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  border-radius: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 20px;
+}
+
+.sidebar li {
+  margin: 3rem 0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0.8em 1.2em;
+}
+
+.sidebar li:hover {
+  color: #000000;
+}
+
+/* Main Content 스타일 */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Header 스타일 */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2.5rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+/* Search Bar 스타일 */
+.search-bar {
+  position: relative;
+  width: 30%;
+  min-width: 280px;
+  margin-right: 2rem;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.8em;
+  font-size: 1rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 1.5em;
+}
+
+.search-icon {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  cursor: pointer;
+}
+
+/* Cards 섹션 스타일 */
+.cards {
+  display: flex;
+  grid-template-columns: repeat(auto-fill, minmax(200px, calc((100% - 4.5rem) / 4))); /* 4개 제한 */
+  gap: 2rem;
+  padding: 1rem;
+  margin: 1rem 0.5rem;
+  overflow-y: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* background-color: #fefbf0;
+  border-radius: 30px; */
+}
+
+.card {
+  width: 95%;
+  min-width: 200px;
+  max-width: 300px;
+  height: auto;
+  background-color: #055D20;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.8rem;
+  transition: transform 0.3s ease;
+  aspect-ratio: 3/5;
+  gap: 1rem;
+  margin: 2rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0.5rem 0;
+  color: #f8bd64;
+}
+
+.card p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+/* 카드 이미지 */
+.image-placeholder {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  background-color: #828282;
+}
+
+/* 스크롤바 공통 스타일 통합 */
+.cards::-webkit-scrollbar,
+.modal-text-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cards::-webkit-scrollbar-thumb,
+.modal-text-content::-webkit-scrollbar-thumb {
+  background-color: #b1b1b1;
+  border-radius: 10px;
+}
+
+.cards::-webkit-scrollbar-track,
+.modal-text-content::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+
+/*card modal*/
+
+#modalCard{
+  cursor: pointer;
+}
+
+/*modal background*/
+#modalContainer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index:1;
+  transition: background-color 0.3s ease;
+  padding: 2rem;
+}
+
+/*modal*/
+#modalContent {
+  position: relative;
+  background-color: #fff;
+  width: 90%;
+  max-width: 900px;
+  aspect-ratio: 2/5;
+  max-height: 70vh;
+  padding: 2.5rem 1rem 1rem;
+  border-radius: 2em;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  background-color: #fefbf0;
+}
+
+.modal-area{
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  overflow: hidden;
+  height: 100%;
+
+}
+
+.modal-image-placeholder{
+  flex: 0 0 50%;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-image-placeholder img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 1em;
+  object-fit: contain;
+}
+
+.modal-text-content{
+  flex: 1;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.modal-text-content h2 {
+  font-size: 1.8rem;
+}
+
+.modal-text-content p {
+  font-size: 1.3rem;
+  margin: 0.8rem 0;
+  white-space: pre-line;
+  color: #555555;
+}
+
+#modalCloseButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 2rem;
+  color: #055D20;
+  transition: color 0.3s ease;
+}
+
+#modalCloseButton:hover {
+  color: #033412;
+}
+
+#modalContainer.hidden {
+  display: none;
+}
+
+
