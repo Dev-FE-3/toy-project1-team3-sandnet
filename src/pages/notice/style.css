@@ -2,17 +2,17 @@
 
 @font-face {
   font-family: 'BMDOHYEON';
-  src: url('../../../assets/fonts/BMDOHYEON_ttf.ttf') format('truetype');
+  src: url('../../assets/fonts/BMDOHYEON_ttf.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'ChosunGu';
-  src: url('../../../assets/fonts/ChosunGu.TTF') format('truetype');
+  src: url('../../assets/fonts/ChosunGu.TTF') format('truetype');
 }
 
 body {
   margin: 0;
-  font-family: 'ChosunGu';
+  font-family: sans-serif;
 }
 
 h1 {

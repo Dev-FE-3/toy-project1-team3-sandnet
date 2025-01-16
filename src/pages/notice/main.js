@@ -1,3 +1,5 @@
+import "./style.css";
+
 class Component {
   constructor(target) {
     this.target = target;
@@ -47,7 +49,7 @@ class NoitcePage extends Component {
         <section class="cards">
           <!--카드1-->
           <div id="card1" class="card">
-            <img src="./assets/images/img1.png" alt="공지사항 이미지" class="image-placeholder"/>
+            <img src="./src/assets/images/img1.png" alt="공지사항 이미지" class="image-placeholder"/>
             <h2>주간 근무 스케줄 공지</h2>
             <p>
               안녕하세요, 모든 직원 여러분!
@@ -74,7 +76,7 @@ class NoitcePage extends Component {
 
           <!--카드2-->
           <div id="card2" class="card">
-            <img src="./assets/images/img2.png" alt="공지사항 이미지" class="image-placeholder"/>
+            <img src="./src/assets/images/img2.png" alt="공지사항 이미지" class="image-placeholder"/>
             <h2>신메뉴 출시</h2>
             <p>
               안녕하세요!
@@ -101,7 +103,7 @@ class NoitcePage extends Component {
 
           <!--카드3-->
           <div id="card3" class="card" >
-            <img src="./assets/images/img3.png" alt="공지사항 이미지" class="image-placeholder"/>
+            <img src="./src/assets/images/img3.png" alt="공지사항 이미지" class="image-placeholder"/>
             <h2>주말 프로모션 안내</h2>
             <p>
               매장에서는 이번 주말 동안 특별 이벤트를 진행합니다.
@@ -123,7 +125,7 @@ class NoitcePage extends Component {
 
           <!--카드4-->
           <div id="card4" class="card">
-            <img src="./assets/images/img4.png" alt="공지사항 이미지" class="image-placeholder"/>
+            <img src="./src/assets/images/img4.png" alt="공지사항 이미지" class="image-placeholder"/>
             <h2>위생 및 안전 지침</h2>
             <p>
               매장은 고객들에게 항상 안전하고 깨끗한 환경을 제공하기 위해 새로운 위생 및 안전 지침을 시행합니다.
@@ -149,7 +151,7 @@ class NoitcePage extends Component {
 
           <!--카드5-->
           <div id="card5" class="card">
-            <img src="./assets/images/img5.png" alt="공지사항 이미지" class="image-placeholder"></img>
+            <img src="./src/assets/images/img5.png" alt="공지사항 이미지" class="image-placeholder"></img>
             <h2>정기 직원 회의 및 급여 일정</h2>
             <p>
               1월 정기 회의 및 급여 지급 관련 공지를 드립니다.
@@ -173,7 +175,7 @@ class NoitcePage extends Component {
 
           <!--카드6-->
           <div id="card6" class="card">
-            <img src="./assets/images/img6.png" alt="공지사항 이미지" class="image-placeholder"/>
+            <img src="./src/assets/images/img6.png" alt="공지사항 이미지" class="image-placeholder"/>
             <h2>POS 시스템 업데이트</h2>
             <p>
               안녕하세요, 매장에서 사용 중인 POS 시스템이 1월 20일에 업데이트될 예정입니다.
@@ -195,7 +197,7 @@ class NoitcePage extends Component {
 
           <!--카드7-->
           <div id="card7" class="card">
-            <img src="./assets/images/img7.png" alt="공지사항 이미지" class="image-placeholder"/>
+            <img src="./src/assets/images/img7.png" alt="공지사항 이미지" class="image-placeholder"/>
             <h2>신규 직원 인사 공지</h2>
             <p>
               이번 주 신규로 합류한 직원들과 퇴사하는 직원에 대해 공지드립니다.
@@ -214,7 +216,7 @@ class NoitcePage extends Component {
 
           <!--카드8-->
           <div id="card8" class="card">
-            <img src="./assets/images/img8.png" alt="공지사항 이미지" class="image-placeholder"/>
+            <img src="./src/assets/images/img8.png" alt="공지사항 이미지" class="image-placeholder"/>
             <h2>문제 상황 대처 매뉴얼</h2>
             <p>
               고객 컴플레인 처리 및 장비 고장 시 대처법을 공유드립니다.
@@ -341,6 +343,7 @@ class NoitcePage extends Component {
       // 모달 닫기 버튼 이벤트 설정
       setupCloseButton();
     }
+    initialize();
   }
 }
 
@@ -348,9 +351,3 @@ class NoitcePage extends Component {
 new NoitcePage(document.querySelector('#app'));
 
 export default NoitcePage; 
-
-// // 초기화 함수 실행
-// export function initNotice() {
-//   document.querySelector('#app').innerHTML = notice();
-//   initialize();
-// }
