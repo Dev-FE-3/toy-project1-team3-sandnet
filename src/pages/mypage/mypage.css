@@ -24,35 +24,12 @@ body {
   background-color: #eee;
 }
 
-.nav-menu {
-  list-style: none;
-  padding: 0;
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-}
-
-.nav-menu li {
-  padding: 15px 25px;
-  width: 100%;
-  margin: 20px;
-}
-
-.nav-menu a {
-  text-decoration: none;
-  color: #333;
-  font-size: 16px;
-}
-
-.nav-menu a:hover {
-  color: #007bff;
-}
-
 /* 메인 */
 .wrapper {
   display: grid;
-  grid-template-rows: minmax(400px, 40vh) minmax(400px, 40vh);
-  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
+  /* grid-template-rows: minmax(400px, 40vh) minmax(400px, 40vh); 각 행의 높이 최소 400px, 최대 40vh */
+  grid-template-rows: 450px 500px; /* 각 행의 높이 최소 400px, 최대 40vh */
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr); /* 각 열의 너비 최소 300px, 최대 1fr */
   margin-left: 200px;
   padding: 45px;
   gap: 45px; /* 그리드 아이템 간격 추가 */
@@ -64,7 +41,7 @@ body {
   /* border: 3px solid var(--color-dark-green); */
   padding: 20px;
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .section-title {
