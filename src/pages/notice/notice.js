@@ -1,4 +1,4 @@
-import "./style.css";
+import "./notice.css";
 
 class Component {
   constructor(target) {
@@ -26,14 +26,9 @@ class NoitcePage extends Component {
     return `
     <div class="container">
       <!--Sidebar-->
-      <aside class="sidebar">
-        <ul>
-          <li>마이 페이지</li>
-          <li>프로필</li>
-          <li>공지사항</li>
-          <li>직원 구성</li>
-        </ul>
-      </aside>
+      <div class="sidebar">
+        
+      </div>
 
       <!--Main Content-->
       <main class="main-content">
