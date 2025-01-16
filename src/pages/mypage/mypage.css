@@ -8,7 +8,7 @@
   --color-black: #000;
   --color-white: #fff;
   --color-gray: #aaa;
-  --color-hover-beige:  #f1ece4;
+  --color-hover-beige: #f1ece4;
 }
 body {
   font-size: 20px;
@@ -22,7 +22,6 @@ body {
   height: 100vh;
   width: 200px;
   background-color: #eee;
-  border-right: 1px solid #dee2e6;
 }
 
 .nav-menu {
@@ -52,8 +51,8 @@ body {
 /* 메인 */
 .wrapper {
   display: grid;
-  grid-template-rows: 40vh 40vh;
-  grid-template-columns: 1fr 1fr; /* 비율로 열 너비 설정 */
+  grid-template-rows: minmax(400px, 40vh) minmax(400px, 40vh);
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
   margin-left: 200px;
   padding: 45px;
   gap: 45px; /* 그리드 아이템 간격 추가 */
@@ -62,9 +61,10 @@ body {
 .grid-item {
   background-color: var(--color-beige);
   border-radius: 60px;
-  border: 3px solid var(--color-dark-green);
+  /* border: 3px solid var(--color-dark-green); */
   padding: 20px;
   text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .section-title {
@@ -82,13 +82,13 @@ body {
 .current-time p:first-child {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 5px;
 }
 
 .current-time-value {
   font-size: 50px;
   font-weight: bold;
   color: #333;
+  margin: 30px 0;
 }
 
 .work-time-list {
@@ -104,26 +104,26 @@ body {
 }
 
 .time-label {
-  font-weight: bold;
   margin-bottom: 8px;
 }
 
 .time-value {
-  font-size: 18px;
+  width: 100px;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 10px 0;
 }
 
 .work-btn {
-  padding: 5px 10px;
-  font-size: 16px;
+  font-size: 20px;
   background-color: var(--color-dark-green);
   color: var(--color-white);
   font-weight: bold;
   border: none;
-  border-radius: 10px;
+  border-radius: 25px;
   width: 120px; /* 버튼 너비 고정 */
   display: block; /* 블록 요소로 변경 */
   margin: 0 auto; /* 좌우 마진을 auto로 설정하여 중앙 정렬 */
-  margin-top: -10px; /* 버튼 위치를 위로 조정 */
 }
 
 /* 근태*/

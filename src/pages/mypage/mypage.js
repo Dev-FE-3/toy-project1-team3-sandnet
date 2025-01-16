@@ -1,3 +1,5 @@
+import "./mypage.css";
+
 class Component {
   constructor(target) {
     this.target = target;
@@ -36,14 +38,18 @@ class MyPage extends Component {
       ],
       searchText: "",
       currentPage: 1,
+      workStartTime: null,
+      workEndTime: null,
+      isWorking: false,
     };
   }
 
   template() {
-    const { attendance } = this.state;
+    const { attendance, workStartTime, workEndTime, isWorking } = this.state;
 
     return `
     <div class="mypage">
+      <div class="sidebar"></div>
       <main class="wrapper">
         <!-- 프로필 -->
         <div class="grid-item section profile-section modal-trigger">
@@ -61,17 +67,17 @@ class MyPage extends Component {
             <li class="work-time-item">
               <!-- 근무 시작 시간 -->
               <p class="time-label">근무 시작</p>
-              <p class="time-value">-</p>
+              <p class="time-value">${workStartTime || "-"}</p>
             </li>
             <li class="work-time-item">
               <!-- 근무 종료 시간 -->
               <p class="time-label">근무 종료</p>
-              <p class="time-value">-</p>
+              <p class="time-value">${workEndTime || "-"}</p>
             </li>
           </ul>
           <!-- 근무 시작 버튼 -->
           <button class="modal-trigger btn work-btn" id="work-btn">
-            <p>근무 시작</p>
+            <p>${isWorking ? "근무 종료" : "근무 시작"}</p>
           </button>
         </div>
 
@@ -208,7 +214,6 @@ class MyPage extends Component {
 
         currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
         // currentTimeElement.textContent = `${ampm} ${String(displayHours).padStart(2, "0")}:${minutes}:${seconds}`;
-        
       }
 
       updateTime();
@@ -216,6 +221,31 @@ class MyPage extends Component {
     }
     initModals();
     initTimeUpdate();
+
+    const workBtn = document.querySelector("#work-btn");
+    if (workBtn) {
+      workBtn.addEventListener("click", () => {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const currentTime = `${hours}:${minutes}`;
+
+        if (!this.state.isWorking) {
+          // 근무 시작
+          this.setState({
+            workStartTime: currentTime,
+            workEndTime: null,
+            isWorking: true,
+          });
+        } else {
+          // 근무 종료
+          this.setState({
+            workEndTime: currentTime,
+            isWorking: false,
+          });
+        }
+      });
+    }
   }
 }
 
