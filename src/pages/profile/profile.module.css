@@ -1,0 +1,92 @@
+main {
+  display: flex;
+  width: calc(100vw - var(--sidebar-width));
+  height: 100vh;
+  margin-left: var(--sidebar-width);
+  background: #c7c7c7;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
+.primaryProfileContainer {
+  width: 100%;
+  height: fit-content;
+  border: 2px solid #c7c7c7;
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.primaryProfileContainer header {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  position: relative;
+  width: 100%;
+  }
+
+.primaryProfileContainer img {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-left: 1rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700; /* 또는 bold */
+    color: #333;
+  }
+}
+
+.editButton {
+  margin-left: auto;
+}
+
+
+@media all and (max-width: 450px) {
+  .sidebar {
+    padding-top: 15px;
+    width: 5rem;
+
+    a {
+      font-size: 1.5rem;
+    }
+
+    i {
+      display: block;
+    }
+
+    span.menu-name {
+      display: none;
+    }
+    main {
+      margin-left: 10rem; /* sidebar width만큼 */
+      padding: 1rem;
+    }
+  }
+
+  main {
+    margin-left: 5rem;
+    width: calc(100% - 5rem); /* 모바일에서는 좁아진 사이드바 너비 반영 */
+  }
+}

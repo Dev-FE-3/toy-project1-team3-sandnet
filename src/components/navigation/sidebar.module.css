@@ -1,0 +1,289 @@
+i {
+  font-size: 1.2rem;
+}
+
+.sidebar {
+  position: fixed;
+  width: var(--sidebar-width);
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #f8f9fa;
+  overflow-x: hidden;
+  padding: 1rem;
+  transition: width 0.3s ease-in-out;
+  border-right: 1px solid #dee2e6;
+}
+
+.sidebar nav {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar ul {
+  padding: 0;
+}
+
+.sidebar li {
+  list-style-type: none; /* 마커 제거 */
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  padding: 15px 20px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #495057;
+  display: block;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+.themeToggleContainer {
+  margin-top: auto; /* 가장 아래로 이동 */
+}
+
+#themeToggle {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.sidebar a:hover {
+  background-color: #e9ecef;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 2rem;
+}
+
+.themeToggleContainer .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #c2c4c6;
+  transition: 0.4s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px; /* 좌우 여백 */
+}
+
+.themeToggleContainer .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 50%;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #c2c4c6;
+}
+
+input:checked + .slider:before {
+  transform: translateX(90%); /* 이동 범위 */
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #c2c4c6;
+}
+
+/* 둥근 버튼 */
+.slider.round {
+  border-radius: 34px;
+  font-size: clamp(14px, 1.2vw, 1rem);
+}
+
+.slider.round:before {
+  border-radius: 34px;
+}
+
+.adminText,
+.userText {
+  color: #000;
+  font-weight: bold;
+}
+
+.adminText {
+  position: absolute;
+  left: 1.2rem;
+}
+
+.userText {
+  position: absolute;
+  right: 1.4rem;
+} 
+
+.profileDetailContainer {
+  width: 100%;
+  height: fit-content;
+  border: 2px solid #c7c7c7;
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 2rem;
+  margin-top: 2rem;
+  background: #fff;
+
+  .personalInfoHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .editButton {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 2px solid #c7c7c7;
+      border-radius: 0.5rem;
+      background: none;
+      color: #8b8b8b;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+
+      i {
+        font-size: 1.2rem;
+      }
+
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+
+  .personalInfoContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .infoGroup {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .infoItem {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &.fullWidth {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        color: #666;
+        font-size: 1rem;
+      }
+
+      p {
+        color: #333;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #c7c7c7;
+  border-radius: 0.5rem;
+  background: none;
+  color: #8b8b8b;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  i {
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    color: #333;
+  }
+}
+
+.submenu {
+  display: none; /* 기본적으로 숨김 */
+  padding-left: 20px; /* 서브메뉴 들여쓰기 */
+}
+
+.menuItem.active + .submenu {
+  display: block; /* 활성화된 메뉴의 서브메뉴 표시 */
+}
+
+.submenuItem {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #f6f6f6;
+  margin-left: 20px; /* 들여쓰기 */
+  position: relative; /* 자식 요소의 절대 위치를 위한 설정 */
+}
+
+.line {
+  position: absolute; /* 절대 위치 설정 */
+  left: -10px; /* 메뉴명 왼쪽에 위치 */
+  top: 0; /* 상단 정렬 */
+  width: 2px;
+  height: 100%; /* 부모 요소의 높이에 맞춤 */
+  background: black; /* 줄 색상 */
+}
+
+.submenuItem a {
+  color: #757575; /* 기본 텍스트 색상 */
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+.submenuItem a:hover {
+  color: black; /* 호버 시 텍스트 색상 변경 */
+}
+
+.logoContainer {
+  text-align: center; /* 중앙 정렬 */
+  font-size: 2rem; /* 글자 크기 조정 */
+  font-weight: bold; /* 글자 두께 조정 */
+}
+
+.breadColor {
+  color: #f8bd64; /* 햄버거 빵 색깔 */
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.gradientText {
+  background: linear-gradient(to right, #afd6b8, #055d20, #49c064);
+  -webkit-background-clip: text; /* 텍스트에 그라데이션 적용 */
+  -webkit-text-fill-color: transparent; /* 텍스트 색상 투명하게 설정 */
+  margin: 0 2px; /* 좌우 여백 추가하여 간격 조정 */
+}

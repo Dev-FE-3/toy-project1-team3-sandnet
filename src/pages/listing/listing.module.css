@@ -13,53 +13,16 @@ body {
 }
 
 /* 페이지 레이아웃 */
-.page-container {
+.staffContainer {
   display: flex;
   height: 100vh;
-}
-
-/* 사이드바 스타일 */
-.sidebar {
-  width: 250px;
-  height: 100vh;
-  background-color: #037c1f;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sidebar h1 {
-  margin-top: 40px;
-  font-size: 40px;
-  color: #ffce32;
-  margin-bottom: 60px;
-}
-
-.sidebar ul {
-  list-style: none;
-  width: 80%;
-}
-
-.sidebar li {
-  padding: 15px;
-  margin: 15px 0;
-  color: white;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
-
-.sidebar li:hover, .sidebar li.active {
-  background-color: #ffce32;
-  color: #037c1f;
 }
 
 /* 메인 컨텐츠 영역 */
 .content {
   flex: 1;
-  margin-left: 250px;
+  /* margin-left: var(--sidebar-width); */
+  width: calc(100vw - var(--sidebar-width));
   padding: 40px;
   padding-top: 150px;
 }
@@ -75,7 +38,7 @@ body {
 }
 
 /* 팀 카드 스타일 */
-.team-card {
+.teamCard {
   background-color: white;
   padding: 35px;
   border-radius: 15px;
@@ -85,14 +48,14 @@ body {
 }
 
 /* 헤더 영역 */
-.team-header {
+.teamHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
 }
 
-.team-header button {
+.teamHeader button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -102,13 +65,13 @@ body {
 }
 
 /* 검색 영역 */
-.search-container {
+.searchContainer {
   position: relative;
   width: 350px;
   margin-right: 50px;
 }
 
-.search-icon {
+.searchIcon {
   position: absolute;
   left: 12px;
   top: 50%;
@@ -116,7 +79,7 @@ body {
   color: #999;
 }
 
-.search-input {
+.searchInput {
   width: 100%;
   padding: 12px 15px 12px 40px;
   border: 2px solid #e0e0e0;
@@ -124,24 +87,24 @@ body {
   font-size: 14px;
 }
 
-.search-input:focus {
+.searchInput:focus {
   outline: none;
   border-color: #037c1f;
 }
 
 /* 테이블 스타일 */
-.table-container {
+.tableContainer {
   height: calc(100% - 120px);
   overflow-y: auto;
 }
 
-.team-table {
+.teamTable {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
 }
 
-.team-table th {
+.teamTable th {
   position: sticky;
   top: 0;
   background-color: #f8f9fa;
@@ -151,12 +114,12 @@ body {
   border-bottom: 2px solid #e0e0e0;
 }
 
-.team-table td {
+.teamTable td {
   padding: 15px;
   border-bottom: 1px solid #e0e0e0;
 }
 
-.profile-image {
+.profileImage {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -181,13 +144,13 @@ body {
   background-color: white;
 }
 
-.page-numbers {
+.pageNumbers {
   display: flex;
   gap: 5px;
   margin: 0 15px;
 }
 
-.page-btn {
+.pageBtn {
   min-width: 32px;
   height: 32px;
   border: 1px solid #e0e0e0;
@@ -200,23 +163,23 @@ body {
   font-size: 14px;
 }
 
-.page-btn.active {
+.pageBtn.active {
   background-color: #037c1f;
   border-color: #037c1f;
   color: white;
 }
 
 /* 스크롤바 스타일 */
-.table-container::-webkit-scrollbar {
+.tableContainer::-webkit-scrollbar {
   width: 8px;
 }
 
-.table-container::-webkit-scrollbar-track {
+.tableContainer::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 4px;
 }
 
-.table-container::-webkit-scrollbar-thumb {
+.tableContainer::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 4px;
 } 

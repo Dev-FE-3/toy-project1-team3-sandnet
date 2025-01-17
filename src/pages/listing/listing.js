@@ -1,20 +1,17 @@
+import styles from './listing.module.css'
+
 class Component {
   constructor(target) {
     this.target = target;
     this.setup();
-    this.render();
-    this.setEvent();
+    // this.setEvent();
   }
 
   setup() {}
   template() { return ''; }
-  render() {
-    this.target.innerHTML = this.template();
-  }
   setEvent() {}
   setState(newState) {
     this.state = { ...this.state, ...newState };
-    this.render();
     this.setEvent();
   }
 }
@@ -41,33 +38,24 @@ class ListingPage extends Component {
 
   template() {
     return `
-      <div class="page-container">
-        <div class="sidebar">
-          <h1>SandNet</h1>
-          <ul>
-            <li>Home</li>
-            <li class="active">Management</li>
-            <li>Notification</li>
-            <li>My page</li>
-          </ul>
-        </div>
-        <div class="content">
+      <main class="${styles.staffContainer}">
+        <div class="${styles.content}">
           <h2>직원 관리</h2>
-          <div class="team-card">
-            <div class="team-header">
-              <button>Edit</button>
-              <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
+          <article class="${styles.teamCard}">
+            <header class="${styles.teamHeader}">
+              <button class="${styles.editButton}">Edit</button>
+              <div class="${styles.searchContainer}">
+                <i class="fas fa-search ${styles.searchIcon}"></i>
                 <input 
                   type="text" 
                   placeholder="직원 이름, 이메일 또는 연락처로 검색..." 
-                  class="search-input"
+                  class="${styles.searchInput}"
                   value="${this.state.searchText}"
                 >
               </div>
-            </div>
-            <div class="table-container">
-              <table class="team-table">
+            </header>
+            <div class="${styles.tableContainer}">
+              <table class="${styles.teamTable}">
                 <thead>
                   <tr>
                     <th></th>
@@ -83,45 +71,45 @@ class ListingPage extends Component {
                   ${this.state.employees.map(employee => `
                     <tr data-id="${employee.id}">
                       <td>
-                        <img src="${employee.image}" alt="프로필" class="profile-image">
+                        <img src="${employee.image}" alt="프로필" class="${styles.profileImage}">
                       </td>
                       <td>${employee.name}</td>
                       <td>${employee.phone}</td>
                       <td>${employee.email}</td>
                       <td>${employee.branch}</td>
                       <td>${employee.rank}</td>
-                      <td class="actions">
-                        <button class="delete-btn">Delete</button>
+                      <td class="${styles.actions}">
+                        <button class="${styles.deleteBtn}">Delete</button>
                       </td>
                     </tr>
                   `).join('')}
                 </tbody>
               </table>
             </div>
-            <div class="pagination">
-              <button class="page-btn prev-btn">
+            <nav class="${styles.pagination}">
+              <button class="${styles.pageBtn} ${styles.prevBtn}">
                 <i class="fas fa-chevron-left"></i>
               </button>
-              <div class="page-numbers">
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">4</button>
-                <button class="page-btn">5</button>
+              <div class="${styles.pageNumbers}">
+                <button class="${styles.pageBtn} ${styles.active}">1</button>
+                <button class="${styles.pageBtn}">2</button>
+                <button class="${styles.pageBtn}">3</button>
+                <button class="${styles.pageBtn}">4</button>
+                <button class="${styles.pageBtn}">5</button>
               </div>
-              <button class="page-btn next-btn">
+              <button class="${styles.pageBtn} ${styles.nextBtn}">
                 <i class="fas fa-chevron-right"></i>
               </button>
-            </div>
-          </div>
+            </nav>
+          </article>
         </div>
-      </div>
+      </main>
     `;
   }
 
   setEvent() {
     // 검색 이벤트
-    const searchInput = this.target.querySelector('.search-input');
+    const searchInput = this.target.querySelector(`.${styles.searchInput}`);
     if (searchInput) {
       let debounceTimer;
       searchInput.addEventListener('input', (e) => {
@@ -135,7 +123,7 @@ class ListingPage extends Component {
 
     // 삭제 버튼 이벤트
     this.target.addEventListener('click', (e) => {
-      if (e.target.classList.contains('delete-btn')) {
+      if (e.target.classList.contains(styles.deleteBtn)) {
         const tr = e.target.closest('tr');
         const id = tr.dataset.id;
         // 삭제 로직 구현
@@ -144,17 +132,17 @@ class ListingPage extends Component {
     });
 
     // 페이지네이션 이벤트
-    const pagination = this.target.querySelector('.pagination');
+    const pagination = this.target.querySelector(`.${styles.pagination}`);
     if (pagination) {
       pagination.addEventListener('click', (e) => {
-        const btn = e.target.closest('.page-btn');
+        const btn = e.target.closest(`.${styles.pageBtn}`);
         if (!btn) return;
 
-        const currentActive = pagination.querySelector('.page-btn.active');
+        const currentActive = pagination.querySelector(`.${styles.pageBtn}.active`);
         if (currentActive) {
           currentActive.classList.remove('active');
         }
-        if (!btn.classList.contains('prev-btn') && !btn.classList.contains('next-btn')) {
+        if (!btn.classList.contains(styles.prevBtn) && !btn.classList.contains(styles.nextBtn)) {
           btn.classList.add('active');
         }
       });
@@ -163,6 +151,6 @@ class ListingPage extends Component {
 }
 
 // 앱 실행
-new ListingPage(document.querySelector('#app'));
+// new ListingPage(document.querySelector('#app'));
 
 export default ListingPage; 
