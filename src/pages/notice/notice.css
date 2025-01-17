@@ -17,7 +17,7 @@
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'BMDOHYEON';
 }
 
 h1 {
@@ -37,8 +37,6 @@ h1 {
   width: 10%;
   min-width: 200px;
   background-color: #f8f9fa;
-  border-right: 1px solid #dee2e6;
-  border-radius: 0;
 }
 
 /* Main Content 스타일 */

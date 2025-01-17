@@ -250,96 +250,73 @@ class NoitcePage extends Component {
   }
 
   setEvent() {
-    // 카드 텍스트 제한 함수
-    function truncateText(text, limit = 80) {
-      return text.length <= limit ? text : text.slice(0, limit) + '...';
-    }
-
-    // 모달 열기 함수
-    function openModal(card) {
-      console.log('openModal called');
-      const modalContainer = document.getElementById('modalContainer');
-      const modalContent = document.getElementById('modalContent');
-      const modalImage = document.querySelector('.modal-image-placeholder');
-      const modalTitle = document.getElementById('modalTitle');
-      const modalText = document.getElementById('modalText');
+    // 공통 DOM 요소 가져오기
+    const modalContainer = document.getElementById('modalContainer');
+    const modalImage = document.querySelector('.modal-image-placeholder');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const modalCloseButton = document.getElementById('modalCloseButton');
   
+    // 카드 텍스트 제한 함수
+    const truncateText = (text, limit = 80) =>
+      text.length <= limit ? text : text.slice(0, limit) + '...';
+  
+    // 모달 열기 함수
+    const openModal = (card) => {
       const cardImage = card.querySelector('.image-placeholder').cloneNode(true);
       const cardTitle = card.querySelector('h2').textContent;
-      const fullText = card.querySelector('p').textContent;
-
+      const fullText = card.dataset.fullText; // 원본 텍스트 가져오기
+  
       // 모달 내용 업데이트
       modalImage.innerHTML = ''; // 기존 내용 삭제
-      modalImage.appendChild(cardImage);  // 이미지 추가
+      modalImage.appendChild(cardImage); // 이미지 추가
       modalTitle.textContent = cardTitle;
-      modalText.textContent = fullText;
-
+      modalText.textContent = fullText; // 원본 텍스트 사용
+  
       modalContainer.classList.remove('hidden');
-    }
-
+    };
+  
     // 모달 닫기 함수
-    function closeModal() {
-      const modalContainer = document.getElementById('modalContainer');
-      modalContainer.classList.add('hidden'); // 모달 숨기기
-    }
-
-    // 외부 클릭 시 모달 닫기 함수
-    function handleOutsideClick(e) {
-      const modalContainer = document.getElementById('modalContainer');
-      if (e.target === modalContainer) {
-        closeModal();
-      }
-    }
-
-    // 카드 클릭 이벤트 설정 함수
-    function setupCardEvents(card) {
+    const closeModal = () => modalContainer.classList.add('hidden');
+  
+    // 외부 클릭 시 모달 닫기
+    const handleOutsideClick = (e) => {
+      if (e.target === modalContainer) closeModal();
+    };
+  
+    // 카드 이벤트 설정 함수
+    const setupCardEvents = (card) => {
       const cardText = card.querySelector('p');
       const fullText = cardText.textContent;
-
+  
+      // 카드에 원본 텍스트 저장
+      card.dataset.fullText = fullText;
+  
       // 카드 텍스트 제한 처리
       cardText.textContent = truncateText(fullText);
-
-      card.addEventListener('click', () => {
-        const modalContainer = document.getElementById('modalContainer');
-        const modalImage = document.querySelector('.modal-image-placeholder');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalText = document.getElementById('modalText');
-    
-        // 이미지 src 복사 및 추가
-        const cardImage = card.querySelector('.image-placeholder').cloneNode(true);
-        modalImage.innerHTML = '';  // 기존 내용 삭제
-        modalImage.appendChild(cardImage);  // 이미지 추가
-    
-        // 제목과 전체 텍스트 설정
-        modalTitle.textContent = card.querySelector('h2').textContent;
-        modalText.textContent = fullText;  // 원본 전체 텍스트 사용
-
-        modalContainer.classList.remove('hidden');
-      });
-    }
-
-    // 모달 닫기 버튼 이벤트 설정 함수
-    function setupCloseButton() {
-      const modalCloseButton = document.getElementById('modalCloseButton');
-      modalCloseButton.addEventListener('click', closeModal);
-    }
-
-    // DOM 로드 후 초기화 함수
-    function initialize() {
+  
+      // 클릭 시 모달 열기
+      card.addEventListener('click', () => openModal(card));
+    };
+  
+    // 초기화 함수
+    const initialize = () => {
       const cards = document.querySelectorAll('.card');
   
-      // 각 카드에 대해 클릭 이벤트 설정
-      cards.forEach(card => setupCardEvents(card));
-
-      // 모달 외부 클릭시 닫기 이벤트 설정
-      const modalContainer = document.getElementById('modalContainer');
+      // 각 카드에 이벤트 설정
+      cards.forEach((card) => setupCardEvents(card));
+  
+      // 모달 외부 클릭 이벤트 설정
       modalContainer.addEventListener('click', handleOutsideClick);
-
+  
       // 모달 닫기 버튼 이벤트 설정
-      setupCloseButton();
-    }
+      modalCloseButton.addEventListener('click', closeModal);
+    };
+  
+    // 초기화 실행
     initialize();
   }
+  
 }
 
 // 앱 실행
