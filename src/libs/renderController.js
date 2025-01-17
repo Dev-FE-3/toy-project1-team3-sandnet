@@ -1,10 +1,9 @@
 import { getRoute } from '@/app/router/router';
-import ListingPage from '@/pages/listing/listing';
-import Sidebar from '@/components/navigation/sidebar';
 import layout from '@/components/layout';
 
 export const renderController = (path, container) => {
   // console.log("renderController ~ container: ", container)
+  // 경로에 따른 컴포넌트 가져오기
   const routeHandler = getRoute(path);
   
   // 공통 컴포넌트 렌더링
