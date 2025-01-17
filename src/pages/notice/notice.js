@@ -1,3 +1,6 @@
+import "../../../reset.css";
+import "../../styles/global.css";
+import "../../styles/variables.css";
 import "./notice.css";
 
 class Component {
@@ -26,17 +29,23 @@ class NoitcePage extends Component {
 
   template () {
     return `
-    <div class="container">
+    <div class="page-container">
       <!--Sidebar-->
       <div class="sidebar">
-        
+        <h1>SandNet</h1>
+          <ul>
+            <li>Home</li>
+            <li class="active">Management</li>
+            <li>Notification</li>
+            <li>My page</li>
+          </ul>
       </div>
 
       <!--Main Content-->
-      <main class="main-content">
+      <main class="content">
         <header>
           <h1>공지사항</h1>
-          <div class="search-bar">
+          <div class="search-container">
             <input type="text" id="search-input" placeholder="검색어를 입력하세요">
             <span class="search-icon material-icons" onclick="search()">search</span>
           </div>

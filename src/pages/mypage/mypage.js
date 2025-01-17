@@ -1,3 +1,6 @@
+import "../../../reset.css";
+import "../../styles/global.css";
+import "../../styles/variables.css";
 import "./mypage.css";
 
 class Component {
@@ -40,9 +43,9 @@ class MyPage extends Component {
       this.state;
 
     return `
-    <div class="mypage">
+    <div class="page-container">
       <div class="sidebar"></div> <!-- 사이드바 -->
-      <main class="wrapper">
+      <main class="content">
         <!-- 프로필 -->
         <div class="grid-item section profile-section modal-trigger">
           <p class="section-title">프로필</p>
