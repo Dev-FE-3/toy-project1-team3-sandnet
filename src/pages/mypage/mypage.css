@@ -17,8 +17,6 @@ body {
 /* 사이드바 */
 .sidebar {
   position: fixed;
-  left: 0;
-  top: 0;
   height: 100vh;
   width: 200px;
   background-color: #eee;
@@ -27,7 +25,6 @@ body {
 /* 메인 */
 .wrapper {
   display: grid;
-  /* grid-template-rows: minmax(400px, 40vh) minmax(400px, 40vh); 각 행의 높이 최소 400px, 최대 40vh */
   grid-template-rows: 450px 500px; /* 각 행의 높이 최소 400px, 최대 40vh */
   grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr); /* 각 열의 너비 최소 300px, 최대 1fr */
   margin-left: 200px;
@@ -38,7 +35,6 @@ body {
 .grid-item {
   background-color: var(--color-beige);
   border-radius: 60px;
-  /* border: 3px solid var(--color-dark-green); */
   padding: 20px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

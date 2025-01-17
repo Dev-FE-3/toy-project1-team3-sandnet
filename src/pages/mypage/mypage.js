@@ -28,6 +28,7 @@ class MyPage extends Component {
     this.state = {
       attendance: [], // 근태 내역
       writer: "장은혜", // 작성자
+
       workStartTime: null, // 근무 시작 시간
       workEndTime: null, // 근무 종료 시간
       isWorking: false, // 근무 중 여부
@@ -35,7 +36,8 @@ class MyPage extends Component {
   }
 
   template() {
-    const { attendance, writer, workStartTime, workEndTime, isWorking } = this.state;
+    const { attendance, writer, workStartTime, workEndTime, isWorking } =
+      this.state;
 
     return `
     <div class="mypage">
@@ -258,14 +260,18 @@ class MyPage extends Component {
   // 근태 관리
   initAttendanceManagement() {
     const addAttendanceBtn = document.querySelector(".add-attendance-btn");
-    const addAttendanceModal = document.querySelector(".add-attendance-btn-modal");
+    const addAttendanceModal = document.querySelector(
+      ".add-attendance-btn-modal"
+    );
     if (!addAttendanceBtn || !addAttendanceModal) return;
 
     // 근태 유형 버튼 이벤트
     const typeButtons = addAttendanceModal.querySelectorAll(".type-btn");
-    typeButtons.forEach(button => {
+    typeButtons.forEach((button) => {
       button.addEventListener("click", (e) => {
-        typeButtons.forEach(btn => btn.classList.remove("selected"));
+        // 모든 버튼의 선택 상태를 먼저 제거
+        typeButtons.forEach((btn) => btn.classList.remove("selected"));
+        // 클릭한 버튼만 선택 상태로 변경
         e.target.classList.add("selected");
         this.state.selectedAttendanceType = e.target.textContent;
       });
@@ -277,10 +283,11 @@ class MyPage extends Component {
       submitBtn.addEventListener("click", () => {
         const startDate = document.querySelector("#start-date").value;
         const endDate = document.querySelector("#end-date").value;
-        
+        // 근태 유형(연차, 반차 등)이 선택되지 않았거나
+        // 시작일이 선택되지 않았을 때 알림 메시지 출력
         if (!this.state.selectedAttendanceType || !startDate) {
           alert("근태 유형과 날짜를 선택해주세요.");
-          return;
+          return; // 함수 종료
         }
 
         // 새로운 근태 추가
@@ -294,14 +301,14 @@ class MyPage extends Component {
 
         // 상태 업데이트
         this.setState({
-          attendance: [newAttendance, ...this.state.attendance]
+          attendance: [...this.state.attendance, newAttendance],
         });
 
         // 모달 닫기 및 초기화
         addAttendanceModal.style.display = "none";
         document.querySelector("#start-date").value = "";
         document.querySelector("#end-date").value = "";
-        typeButtons.forEach(btn => btn.classList.remove("selected"));
+        typeButtons.forEach((btn) => btn.classList.remove("selected"));
       });
     }
   }
