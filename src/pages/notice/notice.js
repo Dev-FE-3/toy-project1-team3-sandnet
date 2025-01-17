@@ -21,6 +21,8 @@ class Component {
 }
 
 class NoitcePage extends Component {
+  setup() {
+  }
 
   template () {
     return `
