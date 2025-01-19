@@ -26,14 +26,12 @@ class NoitcePage extends Component {
 
   template () {
     return `
-    <div class="container">
+    <div class="notice-container">
       <!--Sidebar-->
-      <div class="sidebar">
-        
+      <div class="notice-sidebar">
       </div>
-
       <!--Main Content-->
-      <main class="main-content">
+      <main class="notice-main-content">
         <header>
           <h1>공지사항</h1>
           <div class="search-bar">

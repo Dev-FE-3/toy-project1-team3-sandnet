@@ -5,19 +5,8 @@
   src: url('../../assets/fonts/BMDOHYEON_ttf.ttf') format('truetype');
 }
 
-@font-face {
-  font-family: 'ChosunGu';
-  src: url('../../assets/fonts/ChosunGu.TTF') format('truetype');
-}
-
-@font-face {
-  font-family: 'GmarketSans';
-  src: url('../../assets/fonts/GmarketSansTTFMedium.ttf') format('truetype');
-}
-
 body {
   margin: 0;
-  font-family: 'BMDOHYEON';
 }
 
 h1 {
@@ -25,27 +14,29 @@ h1 {
   font-weight: 700;
   margin: 0;
   color: #333;
+  font-family: 'BMDOHYEON';
 }
 
-.container {
+.notice-container {
   display: flex;
   height: 100vh;
 }
 
 /* Sidebar 스타일 */
-.sidebar {
+.notice-sidebar {
   width: 10%;
   min-width: 200px;
   background-color: #f8f9fa;
 }
 
 /* Main Content 스타일 */
-.main-content {
+.notice-main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 2rem;
   overflow-y: auto;
+  font-family: 'BMDOHYEON';
 }
 
 /* Header 스타일 */
