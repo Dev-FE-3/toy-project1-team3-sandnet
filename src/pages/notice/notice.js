@@ -1,3 +1,6 @@
+import "../../../reset.css";
+import "../../styles/global.css";
+import "../../styles/variables.css";
 import "./notice.css";
 
 class Component {
@@ -20,34 +23,16 @@ class Component {
   }
 }
 
-class NoitcePage extends Component {
+class NoticePage extends Component {
   setup() {
-  }
-
-  template () {
-    return `
-    <div class="notice-container">
-      <!--Sidebar-->
-      <div class="notice-sidebar">
-      </div>
-      <!--Main Content-->
-      <main class="notice-main-content">
-        <header>
-          <h1>공지사항</h1>
-          <div class="search-bar">
-            <input type="text" id="search-input" placeholder="검색어를 입력하세요">
-            <span class="search-icon material-icons" onclick="search()">search</span>
-          </div>
-        </header>
-
-        <!--Scrollable Cards Section-->
-        <section class="cards">
-          <!--카드1-->
-          <div id="card1" class="card">
-            <img src="./src/assets/images/img1.png" alt="공지사항 이미지" class="image-placeholder"/>
-            <h2>주간 근무 스케줄 공지</h2>
-            <p>
-              안녕하세요, 모든 직원 여러분!
+    this.cards = [
+      {
+        id: "card1",
+        imgSrc: "./src/assets/images/img1.png",
+        title: "주간 근무 스케줄 공지",
+        description:
+        `
+        안녕하세요, 모든 직원 여러분!
 
               다가오는 주의 근무 스케줄을 아래와 같이 공지합니다. 각자 본인의 근무 시간을 확인하시고, 교대 시간이 변경되거나 문제가 있을 경우 매니저에게 즉시 알려주세요.
 
@@ -66,15 +51,15 @@ class NoitcePage extends Component {
               - 변경 요청이 없을 경우, 아래 스케줄에 따라 운영됩니다.
 
               첨부 파일: 주간 근무표(PDF 다운로드)
-            </p>
-          </div>
-
-          <!--카드2-->
-          <div id="card2" class="card">
-            <img src="./src/assets/images/img2.png" alt="공지사항 이미지" class="image-placeholder"/>
-            <h2>신메뉴 출시</h2>
-            <p>
-              안녕하세요!
+        `
+      },
+      {
+        id: "card2",
+        imgSrc: "./src/assets/images/img2.png",
+        title: "신메뉴 출시",
+        description:
+        `
+        안녕하세요!
               이번 주에는 고객들에게 더욱 즐거운 경험을 제공하기 위해 신메뉴가 출시됩니다. 새롭게 추가된 메뉴에 대한 세부 사항은 아래를 참고해주세요.
               
               1. 메뉴 이름:
@@ -93,15 +78,16 @@ class NoitcePage extends Component {
               - SNS 이벤트로 "신메뉴 후기 작성 시 10% 할인 쿠폰 제공".
               - 신메뉴 시식권 제공 이벤트 진행.
 
-              모든 직원은 신메뉴의 준비 과정을 숙지하고 고객 문의에 응답할 준비를 해주세요.</p>
-          </div>
-
-          <!--카드3-->
-          <div id="card3" class="card" >
-            <img src="./src/assets/images/img3.png" alt="공지사항 이미지" class="image-placeholder"/>
-            <h2>주말 프로모션 안내</h2>
-            <p>
-              매장에서는 이번 주말 동안 특별 이벤트를 진행합니다.
+              모든 직원은 신메뉴의 준비 과정을 숙지하고 고객 문의에 응답할 준비를 해주세요.
+        `
+      },
+      {
+        id: "card3",
+        imgSrc: "./src/assets/images/img3.png",
+        title: "주말 프로모션 안내",
+        description: 
+        `
+        매장에서는 이번 주말 동안 특별 이벤트를 진행합니다.
               1월 20일(토)부터 1월 21일(일)까지 모든 세트 메뉴를 20% 할인된 가격으로 제공합니다.
               
               1. 이벤트 세부 사항:
@@ -115,15 +101,16 @@ class NoitcePage extends Component {
               - 홍보 전단지 배포 및 카운터 배치.
               - 세트 메뉴 재료 재고를 사전 점검하여 부족하지 않도록 관리.
 
-              모든 직원은 고객 응대 시 이벤트 내용을 숙지하고 정확히 안내 부탁드립니다.</p>
-          </div>
-
-          <!--카드4-->
-          <div id="card4" class="card">
-            <img src="./src/assets/images/img4.png" alt="공지사항 이미지" class="image-placeholder"/>
-            <h2>위생 및 안전 지침</h2>
-            <p>
-              매장은 고객들에게 항상 안전하고 깨끗한 환경을 제공하기 위해 새로운 위생 및 안전 지침을 시행합니다.
+              모든 직원은 고객 응대 시 이벤트 내용을 숙지하고 정확히 안내 부탁드립니다.
+        `
+      },
+      {
+        id: "card4",
+        imgSrc: "./src/assets/images/img4.png",
+        title: "위생 및 안전 지침",
+        description: 
+        `
+        매장은 고객들에게 항상 안전하고 깨끗한 환경을 제공하기 위해 새로운 위생 및 안전 지침을 시행합니다.
               
               1. 청소 매뉴얼:
               
@@ -141,15 +128,16 @@ class NoitcePage extends Component {
               - 화재 발생 시 대처 방법 매뉴얼 배포.
               - 고객 응급상황 시 대처법 교육.
 
-              모든 직원은 반드시 해당 지침을 숙지하고 실천해야 합니다.</p>
-          </div>
-
-          <!--카드5-->
-          <div id="card5" class="card">
-            <img src="./src/assets/images/img5.png" alt="공지사항 이미지" class="image-placeholder"></img>
-            <h2>정기 직원 회의 및 급여 일정</h2>
-            <p>
-              1월 정기 회의 및 급여 지급 관련 공지를 드립니다.
+              모든 직원은 반드시 해당 지침을 숙지하고 실천해야 합니다.
+        `
+      },
+      {
+        id: "card5",
+        imgSrc: "./src/assets/images/img5.png",
+        title: "정기 직원 회의 및 급여 일정",
+        description: 
+        `
+        1월 정기 회의 및 급여 지급 관련 공지를 드립니다.
 
               1. 정기 회의 일정:
               
@@ -165,15 +153,16 @@ class NoitcePage extends Component {
               3. 출근/지각 규정 업데이트:
               
               - 정시 출근을 원칙으로 하며, 지각 3회 시 경고 조치가 취해집니다.
-              - 특별한 사유로 인해 지각/결근이 불가피한 경우 사전에 매니저에게 통보 부탁드립니다.</p>
-          </div>
-
-          <!--카드6-->
-          <div id="card6" class="card">
-            <img src="./src/assets/images/img6.png" alt="공지사항 이미지" class="image-placeholder"/>
-            <h2>POS 시스템 업데이트</h2>
-            <p>
-              안녕하세요, 매장에서 사용 중인 POS 시스템이 1월 20일에 업데이트될 예정입니다.
+              - 특별한 사유로 인해 지각/결근이 불가피한 경우 사전에 매니저에게 통보 부탁드립니다.
+        `
+      },
+      {
+        id: "card6",
+        imgSrc: "./src/assets/images/img6.png",
+        title: "POS 시스템 업데이트",
+        description:
+        `
+        안녕하세요, 매장에서 사용 중인 POS 시스템이 1월 20일에 업데이트될 예정입니다.
 
               1. 업데이트 세부 사항:
               
@@ -187,15 +176,16 @@ class NoitcePage extends Component {
               3. 사전 준비:
               
               - 업데이트 후 사용법 가이드 제공 예정.
-              - 질문사항은 IT 담당자에게 문의 가능합니다.</p>
-          </div>
-
-          <!--카드7-->
-          <div id="card7" class="card">
-            <img src="./src/assets/images/img7.png" alt="공지사항 이미지" class="image-placeholder"/>
-            <h2>신규 직원 인사 공지</h2>
-            <p>
-              이번 주 신규로 합류한 직원들과 퇴사하는 직원에 대해 공지드립니다.
+              - 질문사항은 IT 담당자에게 문의 가능합니다.
+        `
+      },
+      {
+        id: "card7",
+        imgSrc: "./src/assets/images/img7.png",
+        title: "신규 직원 인사 공지",
+        description: 
+        `
+        이번 주 신규로 합류한 직원들과 퇴사하는 직원에 대해 공지드립니다.
 
               1. 신규 직원:
               
@@ -206,15 +196,16 @@ class NoitcePage extends Component {
               
               - 박지연: 개인 사정으로 1월 18일자로 퇴사
               
-              신규 직원들에게 환영 인사를 부탁드리며, 퇴사 직원과의 마지막 근무일도 뜻깊게 마무리해주시길 바랍니다.</p>
-          </div>
-
-          <!--카드8-->
-          <div id="card8" class="card">
-            <img src="./src/assets/images/img8.png" alt="공지사항 이미지" class="image-placeholder"/>
-            <h2>문제 상황 대처 매뉴얼</h2>
-            <p>
-              고객 컴플레인 처리 및 장비 고장 시 대처법을 공유드립니다.
+              신규 직원들에게 환영 인사를 부탁드리며, 퇴사 직원과의 마지막 근무일도 뜻깊게 마무리해주시길 바랍니다.
+        `
+      },
+      {
+        id: "card8",
+        imgSrc: "./src/assets/images/img8.png",
+        title: "문제 상황 대처 매뉴얼",
+        description: 
+        `
+        고객 컴플레인 처리 및 장비 고장 시 대처법을 공유드립니다.
 
               1. 고객 컴플레인 처리:
               
@@ -227,8 +218,51 @@ class NoitcePage extends Component {
               - POS 시스템 오류: 즉시 IT 팀에 연락 후 수동 기록 사용.
               - 조리 장비 고장: 대체 장비 확인 및 고객에게 대기 시간 안내.
               
-              모든 직원은 위의 지침을 상황에 따라 유연하게 활용해주세요.</p>
+              모든 직원은 위의 지침을 상황에 따라 유연하게 활용해주세요.
+        `
+      }
+    ];
+    this.filteredCards = [...this.cards];
+  }
+
+  template () {
+    return `
+    <div class="page-container">
+      <!--Sidebar-->
+      <div class="sidebar">
+        <h1>SandNet</h1>
+          <ul>
+            <li>Home</li>
+            <li class="active">Management</li>
+            <li>Notification</li>
+            <li>My page</li>
+          </ul>
+      </div>
+      <!--Main Content-->
+      <main class="content">
+        <header>
+          <h2 class="title">공지사항</h2>
+          <div class="search-container">
+            <input class="search-input" type="text" id="search-input" placeholder="검색어를 입력하세요" >
+            <span class="search-icon material-icons" onclick="search()">search</span>
           </div>
+        </header>
+
+        <!--Scrollable Cards Section-->
+        <section class="cards">
+        ${this.filteredCards
+          .map(
+            (card) => `
+            <div id= "${card.id}" class="card">
+            <img src="${card.imgSrc}" alt="${card.title}" class="image-placeholder"/>
+            <h2>${card.title}</h2>
+            <p>${card.description}</p>
+            </div>
+            `
+          )
+          .join("")
+        }
+
         </section>
 
         <!--card modal-->
@@ -258,7 +292,7 @@ class NoitcePage extends Component {
     const modalCloseButton = document.getElementById('modalCloseButton');
   
     // 카드 텍스트 제한 함수
-    const truncateText = (text, limit = 80) =>
+    const truncateText = (text, limit = 65) =>
       text.length <= limit ? text : text.slice(0, limit) + '...';
   
     // 모달 열기 함수
@@ -320,6 +354,6 @@ class NoitcePage extends Component {
 }
 
 // 앱 실행
-new NoitcePage(document.querySelector('#app'));
+new NoticePage(document.querySelector('#app'));
 
 export default NoitcePage; 

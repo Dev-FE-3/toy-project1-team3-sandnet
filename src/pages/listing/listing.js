@@ -1,3 +1,6 @@
+import "../../../reset.css";
+import "../../styles/global.css";
+import "../../styles/variables.css";
 import './listing.css';
 class Component {
   constructor(target) {
@@ -205,10 +208,9 @@ class ListingPage extends Component {
           </ul>
         </div>
         <div class="content">
+        <header>
           <h2>직원 관리</h2>
           <div class="team-card">
-            <div class="team-header">
-              <button>Edit</button>
               <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
                 <input 
@@ -218,6 +220,10 @@ class ListingPage extends Component {
                   value="${this.state.searchText}"
                 >
               </div>
+            </div>
+          </header>
+            <div class="team-header">
+              <button>Edit</button>
             </div>
             <div class="table-container">
               <table class="team-table">

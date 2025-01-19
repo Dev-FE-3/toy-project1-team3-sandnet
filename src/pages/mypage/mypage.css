@@ -1,29 +1,9 @@
-:root {
-  --color-dark-green: #055d20;
-  --color-light-green: #49c064;
-  --color-beige: #fffef6;
-  --color-beige-border: rgb(242, 234, 220);
-  --color-light-orange: #f8bd64;
-  --color-orange: #ff9900;
-  --color-black: #000;
-  --color-white: #fff;
-  --color-gray: #aaa;
-  --color-hover-beige: #f1ece4;
-}
-body {
+/*body {
   font-size: 20px;
-}
-
-/* 사이드바 */
-.sidebar {
-  position: fixed;
-  height: 100vh;
-  width: 200px;
-  background-color: #eee;
-}
+}*/
 
 /* 메인 */
-.wrapper {
+.content {
   display: grid;
   grid-template-rows: 450px 500px; /* 각 행의 높이 최소 400px, 최대 40vh */
   grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr); /* 각 열의 너비 최소 300px, 최대 1fr */
