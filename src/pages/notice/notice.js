@@ -153,6 +153,7 @@ class NoticePage extends Component {
               3. 출근/지각 규정 업데이트:
               
               - 정시 출근을 원칙으로 하며, 지각 3회 시 경고 조치가 취해집니다.
+              
               - 특별한 사유로 인해 지각/결근이 불가피한 경우 사전에 매니저에게 통보 부탁드립니다.
         `
       },
@@ -267,14 +268,14 @@ class NoticePage extends Component {
         </section>
 
         <!--card modal-->
-        <div id="modalContainer" class="hidden">
-          <div id="modalContent">
-            <span id="modalCloseButton"  class="material-icons">close</span>
+        <div class="modal-container hidden">
+          <div class="modal-content open">
+            <span class="modal-close-button close-icon material-icons">close</span>
             <div class="modal-area">
-              <div  class="modal-image-placeholder"></div>
+              <div  class="modal-image"></div>
               <div class="modal-text-content">
-                <h2 id="modalTitle"></h2>
-                <p  id="modalText"></p>
+                <h2 class="modal-title"></h2>
+                <p  class="modal-text"></p>
               </div>
             </div>
           </div>
@@ -286,11 +287,13 @@ class NoticePage extends Component {
 
   setEvent() {
     // 공통 DOM 요소 가져오기
-    const modalContainer = document.getElementById('modalContainer');
-    const modalImage = document.querySelector('.modal-image-placeholder');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalText = document.getElementById('modalText');
-    const modalCloseButton = document.getElementById('modalCloseButton');
+    const modalContainer = document.querySelector('.modal-container');
+    const modalImage = document.querySelector('.modal-image');
+    const modalTitle = document.querySelector('.modal-title');
+    const modalText = document.querySelector('.modal-text');
+    const modalCloseButton = document.querySelector('.modal-close-button');
+
+    
     
     // 카드 텍스트 제한 함수
     const truncateText = (text, limit = 65) =>
@@ -316,7 +319,7 @@ class NoticePage extends Component {
   
     // 외부 클릭 시 모달 닫기
     const handleOutsideClick = (e) => {
-      if (e.target === modalContainer) closeModal();
+      if (e.target === modalContainer) closeModal('hidden');
     };
   
     // 카드 이벤트 설정 함수
