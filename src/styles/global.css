@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'BMDOHYEON';
+  src: url('../assets/fonts/BMDOHYEON_ttf.ttf') format('truetype');
+}
+
 body {
   font-family: "BMDOHYEON", Arial, sans-serif;
 
