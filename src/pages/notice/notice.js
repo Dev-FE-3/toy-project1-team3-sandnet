@@ -221,9 +221,10 @@ class NoticePage extends Component {
               모든 직원은 위의 지침을 상황에 따라 유연하게 활용해주세요.
         `
       }
-    ];
+    ]
     this.filteredCards = [...this.cards];
-  }
+    
+  };
 
   template () {
     return `
@@ -243,8 +244,8 @@ class NoticePage extends Component {
         <header>
           <h2 class="title">공지사항</h2>
           <div class="search-container">
-            <input class="search-input" type="text" id="search-input" placeholder="검색어를 입력하세요" >
-            <span class="search-icon material-icons" onclick="search()">search</span>
+            <input class="search-input" type="text" placeholder="검색어를 입력하세요" >
+            <span class="search-icon material-icons">search</span>
           </div>
         </header>
 
@@ -290,11 +291,11 @@ class NoticePage extends Component {
     const modalTitle = document.getElementById('modalTitle');
     const modalText = document.getElementById('modalText');
     const modalCloseButton = document.getElementById('modalCloseButton');
-  
+    
     // 카드 텍스트 제한 함수
     const truncateText = (text, limit = 65) =>
       text.length <= limit ? text : text.slice(0, limit) + '...';
-  
+
     // 모달 열기 함수
     const openModal = (card) => {
       const cardImage = card.querySelector('.image-placeholder').cloneNode(true);
