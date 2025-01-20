@@ -46,6 +46,7 @@ class MyPage extends Component {
     <div class="page-container">
       <div class="sidebar"></div> <!-- 사이드바 -->
       <main class="content">
+      <div class = "wrapper">
         <!-- 프로필 -->
         <div class="grid-item section profile-section modal-trigger">
           <p class="section-title">프로필</p>

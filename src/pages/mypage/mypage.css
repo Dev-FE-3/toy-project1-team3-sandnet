@@ -1,5 +1,5 @@
 /* 메인 */
-.content {
+.wrapper {
   display: grid;
   grid-template-rows: 450px 500px; /* 각 행의 높이 최소 400px, 최대 40vh */
   grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr); /* 각 열의 너비 최소 300px, 최대 1fr */
@@ -11,14 +11,14 @@
 .grid-item {
   background-color: var(--color-beige);
   border-radius: 60px;
-  padding: 20px;
+  padding: 40px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* margin: 10px; */
 }
 
 .section-title {
   font-size: 24px;
-  font-weight: bold;
 }
 
 /* 프로필 */
@@ -69,10 +69,11 @@
   color: var(--color-white);
   font-weight: bold;
   border: none;
-  border-radius: 25px;
-  width: 120px; /* 버튼 너비 고정 */
+  border-radius: 30px;
+  width: 130px; /* 버튼 너비 고정 */
   display: block; /* 블록 요소로 변경 */
   margin: 0 auto; /* 좌우 마진을 auto로 설정하여 중앙 정렬 */
+  padding: 20px;
 }
 
 /* 근태*/
@@ -89,10 +90,11 @@
 }
 
 .attendance-list-section {
-  width: 100%;
-  height: 100%;
+  width: calc(100% + 40px);  /* padding 값을 고려해서 너비 조정 */
+  height: calc(100% + 40px);  /* padding 값을 고려해서 높이 조정 */
+  padding: 40px;
+  box-sizing: border-box;
   margin: -20px;
-  padding: 20px;
 }
 
 .attendance-header {
