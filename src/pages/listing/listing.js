@@ -1,7 +1,8 @@
 import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
-import './listing.css';
+import styles from './listing.module.css';
+import Sidebar from '../../components/sidebar.js';
 
 
 class Component {
@@ -181,7 +182,7 @@ class ListingPage extends Component {
     let pages = '';
     for (let i = 1; i <= this.state.totalPages; i++) {
       pages += `
-        <button class="page-btn ${this.state.currentPage === i ? 'active' : ''}" data-page="${i}">
+        <button class="${styles.pageBtn} ${this.state.currentPage === i ? styles.active : ''}" data-page="${i}">
           ${i}
         </button>
       `;
@@ -197,20 +198,11 @@ class ListingPage extends Component {
 
   template() {
     const currentEmployees = this.getCurrentPageEmployees();
+    const sidebar = new Sidebar('listing');
     
     return `
       <div class="page-container">
-        <div class="sidebar">
-          <div class="sidebar-logo">
-            <img src="/src/assets/images/logo.png" alt="SandNet Logo">
-          </div>
-          <ul class="nav-menu">
-            <li><a href="#">홈</a></li>
-            <li class="active"><a href="#">직원목록</a></li>
-            <li><a href="#">공지사항</a></li>
-            <li><a href="#">마이페이지</a></li>
-          </ul>
-        </div>
+        ${sidebar.template()}
         <div class="content">
           <header class="header">
             <h2 class="title">직원목록</h2>
@@ -220,16 +212,16 @@ class ListingPage extends Component {
                 class="search-input"
                 type="text" 
                 placeholder="직원 이름, 이메일 또는 지점을 입력하세요"
-                value="직원 이름, 이메일 또는 지점을 입력하세요"
+                value="${this.state.searchText}"
               >
             </div>
           </header>
-          <div class="team-card">
-            <div class="team-header">
+          <div class="${styles.teamCard}">
+            <div class="${styles.teamHeader}">
               <button>Edit</button>
             </div>
-            <div class="table-container">
-              <table class="team-table">
+            <div class="${styles.tableContainer}">
+              <table class="${styles.teamTable}">
                 <thead>
                   <tr>
                     <th></th>
@@ -245,14 +237,14 @@ class ListingPage extends Component {
                   ${currentEmployees.map(employee => `
                     <tr data-id="${employee.id}">
                       <td>
-                        <img src="${employee.image}" alt="프로필" class="profile-image">
+                        <img src="${employee.image}" alt="프로필" class="${styles.profileImage}">
                       </td>
                       <td>${employee.name}</td>
                       <td>${employee.phone}</td>
                       <td>${employee.email}</td>
                       <td>${employee.branch}</td>
                       <td>${employee.rank}</td>
-                      <td class="actions">
+                      <td class="${styles.actions}">
                         <button class="delete-btn">Delete</button>
                       </td>
                     </tr>
@@ -260,14 +252,14 @@ class ListingPage extends Component {
                 </tbody>
               </table>
             </div>
-            <div class="pagination">
-              <button class="page-btn prev-btn ${this.state.currentPage === 1 ? 'disabled' : ''}">
+            <div class="${styles.pagination}">
+              <button class="${styles.pageBtn} prev-btn ${this.state.currentPage === 1 ? 'disabled' : ''}">
                 <i class="fas fa-chevron-left"></i>
               </button>
-              <div class="page-numbers">
+              <div class="${styles.pageNumbers}">
                 ${this.renderPageNumbers()}
               </div>
-              <button class="page-btn next-btn ${this.state.currentPage === this.state.totalPages ? 'disabled' : ''}">
+              <button class="${styles.pageBtn} next-btn ${this.state.currentPage === this.state.totalPages ? 'disabled' : ''}">
                 <i class="fas fa-chevron-right"></i>
               </button>
             </div>
@@ -278,6 +270,10 @@ class ListingPage extends Component {
   }
 
   setEvent() {
+    // 사이드바 이벤트 설정
+    const sidebar = new Sidebar('listing');
+    sidebar.setEvent(this.target);
+
     // 검색 이벤트
     const searchInput = this.target.querySelector('.search-input');
     if (searchInput) {

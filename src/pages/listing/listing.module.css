@@ -1,8 +1,7 @@
 /* 팀 카드 스타일 */
-.team-card {
+.teamCard {
   background-color: var(--color-white);
-  padding: 1rem;
-  margin: 2rem;
+  padding: 2rem;
   border: 5px solid var(--color-dark-green);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -12,19 +11,14 @@
 }
 
 /* 팀 헤더 영역 */
-.team-header {
+.teamHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  padding: 0 1rem;
 }
 
-.team-header .search-container {
-  margin-right: 2rem;
-}
-
-.team-header button {
+.teamHeader button {
   background-color: var(--color-dark-green);
   color: var(--color-white);
   border: none;
@@ -34,26 +28,25 @@
   transition: background-color 0.3s ease;
 }
 
-.team-header button:hover {
+.teamHeader button:hover {
   background-color: var(--color-light-green);
 }
 
 /* 테이블 스타일 */
-.table-container {
+.tableContainer {
   flex: 1;
   overflow-y: auto;
   background-color: var(--color-white);
   border-radius: 10px;
-  margin: 0 1rem;
 }
 
-.team-table {
+.teamTable {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
 }
 
-.team-table th {
+.teamTable th {
   position: sticky;
   top: 0;
   background-color: var(--color-white);
@@ -63,17 +56,17 @@
   border-bottom: 5px solid var(--color-dark-green);
 }
 
-.team-table td {
+.teamTable td {
   padding: 1rem;
   border-bottom: 1px solid var(--color-gray);
 }
 
-.team-table tr:hover {
+.teamTable tr:hover {
   background-color: #f8f9fa;
 }
 
 /* 프로필 이미지 */
-.profile-image {
+.profileImage {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -90,7 +83,6 @@
   cursor: pointer;
 }
 
-
 /* 페이지네이션 */
 .pagination {
   display: flex;
@@ -100,13 +92,13 @@
   margin-top: auto;
 }
 
-.page-numbers {
+.pageNumbers {
   display: flex;
   gap: 5px;
   margin: 0 15px;
 }
 
-.page-btn {
+.pageBtn {
   min-width: 32px;
   height: 32px;
   border: 1px solid var(--color-gray);
@@ -119,28 +111,28 @@
   font-size: 14px;
 }
 
-.page-btn.active {
+.pageBtn.active {
   background-color: var(--color-dark-green);
   border-color: var(--color-dark-green);
   color: var(--color-white);
 }
 
-.page-btn:disabled {
+.pageBtn:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
 /* 스크롤바 스타일 */
-.table-container::-webkit-scrollbar {
+.tableContainer::-webkit-scrollbar {
   width: 8px;
 }
 
-.table-container::-webkit-scrollbar-track {
+.tableContainer::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 4px;
 }
 
-.table-container::-webkit-scrollbar-thumb {
+.tableContainer::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 4px;
 } 

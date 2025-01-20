@@ -41,6 +41,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
 }
 
 .sidebar-logo img {
@@ -75,18 +81,13 @@ body {
 
 /* 메인 컨텐츠 영역 */
 .content {
-  display: flex;
   flex: 1;
-  margin-left: 280px; /* 사이드바 width + margin-left */
+  margin-left: 280px;
+  padding: 2rem;
   box-sizing: border-box;
 }
 
-h2.title {
-  font-size: 30px;
-  font-weight: 500;
-}
-
-/* Header 스타일 */
+/* 헤더 영역 */
 header {
   display: flex;
   justify-content: space-between;
@@ -94,10 +95,16 @@ header {
   margin: 2rem;
 }
 
+.title {
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--color-dark-green);
+}
+
+/* 검색 영역 */
 .search-container {
   position: relative;
   width: 350px;
-  
 }
 
 .search-icon {

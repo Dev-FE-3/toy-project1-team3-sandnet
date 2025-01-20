@@ -1,4 +1,4 @@
-import { initHome } from "./pages/home";
+import { initHome } from "./pages/home/home";
 
 document.addEventListener("DOMContentLoaded", initHome);
 
