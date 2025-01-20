@@ -2,6 +2,8 @@ import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
 import './listing.css';
+
+
 class Component {
   constructor(target) {
     this.target = target;
@@ -199,29 +201,30 @@ class ListingPage extends Component {
     return `
       <div class="page-container">
         <div class="sidebar">
-          <h1>SandNet</h1>
-          <ul>
-            <li>Home</li>
-            <li class="active">Management</li>
-            <li>Notification</li>
-            <li>My page</li>
+          <div class="sidebar-logo">
+            <img src="/src/assets/images/logo.png" alt="SandNet Logo">
+          </div>
+          <ul class="nav-menu">
+            <li><a href="#">홈</a></li>
+            <li class="active"><a href="#">직원목록</a></li>
+            <li><a href="#">공지사항</a></li>
+            <li><a href="#">마이페이지</a></li>
           </ul>
         </div>
         <div class="content">
-        <header>
-          <h2>직원 관리</h2>
-          <div class="team-card">
-              <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input 
-                  type="text" 
-                  placeholder="직원 이름, 이메일 또는 연락처로 검색..." 
-                  class="search-input"
-                  value="${this.state.searchText}"
-                >
-              </div>
+          <header class="header">
+            <h2 class="title">직원목록</h2>
+            <div class="search-container">
+              <i class="fas fa-search search-icon"></i>
+              <input 
+                class="search-input"
+                type="text" 
+                placeholder="직원 이름, 이메일 또는 지점을 입력하세요"
+                value="직원 이름, 이메일 또는 지점을 입력하세요"
+              >
             </div>
           </header>
+          <div class="team-card">
             <div class="team-header">
               <button>Edit</button>
             </div>
@@ -258,13 +261,13 @@ class ListingPage extends Component {
               </table>
             </div>
             <div class="pagination">
-              <button class="page-btn prev-btn" ${this.state.currentPage === 1 ? 'disabled' : ''}>
+              <button class="page-btn prev-btn ${this.state.currentPage === 1 ? 'disabled' : ''}">
                 <i class="fas fa-chevron-left"></i>
               </button>
               <div class="page-numbers">
                 ${this.renderPageNumbers()}
               </div>
-              <button class="page-btn next-btn" ${this.state.currentPage === this.state.totalPages ? 'disabled' : ''}>
+              <button class="page-btn next-btn ${this.state.currentPage === this.state.totalPages ? 'disabled' : ''}">
                 <i class="fas fa-chevron-right"></i>
               </button>
             </div>

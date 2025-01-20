@@ -1,5 +1,4 @@
-
-/* Main Content 스타일 */
+ /* Main Content 스타일 */
 .content {
   flex: 1;
   display: flex;
@@ -229,4 +228,4 @@ h1 {
   display: none;
 }
 
-
+ 

@@ -1,7 +1,14 @@
 /* 팀 카드 스타일 */
 .team-card {
-  height: calc(100vh - 280px);
-  overflow: hidden;
+  background-color: var(--color-white);
+  padding: 1rem;
+  margin: 2rem;
+  border: 5px solid var(--color-dark-green);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
 }
 
 /* 팀 헤더 영역 */
@@ -9,13 +16,60 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
 }
 
-/* 테이블 컨테이너 */
+.team-header .search-container {
+  margin-right: 2rem;
+}
+
+.team-header button {
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.team-header button:hover {
+  background-color: var(--color-light-green);
+}
+
+/* 테이블 스타일 */
 .table-container {
-  height: calc(100% - 120px);
+  flex: 1;
   overflow-y: auto;
+  background-color: var(--color-white);
+  border-radius: 10px;
+  margin: 0 1rem;
+}
+
+.team-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.team-table th {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-white);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 5px solid var(--color-dark-green);
+}
+
+.team-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-gray);
+}
+
+.team-table tr:hover {
+  background-color: #f8f9fa;
 }
 
 /* 프로필 이미지 */
@@ -28,7 +82,7 @@
 
 /* 액션 버튼 */
 .actions button {
-  background-color: var(--color-orange);
+  background-color: red;
   color: var(--color-white);
   border: none;
   padding: 6px 12px;
@@ -36,6 +90,57 @@
   cursor: pointer;
 }
 
-.actions button:hover {
-  background-color: #ff9900;
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 0;
+  margin-top: auto;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 5px;
+  margin: 0 15px;
+}
+
+.page-btn {
+  min-width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-gray);
+  background-color: var(--color-white);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.page-btn.active {
+  background-color: var(--color-dark-green);
+  border-color: var(--color-dark-green);
+  color: var(--color-white);
+}
+
+.page-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* 스크롤바 스타일 */
+.table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
 } 
