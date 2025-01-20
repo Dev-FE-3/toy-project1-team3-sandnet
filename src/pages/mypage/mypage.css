@@ -22,6 +22,58 @@
 }
 
 /* 프로필 */
+.profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  height: auto;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+.profile-image-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.myprofile-image {
+  width: 10vw;
+  min-width: 100px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #9f9f9f;
+  aspect-ratio: 1;
+}
+
+.profile-name {
+  margin-top: 30px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.profile-info {
+  list-style: none;
+  font-size: 1rem;
+  color: #333;
+  
+
+  li {
+    display: flex;
+    margin:10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    line-height: 50px;
+  }
+
+  .material-icons {
+    margin-right: 20px;
+    color: #055d20;
+    line-height: 50px;
+  }
+} 
+
 
 /* 출퇴근관리 */
 .current-time {

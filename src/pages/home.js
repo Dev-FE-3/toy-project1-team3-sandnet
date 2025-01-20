@@ -19,7 +19,7 @@ function initNavigation() {
           break;
         // 다른 페이지들도 여기에 추가 가능
         case '공지사항':
-          new NoticePage(document.querySelector('#app'));
+          new NoitcePage(document.querySelector('#app'));
           break;
         case "회원목록":
           new ListingPage(document.querySelector('#app'));

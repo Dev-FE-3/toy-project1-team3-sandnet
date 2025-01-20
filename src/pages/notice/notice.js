@@ -357,4 +357,4 @@ class NoticePage extends Component {
 // 앱 실행
 new NoticePage(document.querySelector('#app'));
 
-export default NoitcePage; 
+export default NoticePage; 

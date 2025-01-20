@@ -51,6 +51,20 @@ class MyPage extends Component {
         <div class="grid-item section profile-section modal-trigger">
           <p class="section-title">프로필</p>
           <!-- 프로필 이미지, 정보 -->
+          <div class="profile-container">
+            <div class="profile-image-name">
+              <img class="myprofile-image" src="./src/assets/images/employee.jpg" alt="사용자 프로필 이미지"></img>
+              <div class="profile-name">박샌드</div>
+            </div>
+            <div>
+              <ul class="profile-info">
+                <li><span class="material-icons">phone</span>010-1234-1234</li>
+                <li><span class="material-icons">work</span>홀 매니저</li>
+                <li><span class="material-icons">email</span>yummy@sandwish.com</li>
+                <li><span class="material-icons">location_on</span>123 Main Street, City</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <!-- 시간관리 -->
@@ -168,15 +182,19 @@ class MyPage extends Component {
     this.initTimeUpdate();
     this.initWorkManagement();
     this.initAttendanceManagement();
+
+    //프로필 클릭 시 페이지 이동
+    // const profileSection = document.querySelector(".profile-section");
+    // if (profileSection) {
+    //   profileSection.addEventListener("click", () => {
+    //     window.location.href = "";
+    //   });
+    // }
   }
 
   // 모달 초기화
   initModals() {
     const modals = {
-      profile: {
-        trigger: document.querySelector(".profile-section"),
-        modal: document.querySelector(".profile-modal"),
-      },
       workBtn: {
         trigger: document.querySelector("#work-btn"),
         modal: document.querySelector(".work-btn-modal"),
