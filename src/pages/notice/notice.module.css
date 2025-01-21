@@ -20,6 +20,7 @@
   overflow-y: auto;
   justify-content: center;
   flex-wrap: wrap;
+  height: 650px;
 }
 
 .card {
@@ -150,13 +151,13 @@
   height: 100%;
 }
 
-.modalTextContent h2 {
+.modalTitle {
   font-size: 1.8rem;
   margin: 0.5rem 0;
   font-weight: 500;
 }
 
-.modalTextContent p {
+.modalText {
   font-size: 1.3rem;
   white-space: pre-line;
   color: #555555;
