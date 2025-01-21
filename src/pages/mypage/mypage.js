@@ -43,9 +43,9 @@ class MyPage extends Component {
       this.state;
 
     return `
-    <div class="${styles.pageContainer}">
+    <div class="page-container"> <!-- global.css -->
       <div class="sidebar"></div> <!-- 사이드바 -->
-      <main class="${styles.content}">
+      <main class="content">
         <header>
           <h1>마이 페이지</h1>
         </header>
