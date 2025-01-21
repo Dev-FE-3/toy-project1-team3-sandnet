@@ -8,7 +8,7 @@
 .wrapper {
   flex: 1;
   display: grid;
-  height: calc(100%);
+  height: calc(100% - 100px);
   grid-template-rows: minmax(200px, 1fr) minmax(200px, 1fr); /* 각 행의 높이를 minmax로 조정 */
   grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr); /* 각 열의 너비 최소 300px, 최대 1fr */
   gap: 20px; /* 그리드 아이템 간격 추가 */
@@ -33,6 +33,7 @@
 
 /* 출퇴근관리 */
 .timeManagementSection {
+  position: relative;
   align-items: center; /* 수직 중앙 정렬 */
   justify-content: center; /* 수평 중앙 정렬 */
   height: 100%;
@@ -46,6 +47,12 @@
   font-weight: bold;
   color: var(--color-black);
   margin: 20px 0;
+}
+
+.currentTimeValue span {
+  display: inline-block;
+  width: 1.5em; /* 적절한 너비로 설정 */
+  text-align: center; /* 텍스트 가운데 정렬 */
 }
 
 .workTimeList {
@@ -77,7 +84,10 @@
   border-radius: 30px;
   width: 100px; /* 버튼 너비 고정 */
   display: block; /* 블록 요소로 변경 */
-  margin: 0 auto 20px; /* 좌우 마진을 auto로 설정하여 중앙 정렬 */
+  position: absolute; /* 화면에 고정 */
+  bottom: 40px; /* 아래에서 20px 띄움 */
+  left: 50%; /* 부모 요소의 가로 중앙에 위치 */
+  transform: translateX(-50%); /* 중앙 정렬 */
   padding: 10px;
 }
 
@@ -98,13 +108,12 @@
 .attendanceListSection {
   width: 100%; /* 너비를 100%로 설정 */
   height: 100%; /* 높이를 100%로 설정 */
-  padding: 20px; /* 패딩 추가 */
   font-size: 14px;
 }
 
 .attendanceHeader {
   display: flex;
-  margin: 0 15px 10px 60px;
+  margin: 0 0 10px 60px;
 }
 
 .headerItem {
@@ -116,13 +125,15 @@
   flex: 1.5;
 }
 
-.attendanceList {
+.listHeader {
+  margin: 0;
+  padding: 0;
 }
 
 .attendanceItem {
-  display: flex;
   align-items: center;
-  padding: 5px;
+  display: flex;
+  padding: 5px 0 5px 5px;
   background-color: var(--color-light-green);
   border-radius: 10px;
   margin-bottom: 10px;
@@ -256,7 +267,7 @@
   background-color: var(--color-beige); /* 베이지 배경으로 변경 */
   padding: 20px;
   border: 3px solid var(--color-dark-green);
-  border-radius: 60px;
+  border-radius: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 50%; /* 뷰포트의 50% 아래 */
@@ -269,8 +280,8 @@
 .modal .close {
   position: absolute;
   right: 20px;
-  top: 10px;
-  font-size: 28px;
+  top: 20px;
+  font-size: 50px;
   font-weight: bold;
   cursor: pointer;
   color: #aaa;
@@ -387,7 +398,9 @@
   border-radius: 5px;
   margin-bottom: 10px;
 }
-
+.modal .attendanceList {
+  padding: 0;
+}
 .modal .headerItem {
   flex: 1;
   color: var(--color-white);

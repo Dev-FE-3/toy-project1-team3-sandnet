@@ -64,7 +64,9 @@ class MyPage extends Component {
     }">
           <div class="${styles.currentTime}">
             <p>현재시각</p>
-            <p class="${styles.currentTimeValue}">--:--</p>
+            <div class="${styles.currentTimeValue}">
+              <span>-</span>:<span>-</span>:<span>-</span>
+            </div>
           </div>
           <ul class="${styles.workTimeList}">
             <li class="${styles.workTimeItem}">
@@ -96,10 +98,10 @@ class MyPage extends Component {
     }">
           <p class="${styles.sectionTitle}">근태 내역</p>
             <div class="${styles.attendanceHeader}">
-              <div class="${styles.headerItem} ${styles.title}">제목</div>
-              <div class="${styles.headerItem} ${styles.type}">종류</div>
-              <div class="${styles.headerItem} ${styles.date}">일자</div>
-              <div class="${styles.headerItem} ${styles.writer}">작성자</div>
+            <div class="${styles.headerItem} ${styles.writer}">작성자</div>
+            <div class="${styles.headerItem} ${styles.type}">종류</div>
+            <div class="${styles.headerItem} ${styles.date}">일자</div>
+            <div class="${styles.headerItem} ${styles.applyDate}">신청일</div>
             </div>
             <div class="${styles.attendanceList}">
               ${attendance
@@ -109,10 +111,10 @@ class MyPage extends Component {
                   (item) => `
                 <div class="${styles.attendanceItem}">
                   <img src="src/assets/images/profile.jpg" alt="프로필 이미지" class="${styles.profileImage}" />
-                  <div class="${styles.itemContent} ${styles.title}">${item.title}</div>
+                  <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
                   <div class="${styles.itemContent} ${styles.type}">${item.type}</div>
                   <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
-                  <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
+                  <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
                 </div>
               `
                 )
@@ -137,7 +139,9 @@ class MyPage extends Component {
           <span class="${styles.close}">&times;</span>
           <!-- 모달 내용 -->
           <h2 class="${styles.currentTimeTitle}">현재시각</h2>
-          <p class="${styles.currentTimeValue}">--:--</p>
+          <div class="${styles.currentTimeValue}">
+            <span>-</span>:<span>-</span>:<span>-</span>
+          </div>
           <p class="${styles.workStartQuestion}">근무를 ${
       this.state.isWorking ? "종료" : "시작"
     }하시겠습니까?</p>
@@ -158,12 +162,14 @@ class MyPage extends Component {
             </div>
             <div class="${styles.attendanceListContainer}">
               <div class="${styles.listHeader}">
-                <span class="${styles.headerItem} ${styles.title}">제목</span>
-                <span class="${styles.headerItem} ${styles.type}">종류</span>
-                <span class="${styles.headerItem} ${styles.date}">일자</span>
                 <span class="${styles.headerItem} ${
       styles.writer
     }">작성자</span>
+                <span class="${styles.headerItem} ${styles.type}">종류</span>
+                <span class="${styles.headerItem} ${styles.date}">일자</span>
+                <span class="${styles.headerItem} ${
+      styles.applyDate
+    }">신청일</span>
               </div>
 
             <div class="${styles.attendanceList}">
@@ -174,10 +180,10 @@ class MyPage extends Component {
                   (item) => `
                 <div class="${styles.attendanceItem}">
                   <img src="src/assets/images/profile.jpg" alt="프로필 이미지" class="${styles.profileImage}" />
-                  <div class="${styles.itemContent} ${styles.title}">${item.title}</div>
+                  <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
                   <div class="${styles.itemContent} ${styles.type}">${item.type}</div>
                   <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
-                  <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
+                  <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
                 </div>
               `
                 )
@@ -282,11 +288,14 @@ class MyPage extends Component {
       const hours = String(now.getHours()).padStart(2, "0");
       const minutes = String(now.getMinutes()).padStart(2, "0");
       const seconds = String(now.getSeconds()).padStart(2, "0");
-      const timeString = `${hours}:${minutes}:${seconds}`;
 
-      // NodeList의 각 요소를 순회하면서 시간을 업데이트
       currentTimeElements.forEach((element) => {
-        element.textContent = timeString;
+        const spans = element.querySelectorAll("span");
+        if (spans.length === 3) {
+          spans[0].textContent = hours;
+          spans[1].textContent = minutes;
+          spans[2].textContent = seconds;
+        }
       });
     };
 
@@ -374,11 +383,11 @@ class MyPage extends Component {
 
         // 새로운 근태 추가
         const newAttendance = {
+          writer: `${this.state.writer}`,
           id: this.state.attendance.length + 1,
-          title: `${this.state.selectedAttendanceType} 신청합니다`,
           type: this.state.selectedAttendanceType,
           date: this.formatDate(startDate, endDate),
-          writer: `${this.state.writer}`,
+          applyDate: this.formatDate(new Date()),
         };
 
         // 상태 업데이트
@@ -397,21 +406,23 @@ class MyPage extends Component {
 
   formatDate(startDate, endDate) {
     const start = new Date(startDate);
+    const startYear = start.getFullYear().toString().slice(-2);
     const startMonth = start.getMonth() + 1;
     const startDay = start.getDate();
 
     if (!endDate) {
-      return `${startMonth}/${startDay}`;
+      return `${startYear}/${startMonth}/${startDay}`;
     }
 
     const end = new Date(endDate);
+    const endYear = end.getFullYear().toString().slice(-2);
     const endMonth = end.getMonth() + 1;
     const endDay = end.getDate();
 
     if (startMonth === endMonth) {
-      return `${startMonth}/${startDay}~${endDay}`;
+      return `${startYear}/${startMonth}/${startDay}`;
     }
-    return `${startMonth}/${startDay}~${endMonth}/${endDay}`;
+    return `${startYear}/${startMonth}/${startDay}~${endYear}/${endMonth}/${endDay}`;
   }
 }
 
