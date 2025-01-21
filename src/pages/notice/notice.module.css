@@ -22,6 +22,8 @@ h2.title {
   overflow-y: auto;
   justify-content: center;
   flex-wrap: wrap;
+  /* border: #033412 solid 5px;
+  border-radius: 20px; */
 }
 
 /*개별 카드 요소*/
@@ -62,7 +64,7 @@ h2.title {
 }
 
 /* 카드 이미지 */
-.image-placeholder {
+.imagePlaceholder {
   width: 100%;
   height: 450px;
   object-fit: cover;
@@ -73,23 +75,23 @@ h2.title {
 
 /* 스크롤바 공통 스타일 통합 */
 .cards::-webkit-scrollbar,
-.modal-text-content::-webkit-scrollbar {
+.modalTextContent::-webkit-scrollbar {
   width: 8px;
 }
 
 .cards::-webkit-scrollbar-thumb,
-.modal-text-content::-webkit-scrollbar-thumb {
+.modalTextContent::-webkit-scrollbar-thumb {
   background-color: #b1b1b1;
   border-radius: 10px;
 }
 
 .cards::-webkit-scrollbar-track,
-.modal-text-content::-webkit-scrollbar-track {
+.modalTextContent::-webkit-scrollbar-track {
   background-color: #ffffff;
 }
 
-/*modal 배경경*/
-.modal-container {
+/*modal 배경*/
+.modalContainer {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -105,7 +107,7 @@ h2.title {
 }
 
 /*modal*/
-.modal-content {
+.modalContent {
   position: relative;
   background-color: #fff;
   width: 100%;
@@ -123,7 +125,7 @@ h2.title {
 }
 
 /*모달 위치*/
-.modal-area{
+.modalArea{
   flex: 1;
   padding: 1rem;
   display: flex;
@@ -131,11 +133,10 @@ h2.title {
   align-items: center;
   overflow: hidden;
   height: 100%;
-
 }
 
 /*모달 내용-이미지*/
-.modal-image{
+.modalImage{
   flex: 0 0 45%;
   width: 280px;
   height: 100%;
@@ -145,7 +146,7 @@ h2.title {
   justify-content: center;
 }
 
-.modal-image img {
+.modalImage img {
   width: 100%;
   height: auto;
   display: block;
@@ -154,7 +155,7 @@ h2.title {
 }
 
 /*모달 내용-텍스트*/
-.modal-text-content{
+.modalTextContent{
   flex: 1;
   padding: 0 10px;
   display: flex;
@@ -163,20 +164,20 @@ h2.title {
   height: 100%;
 }
 
-.modal-text-content h2 {
+.modalTextContent h2 {
   font-size: 1.8rem;
   margin: 0.5rem 0;
   font-weight: 500;
 }
 
-.modal-text-content p {
+.modalTextContent p {
   font-size: 1.3rem;
   white-space: pre-line;
   color: #555555;
 }
 
 /*close button*/
-.modal-close-button {
+.modalCloseButton {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -186,7 +187,7 @@ h2.title {
   transition: color 0.3s ease;
 }
 
-.modal-close-button:hover {
+.modalCloseButton:hover {
   color: #033412;
 }
 

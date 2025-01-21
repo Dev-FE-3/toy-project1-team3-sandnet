@@ -1,7 +1,7 @@
 import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
-import "./notice.css";
+import notice from "./notice.module.css";
 
 class Component {
   constructor(target) {
@@ -243,7 +243,7 @@ class NoticePage extends Component {
       <!--Main Content-->
       <main class="content">
         <header>
-          <h2 class="title">공지사항</h2>
+          <h2 class="${notice.title}">공지사항</h2>
           <div class="search-container">
             <input class="search-input" type="text" placeholder="검색어를 입력하세요" >
             <span class="search-icon material-icons">search</span>
@@ -251,12 +251,12 @@ class NoticePage extends Component {
         </header>
 
         <!--Scrollable Cards Section-->
-        <section class="cards">
+        <section class="${notice.cards}">
         ${this.filteredCards
           .map(
             (card) => `
-            <div id= "${card.id}" class="card">
-            <img src="${card.imgSrc}" alt="${card.title}" class="image-placeholder"/>
+            <div id= "${card.id}" class="${notice.card}">
+            <img src="${card.imgSrc}" alt="${card.title}" class="${notice.imagePlaceholder}"/>
             <h2>${card.title}</h2>
             <p>${card.description}</p>
             </div>
@@ -268,14 +268,14 @@ class NoticePage extends Component {
         </section>
 
         <!--card modal-->
-        <div class="modal-container hidden">
-          <div class="modal-content open">
-            <span class="modal-close-button close-icon material-icons">close</span>
-            <div class="modal-area">
-              <div  class="modal-image"></div>
-              <div class="modal-text-content">
-                <h2 class="modal-title"></h2>
-                <p  class="modal-text"></p>
+        <div class="${notice.modalContainer} ${notice.hidden}">
+          <div class="${notice.modalContent}">
+            <span class="${notice.modalCloseButton} close-icon material-icons">close</span>
+            <div class="${notice.modalArea}">
+              <div  class="${notice.modalImage}"></div>
+              <div class="${notice.modalTextContent}">
+                <h2 class="${notice.modalTitle}"></h2>
+                <p class="${notice.modalText}"></p>
               </div>
             </div>
           </div>
@@ -287,11 +287,11 @@ class NoticePage extends Component {
 
   setEvent() {
     // 공통 DOM 요소 가져오기
-    const modalContainer = document.querySelector('.modal-container');
-    const modalImage = document.querySelector('.modal-image');
-    const modalTitle = document.querySelector('.modal-title');
-    const modalText = document.querySelector('.modal-text');
-    const modalCloseButton = document.querySelector('.modal-close-button');
+    const modalContainer = document.querySelector(`.${notice.modalContainer}`);
+    const modalImage = document.querySelector(`.${notice.modalImage}`);
+    const modalTitle = document.querySelector(`.${notice.modalTitle}`);
+    const modalText = document.querySelector(`.${notice.modalText}`);
+    const modalCloseButton = document.querySelector(`.${notice.modalCloseButton}`);
 
     
     
@@ -301,8 +301,8 @@ class NoticePage extends Component {
 
     // 모달 열기 함수
     const openModal = (card) => {
-      const cardImage = card.querySelector('.image-placeholder').cloneNode(true);
-      const cardTitle = card.querySelector('h2').textContent;
+      const cardImage = card.querySelector(`.${notice.imagePlaceholder}`).cloneNode(true);
+      const cardTitle = card.querySelector(`.${notice.modalTitle}`).textContent;
       const fullText = card.dataset.fullText; // 원본 텍스트 가져오기
   
       // 모달 내용 업데이트
@@ -339,7 +339,7 @@ class NoticePage extends Component {
   
     // 초기화 함수
     const initialize = () => {
-      const cards = document.querySelectorAll('.card');
+      const cards = document.querySelectorAll(`.${notice.card}`);
   
       // 각 카드에 이벤트 설정
       cards.forEach((card) => setupCardEvents(card));
@@ -350,7 +350,7 @@ class NoticePage extends Component {
       // 모달 닫기 버튼 이벤트 설정
       modalCloseButton.addEventListener('click', closeModal);
     };
-  
+
     // 초기화 실행
     initialize();
   }
