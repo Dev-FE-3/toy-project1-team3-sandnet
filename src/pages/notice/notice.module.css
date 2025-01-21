@@ -1,4 +1,4 @@
-/* Main Content 스타일 */
+/* notice2.module.css */
 .content {
   flex: 1;
   display: flex;
@@ -6,27 +6,22 @@
   overflow-y: auto;
 }
 
-/*페이지 제목*/
-h2.title {
+.title {
   margin-left: 60px;
   font-size: 35px;
   font-weight: 500;
 }
 
-/* Cards 섹션 스타일 */
 .cards {
   display: flex;
-  grid-template-columns: repeat(auto-fill, minmax(200px, calc((100% - 4.5rem) / 4))); /* 4개 제한 */
+  grid-template-columns: repeat(auto-fill, minmax(200px, calc((100% - 4.5rem) / 4)));
   gap: 2rem;
   margin: 0 0.5rem;
   overflow-y: auto;
   justify-content: center;
   flex-wrap: wrap;
-  /* border: #033412 solid 5px;
-  border-radius: 20px; */
 }
 
-/*개별 카드 요소*/
 .card {
   width: 100%;
   min-width: 200px;
@@ -48,14 +43,12 @@ h2.title {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-/*카드 미리보기 제목*/
 .card h2 {
   font-size: 1.3rem;
   font-weight: 500;
   color: #f8bd64;
 }
 
-/*카드 미리보기 텍스트*/
 .card p {
   margin: 0.5rem 0;
   line-height: 1.6;
@@ -63,7 +56,6 @@ h2.title {
   font-size: 1rem;
 }
 
-/* 카드 이미지 */
 .imagePlaceholder {
   width: 100%;
   height: 450px;
@@ -73,7 +65,6 @@ h2.title {
   background-color: #828282;
 }
 
-/* 스크롤바 공통 스타일 통합 */
 .cards::-webkit-scrollbar,
 .modalTextContent::-webkit-scrollbar {
   width: 8px;
@@ -90,7 +81,6 @@ h2.title {
   background-color: #ffffff;
 }
 
-/*modal 배경*/
 .modalContainer {
   width: 100%;
   height: 100%;
@@ -101,12 +91,11 @@ h2.title {
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index:1;
+  z-index: 1;
   transition: background-color 0.3s ease;
   padding: 2rem;
 }
 
-/*modal*/
 .modalContent {
   position: relative;
   background-color: #fff;
@@ -124,8 +113,7 @@ h2.title {
   background-color: #fefbf0;
 }
 
-/*모달 위치*/
-.modalArea{
+.modalArea {
   flex: 1;
   padding: 1rem;
   display: flex;
@@ -135,8 +123,7 @@ h2.title {
   height: 100%;
 }
 
-/*모달 내용-이미지*/
-.modalImage{
+.modalImage {
   flex: 0 0 45%;
   width: 280px;
   height: 100%;
@@ -154,8 +141,7 @@ h2.title {
   object-fit: contain;
 }
 
-/*모달 내용-텍스트*/
-.modalTextContent{
+.modalTextContent {
   flex: 1;
   padding: 0 10px;
   display: flex;
@@ -176,7 +162,6 @@ h2.title {
   color: #555555;
 }
 
-/*close button*/
 .modalCloseButton {
   position: absolute;
   top: 20px;
@@ -191,9 +176,6 @@ h2.title {
   color: #033412;
 }
 
-/*모달 안보이게 설정*/
-.hidden{
+.hidden {
   display: none;
 }
-
-

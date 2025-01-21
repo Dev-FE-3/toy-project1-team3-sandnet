@@ -1,7 +1,8 @@
+// src/pages/notice2/notice2.js
 import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
-import notice from "./notice.module.css";
+import styles from "./notice.module.css";
 
 class Component {
   constructor(target) {
@@ -26,212 +27,16 @@ class Component {
 class NoticePage extends Component {
   setup() {
     this.cards = [
-      {
-        id: "card1",
-        imgSrc: "./src/assets/images/img1.png",
-        title: "주간 근무 스케줄 공지",
-        description:
-        `
-        안녕하세요, 모든 직원 여러분!
-
-              다가오는 주의 근무 스케줄을 아래와 같이 공지합니다. 각자 본인의 근무 시간을 확인하시고, 교대 시간이 변경되거나 문제가 있을 경우 매니저에게 즉시 알려주세요.
-
-              1. 근무 시간:
-
-              - 오전 조: 09:00 ~ 14:00
-              - 오후 조: 14:00 ~ 19:00
-              - 야간 조: 19:00 ~ 23:00
-
-              2. 주요 내용:
-
-              - 교대 시간은 근무 10분 전에 대기실에서 대기해 주세요.
-
-              - 휴무일 변경 요청은 최소 3일 전에 매니저와 상의 후, 공식적으로 승인받아야 합니다.
-
-              - 변경 요청이 없을 경우, 아래 스케줄에 따라 운영됩니다.
-
-              첨부 파일: 주간 근무표(PDF 다운로드)
-        `
-      },
-      {
-        id: "card2",
-        imgSrc: "./src/assets/images/img2.png",
-        title: "신메뉴 출시",
-        description:
-        `
-        안녕하세요!
-              이번 주에는 고객들에게 더욱 즐거운 경험을 제공하기 위해 신메뉴가 출시됩니다. 새롭게 추가된 메뉴에 대한 세부 사항은 아래를 참고해주세요.
-              
-              1. 메뉴 이름:
-
-              - 클래식 치즈 샌드위치 (싱글/더블 옵션)
-              - 매콤 치킨 샌드위치 콤보 (음료 포함)
-
-              2. 레시피 및 준비:
-
-              - 치즈 샌드위치: 고온에서 조리된 패티에 체다치즈와 신선한 토마토 추가.
-              - 치킨 샌드위치: 고소한 마요네즈와 특제 매운 소스 사용.
-
-              3. 홍보 방법:
-
-              - 매장 내 메뉴판 업데이트.
-              - SNS 이벤트로 "신메뉴 후기 작성 시 10% 할인 쿠폰 제공".
-              - 신메뉴 시식권 제공 이벤트 진행.
-
-              모든 직원은 신메뉴의 준비 과정을 숙지하고 고객 문의에 응답할 준비를 해주세요.
-        `
-      },
-      {
-        id: "card3",
-        imgSrc: "./src/assets/images/img3.png",
-        title: "주말 프로모션 안내",
-        description: 
-        `
-        매장에서는 이번 주말 동안 특별 이벤트를 진행합니다.
-              1월 20일(토)부터 1월 21일(일)까지 모든 세트 메뉴를 20% 할인된 가격으로 제공합니다.
-              
-              1. 이벤트 세부 사항:
-
-              - 대상: 모든 방문 고객
-              - 할인 메뉴: 세트 A, 세트 B, 세트 C
-              - 프로모션 시간: 10:00 ~ 21:00
-
-              2. 준비 사항:
-
-              - 홍보 전단지 배포 및 카운터 배치.
-              - 세트 메뉴 재료 재고를 사전 점검하여 부족하지 않도록 관리.
-
-              모든 직원은 고객 응대 시 이벤트 내용을 숙지하고 정확히 안내 부탁드립니다.
-        `
-      },
-      {
-        id: "card4",
-        imgSrc: "./src/assets/images/img4.png",
-        title: "위생 및 안전 지침",
-        description: 
-        `
-        매장은 고객들에게 항상 안전하고 깨끗한 환경을 제공하기 위해 새로운 위생 및 안전 지침을 시행합니다.
-              
-              1. 청소 매뉴얼:
-              
-              - 조리대는 3시간마다 소독.
-              - 고객 테이블은 사용 후 즉시 닦기.
-              - 바닥은 매일 마감 후 청소 및 건조.
-              
-              2. 위생 관리:
-              
-              - 모든 직원은 반드시 손 소독 후 장갑 착용.
-              - 냉장고 및 냉동고 온도를 매일 점검 후 기록.
-              
-              3. 안전 교육:
-              
-              - 화재 발생 시 대처 방법 매뉴얼 배포.
-              - 고객 응급상황 시 대처법 교육.
-
-              모든 직원은 반드시 해당 지침을 숙지하고 실천해야 합니다.
-        `
-      },
-      {
-        id: "card5",
-        imgSrc: "./src/assets/images/img5.png",
-        title: "정기 직원 회의 및 급여 일정",
-        description: 
-        `
-        1월 정기 회의 및 급여 지급 관련 공지를 드립니다.
-
-              1. 정기 회의 일정:
-              
-              - 날짜: 1월 18일(목)
-              - 시간: 오후 3시
-              - 장소: 매장 대회의실
-              
-              2. 급여 지급일:
-              
-              - 지급일: 1월 25일(목)
-              - 지급 방법: 본인 명의 은행 계좌로 이체
-              
-              3. 출근/지각 규정 업데이트:
-              
-              - 정시 출근을 원칙으로 하며, 지각 3회 시 경고 조치가 취해집니다.
-              
-              - 특별한 사유로 인해 지각/결근이 불가피한 경우 사전에 매니저에게 통보 부탁드립니다.
-        `
-      },
-      {
-        id: "card6",
-        imgSrc: "./src/assets/images/img6.png",
-        title: "POS 시스템 업데이트",
-        description:
-        `
-        안녕하세요, 매장에서 사용 중인 POS 시스템이 1월 20일에 업데이트될 예정입니다.
-
-              1. 업데이트 세부 사항:
-              
-              - 기능 추가: 재고 관리 자동화, 판매 데이터 통계 기능.
-              - UI 개선: 더욱 간편한 화면 구성.
-              
-              2. 업데이트 시간:
-              
-              - 1월 20일 오전 2시 ~ 4시 (운영 시간 외 진행)
-              
-              3. 사전 준비:
-              
-              - 업데이트 후 사용법 가이드 제공 예정.
-              - 질문사항은 IT 담당자에게 문의 가능합니다.
-        `
-      },
-      {
-        id: "card7",
-        imgSrc: "./src/assets/images/img7.png",
-        title: "신규 직원 인사 공지",
-        description: 
-        `
-        이번 주 신규로 합류한 직원들과 퇴사하는 직원에 대해 공지드립니다.
-
-              1. 신규 직원:
-              
-              - 김철수: 주간 근무 (09:00~14:00)
-              - 김민수: 야간 근무 (19:00~23:00)
-              
-              2. 퇴사 직원:
-              
-              - 박지연: 개인 사정으로 1월 18일자로 퇴사
-              
-              신규 직원들에게 환영 인사를 부탁드리며, 퇴사 직원과의 마지막 근무일도 뜻깊게 마무리해주시길 바랍니다.
-        `
-      },
-      {
-        id: "card8",
-        imgSrc: "./src/assets/images/img8.png",
-        title: "문제 상황 대처 매뉴얼",
-        description: 
-        `
-        고객 컴플레인 처리 및 장비 고장 시 대처법을 공유드립니다.
-
-              1. 고객 컴플레인 처리:
-              
-              - 고객의 불만 사항을 경청하고 메모.
-              - 매니저에게 즉시 보고 후 문제 해결 방법을 안내.
-              - 사후 이메일 또는 전화로 고객 만족 확인.
-              
-              2. 장비 고장 대처:
-              
-              - POS 시스템 오류: 즉시 IT 팀에 연락 후 수동 기록 사용.
-              - 조리 장비 고장: 대체 장비 확인 및 고객에게 대기 시간 안내.
-              
-              모든 직원은 위의 지침을 상황에 따라 유연하게 활용해주세요.
-        `
-      }
-    ]
+      // ... existing code ...
+    ];
     this.filteredCards = [...this.cards];
-    
-  };
+  }
 
-  template () {
+  template() {
     return `
-    <div class="page-container">
+    <div class="${styles.pageContainer}">
       <!--Sidebar-->
-      <div class="sidebar">
+      <div class="${styles.sidebar}">
         <h1>SandNet</h1>
           <ul>
             <li>Home</li>
@@ -241,22 +46,22 @@ class NoticePage extends Component {
           </ul>
       </div>
       <!--Main Content-->
-      <main class="content">
+      <main class="${styles.content}">
         <header>
-          <h2 class="${notice.title}">공지사항</h2>
-          <div class="search-container">
-            <input class="search-input" type="text" placeholder="검색어를 입력하세요" >
-            <span class="search-icon material-icons">search</span>
+          <h2 class="${styles.title}">공지사항</h2>
+          <div class="${styles.searchContainer}">
+            <input class="${styles.searchInput}" type="text" placeholder="검색어를 입력하세요" >
+            <span class="${styles.searchIcon} material-icons">search</span>
           </div>
         </header>
 
         <!--Scrollable Cards Section-->
-        <section class="${notice.cards}">
+        <section class="${styles.cards}">
         ${this.filteredCards
           .map(
             (card) => `
-            <div id= "${card.id}" class="${notice.card}">
-            <img src="${card.imgSrc}" alt="${card.title}" class="${notice.imagePlaceholder}"/>
+            <div id="${card.id}" class="${styles.card}">
+            <img src="${card.imgSrc}" alt="${card.title}" class="${styles.imagePlaceholder}"/>
             <h2>${card.title}</h2>
             <p>${card.description}</p>
             </div>
@@ -264,18 +69,17 @@ class NoticePage extends Component {
           )
           .join("")
         }
-
         </section>
 
         <!--card modal-->
-        <div class="${notice.modalContainer} ${notice.hidden}">
-          <div class="${notice.modalContent}">
-            <span class="${notice.modalCloseButton} close-icon material-icons">close</span>
-            <div class="${notice.modalArea}">
-              <div  class="${notice.modalImage}"></div>
-              <div class="${notice.modalTextContent}">
-                <h2 class="${notice.modalTitle}"></h2>
-                <p class="${notice.modalText}"></p>
+        <div class="${styles.modalContainer} ${styles.hidden}">
+          <div class="${styles.modalContent}">
+            <span class="${styles.modalCloseButton} close-icon material-icons">close</span>
+            <div class="${styles.modalArea}">
+              <div class="${styles.modalImage}"></div>
+              <div class="${styles.modalTextContent}">
+                <h2 class="${styles.modalTitle}"></h2>
+                <p class="${styles.modalText}"></p>
               </div>
             </div>
           </div>
@@ -286,78 +90,56 @@ class NoticePage extends Component {
   }
 
   setEvent() {
-    // 공통 DOM 요소 가져오기
-    const modalContainer = document.querySelector(`.${notice.modalContainer}`);
-    const modalImage = document.querySelector(`.${notice.modalImage}`);
-    const modalTitle = document.querySelector(`.${notice.modalTitle}`);
-    const modalText = document.querySelector(`.${notice.modalText}`);
-    const modalCloseButton = document.querySelector(`.${notice.modalCloseButton}`);
+    const modalContainer = document.querySelector(`.${styles.modalContainer}`);
+    const modalImage = document.querySelector(`.${styles.modalImage}`);
+    const modalTitle = document.querySelector(`.${styles.modalTitle}`);
+    const modalText = document.querySelector(`.${styles.modalText}`);
+    const modalCloseButton = document.querySelector(`.${styles.modalCloseButton}`);
 
-    
-    
-    // 카드 텍스트 제한 함수
     const truncateText = (text, limit = 65) =>
       text.length <= limit ? text : text.slice(0, limit) + '...';
 
-    // 모달 열기 함수
     const openModal = (card) => {
-      const cardImage = card.querySelector(`.${notice.imagePlaceholder}`).cloneNode(true);
-      const cardTitle = card.querySelector(`.${notice.modalTitle}`).textContent;
-      const fullText = card.dataset.fullText; // 원본 텍스트 가져오기
-  
-      // 모달 내용 업데이트
-      modalImage.innerHTML = ''; // 기존 내용 삭제
-      modalImage.appendChild(cardImage); // 이미지 추가
+      const cardImage = card.querySelector(`.${styles.imagePlaceholder}`).cloneNode(true);
+      const cardTitle = card.querySelector('h2').textContent;
+      const fullText = card.dataset.fullText;
+
+      modalImage.innerHTML = '';
+      modalImage.appendChild(cardImage);
       modalTitle.textContent = cardTitle;
-      modalText.textContent = fullText; // 원본 텍스트 사용
-  
-      modalContainer.classList.remove('hidden');
+      modalText.textContent = fullText;
+
+      modalContainer.classList.remove(styles.hidden);
     };
-  
-    // 모달 닫기 함수
-    const closeModal = () => modalContainer.classList.add('hidden');
-  
-    // 외부 클릭 시 모달 닫기
+
+    const closeModal = () => modalContainer.classList.add(styles.hidden);
+
     const handleOutsideClick = (e) => {
-      if (e.target === modalContainer) closeModal('hidden');
+      if (e.target === modalContainer) closeModal();
     };
-  
-    // 카드 이벤트 설정 함수
+
     const setupCardEvents = (card) => {
       const cardText = card.querySelector('p');
       const fullText = cardText.textContent;
-  
-      // 카드에 원본 텍스트 저장
+
       card.dataset.fullText = fullText;
-  
-      // 카드 텍스트 제한 처리
       cardText.textContent = truncateText(fullText);
-  
-      // 클릭 시 모달 열기
+
       card.addEventListener('click', () => openModal(card));
     };
-  
-    // 초기화 함수
+
     const initialize = () => {
-      const cards = document.querySelectorAll(`.${notice.card}`);
-  
-      // 각 카드에 이벤트 설정
+      const cards = document.querySelectorAll(`.${styles.card}`);
       cards.forEach((card) => setupCardEvents(card));
-  
-      // 모달 외부 클릭 이벤트 설정
       modalContainer.addEventListener('click', handleOutsideClick);
-  
-      // 모달 닫기 버튼 이벤트 설정
       modalCloseButton.addEventListener('click', closeModal);
     };
 
-    // 초기화 실행
     initialize();
   }
-  
 }
 
 // 앱 실행
 new NoticePage(document.querySelector('#app'));
 
-export default NoticePage; 
+export default NoticePage;
