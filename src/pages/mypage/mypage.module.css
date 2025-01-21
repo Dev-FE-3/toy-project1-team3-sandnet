@@ -192,65 +192,8 @@
 .modalTrigger.btn:hover {
   background-color: var(--color-light-green);
 }
-/* 프로필 모달 */
-
-/* .profile-modal .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
-  border-radius: 5px;
-  position: relative;
-}
- */
-
-/* .modal .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
-  border-radius: 5px;
-  position: relative;
-} */
-
-/* 닫기 버튼 스타일 수정 */
-/* .modal .close {
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #aaa;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-} */
-
-/* .modal .close:hover {
-  color: #000;
-} */
-
-/* 각 모달별 특정 스타일 */
-/* .work-btn-modal .modal-content {
-  max-width: 400px;
-}
-
-.attendance-modal .modal-content {
-  max-width: 600px;
-}
-
-.add-attendance-btn-modal .modal-content {
-  max-width: 700px;
-} */
 
 /* 모달 */
-
 .modal {
   display: none;
   position: fixed;
@@ -471,6 +414,10 @@
 }
 
 .modal .typeBtn:hover {
+  background-color: var(--color-dark-green);
+}
+
+.modal .typeBtn.selected {
   background-color: var(--color-dark-green);
 }
 

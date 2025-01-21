@@ -361,9 +361,11 @@ class MyPage extends Component {
     typeButtons.forEach((button) => {
       button.addEventListener("click", (e) => {
         // 모든 버튼의 선택 상태를 먼저 제거
-        typeButtons.forEach((btn) => btn.classList.remove("selected"));
+        typeButtons.forEach((btn) =>
+          btn.classList.remove(`${styles.selected}`)
+        );
         // 클릭한 버튼만 선택 상태로 변경
-        e.target.classList.add("selected");
+        e.target.classList.add(`${styles.selected}`);
         this.state.selectedAttendanceType = e.target.textContent;
       });
     });
@@ -399,9 +401,24 @@ class MyPage extends Component {
         addAttendanceModal.style.display = "none";
         document.querySelector("#start-date").value = "";
         document.querySelector("#end-date").value = "";
-        typeButtons.forEach((btn) => btn.classList.remove("selected"));
+        typeButtons.forEach((btn) =>
+          btn.classList.remove(`${styles.selected}`)
+        );
       });
     }
+    
+    const modalClose = addAttendanceModal.querySelector(`.${styles.close}`);
+    if (modalClose) {
+      modalClose.addEventListener("click", () => {
+        typeButtons.forEach((btn) => btn.classList.remove(styles.selected)); // 상태 초기화
+      });
+    }
+
+    window.addEventListener("click", (e) => {
+      if (e.target === addAttendanceModal) {
+        typeButtons.forEach((btn) => btn.classList.remove(styles.selected)); // 상태 초기화
+      }
+    });
   }
 
   formatDate(startDate, endDate) {
