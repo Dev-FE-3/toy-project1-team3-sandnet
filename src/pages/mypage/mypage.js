@@ -1,8 +1,7 @@
 import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
-import "./mypage.module.css";
-import "./mypage_modal/mypage_modal.css";
+import "./mypage.css";
 
 class Component {
   constructor(target) {

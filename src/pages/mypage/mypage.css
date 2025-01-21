@@ -1,3 +1,249 @@
+/* 메인 */
+.content {
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 flex 설정 */
+  height: 100vh; /* 전체 화면 높이 */
+}
+
+.wrapper {
+  flex: 1;
+  display: grid;
+  height: calc(100%);
+  grid-template-rows: minmax(200px, 1fr) minmax(200px, 1fr); /* 각 행의 높이를 minmax로 조정 */
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr); /* 각 열의 너비 최소 300px, 최대 1fr */
+  gap: 20px; /* 그리드 아이템 간격 추가 */
+}
+
+.grid-item {
+  background-color: var(--color-beige);
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* margin: 10px; */
+}
+.section {
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 16px;
+}
+
+/* 프로필 */
+
+/* 출퇴근관리 */
+.time-management-section {
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  height: 100%;
+}
+.current-time {
+  margin-bottom: 20px;
+}
+
+.current-time p:first-child {
+}
+
+.current-time-value {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--color-black);
+  margin: 20px 0;
+}
+
+.work-time-list {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.work-time-item {
+  text-align: center;
+}
+
+.time-label {
+}
+
+.time-value {
+  width: 100px;
+  font-weight: bold;
+  font-size: 24px;
+  margin: 5px 0;
+}
+
+.work-btn {
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
+  border: none;
+  border-radius: 30px;
+  width: 100px; /* 버튼 너비 고정 */
+  display: block; /* 블록 요소로 변경 */
+  margin: 0 auto 20px; /* 좌우 마진을 auto로 설정하여 중앙 정렬 */
+  padding: 10px;
+}
+
+/* 근태*/
+.attendance-section {
+  position: relative;
+  display: flex;
+  grid-column: 1 / span 2; /* 그리드 아이템 너비 설정 */
+  overflow: hidden;
+  padding: 0;
+  height: 100%;
+}
+
+.attendance-section .section-title {
+  margin: 0 auto 20px;
+}
+
+.attendance-list-section {
+  width: 100%; /* 너비를 100%로 설정 */
+  height: 100%; /* 높이를 100%로 설정 */
+  padding: 20px; /* 패딩 추가 */
+  font-size: 14px;
+}
+
+.attendance-header {
+  display: flex;
+  margin: 0 15px 10px 60px;
+}
+
+.header-item {
+  flex: 1;
+  text-align: left;
+}
+
+.header-item .title {
+  flex: 1.5;
+}
+
+.attendance-list {
+}
+
+.attendance-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background-color: var(--color-light-green);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-beige);
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.item-content {
+  flex: 1;
+  text-align: left;
+}
+
+.item-content .title {
+  flex: 1.5;
+}
+
+.add-attendance-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
+  border: none;
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  z-index: 1;
+}
+.add-attendance-btn p {
+  line-height: 1;
+  font-size: 50px;
+  padding-top: 10px;
+}
+.add-attendance-btn:hover {
+  background-color: var(--color-light-green);
+}
+
+/* 모달 트리거 */
+.modal-trigger {
+  cursor: pointer;
+}
+.modal-trigger:hover {
+  background-color: var(--color-hover-beige);
+}
+.modal-trigger.btn:hover {
+  background-color: var(--color-light-green);
+}
+/* 프로필 모달 */
+
+/* .profile-modal .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 5px;
+  position: relative;
+}
+ */
+
+/* .modal .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 5px;
+  position: relative;
+} */
+
+/* 닫기 버튼 스타일 수정 */
+/* .modal .close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #aaa;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+} */
+
+/* .modal .close:hover {
+  color: #000;
+} */
+
+/* 각 모달별 특정 스타일 */
+/* .work-btn-modal .modal-content {
+  max-width: 400px;
+}
+
+.attendance-modal .modal-content {
+  max-width: 600px;
+}
+
+.add-attendance-btn-modal .modal-content {
+  max-width: 700px;
+} */
+
+
+/* 모달 */
+
 .modal {
   display: none;
   position: fixed;
