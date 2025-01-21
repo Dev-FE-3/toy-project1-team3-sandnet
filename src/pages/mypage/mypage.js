@@ -96,7 +96,7 @@ class MyPage extends Component {
           <div class="${styles.attendanceListSection} ${styles.section} ${
       styles.modalTrigger
     }">
-          <p class="${styles.sectionTitle}">근태 내역</p>
+          <p class="${styles.sectionTitle}">근태 목록</p>
             <div class="${styles.attendanceHeader}">
             <div class="${styles.headerItem} ${styles.writer}">작성자</div>
             <div class="${styles.headerItem} ${styles.type}">종류</div>
