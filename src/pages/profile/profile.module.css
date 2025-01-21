@@ -8,7 +8,7 @@
   box-sizing: border-box;
 } */
 
-.profileContainer {
+.myContent {
   display: flex;
   flex-direction: column;
   width: 100%;

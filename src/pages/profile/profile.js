@@ -48,7 +48,10 @@ class ProfilePage extends Component {
   template() {
     return `
         <main class="main-content">
-        <div class="${styles.profileContainer}">
+        <header>
+          <h1>프로필</h1>
+        </header>
+        <div class="my-content green-border">
           <article class="${styles.primaryProfileContainer}">
             <header>
               <img id="profileImage" src="${profileImg}" alt="프로필 사진" />

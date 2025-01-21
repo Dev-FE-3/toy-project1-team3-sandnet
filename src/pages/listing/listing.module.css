@@ -65,6 +65,7 @@
 .teamTable td {
   padding: 1rem;
   border-bottom: 1px solid var(--color-gray);
+  vertical-align: middle;
 }
 
 .teamTable tr:hover {

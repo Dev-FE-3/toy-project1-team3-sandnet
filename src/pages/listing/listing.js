@@ -274,9 +274,9 @@ class ListingPage extends Component {
             <h1>직원목록</h1>
             ${this.searchBar.template()}
           </header>
-          <div class="${styles.myContent}">
+          <div class="my-content green-border">
             <div class="${styles.teamHeader}">
-              <button>Edit</button>
+              <button>Add</button>
             </div>
             <div class="${styles.tableContainer}">
               <table class="${styles.teamTable}">
