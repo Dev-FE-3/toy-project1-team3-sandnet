@@ -1,5 +1,5 @@
 import MyPage from "./mypage/mypage.js";
-import NoitcePage from "./notice/notice.js";
+import NoitcePage from "../assets/notice/notice.js";
 import ListingPage from "./listing/listing.js";
 
 function initNavigation() {
