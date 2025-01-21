@@ -277,7 +277,7 @@ class ListingPage extends Component {
           </header>
           <div class="my-content">
             <div class="${styles.teamHeader}">
-              <button>Edit</button>
+              <button>Add</button>
             </div>
             <div class="${styles.tableContainer}">
               <table class="${styles.teamTable}">
