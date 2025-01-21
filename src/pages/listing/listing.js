@@ -2,7 +2,9 @@ import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
 import styles from './listing.module.css';
-import Sidebar from '../../components/sidebar.js';
+import Sidebar from "../../components/Sidebar.js";
+import SearchBar from '@/components/SearchBar';
+import Pagination from '@/components/Pagination';
 
 
 class Component {
@@ -142,12 +144,31 @@ class ListingPage extends Component {
       ],
       searchText: '',
       currentPage: 1,
-      itemsPerPage: 10,
+      itemsPerPage: 8,  // 한 페이지당 8개로 수정
       totalPages: 0
     };
     
     // 초기 총 페이지 수 계산
-    this.state.totalPages = Math.ceil(this.state.employees.length / this.state.itemsPerPage);
+    this.updateTotalPages();
+
+    this.searchBar = new SearchBar({
+      placeholder: '검색어를 입력하세요.(#숫자:브랜치 검색)',
+      value: this.state.searchText,
+      onSearch: (value) => {
+        this.setState({ 
+          searchText: value,
+          currentPage: 1
+        });
+      }
+    });
+
+    this.pagination = new Pagination({
+      currentPage: this.state.currentPage,
+      totalPages: Math.ceil(this.filterEmployees().length / this.state.itemsPerPage),
+      onPageChange: (page) => {
+        this.setState({ currentPage: page });
+      }
+    });
   }
 
   // 현재 페이지에 표시할 직원 목록 가져오기
@@ -166,23 +187,51 @@ class ListingPage extends Component {
       return this.state.employees;
     }
 
+    // #으로 시작하는 검색어는 브랜치 전용 검색으로 처리
+    if (searchTerm.startsWith('#')) {
+      const branchNumber = searchTerm.slice(1); // # 제거
+      if (!isNaN(branchNumber)) {
+        return this.state.employees.filter(employee => 
+          employee.branch === branchNumber
+        );
+      }
+    }
+
+    // 일반 검색어 처리
+    const searchTerms = searchTerm.split(' ').filter(term => term.length > 0);
+
     return this.state.employees.filter(employee => {
-      return (
-        employee.name.toLowerCase().includes(searchTerm) ||
-        employee.email.toLowerCase().includes(searchTerm) ||
-        employee.phone.includes(searchTerm) ||
-        employee.branch.toLowerCase().includes(searchTerm) ||
-        employee.rank.toLowerCase().includes(searchTerm)
+      const searchFields = [
+        employee.name,
+        employee.email,
+        employee.phone,
+        employee.branch,
+        employee.rank
+      ];
+
+      return searchTerms.every(term =>
+        searchFields.some(field => 
+          String(field).toLowerCase().includes(term)
+        )
       );
     });
   }
 
-  // 페이지 번호 렌더링
+  // 페이지 번호 렌더링 메서드 개선
   renderPageNumbers() {
     let pages = '';
-    for (let i = 1; i <= this.state.totalPages; i++) {
+    const totalPages = this.state.totalPages;
+    const currentPage = this.state.currentPage;
+
+    // 페이지가 없거나 1페이지만 있는 경우
+    if (totalPages <= 1) {
+      return '';
+    }
+
+    // 페이지 버튼 생성
+    for (let i = 1; i <= totalPages; i++) {
       pages += `
-        <button class="${styles.pageBtn} ${this.state.currentPage === i ? styles.active : ''}" data-page="${i}">
+        <button class="${styles.pageBtn} ${currentPage === i ? styles.active : ''}" data-page="${i}">
           ${i}
         </button>
       `;
@@ -190,33 +239,43 @@ class ListingPage extends Component {
     return pages;
   }
 
-  // setup 메서드의 totalPages 계산 부분을 아래 메서드로 대체
+  // 총 페이지 수 업데이트 메서드 개선
   updateTotalPages() {
     const filteredEmployees = this.filterEmployees();
-    this.state.totalPages = Math.ceil(filteredEmployees.length / this.state.itemsPerPage);
+    
+    // 검색 결과가 8개 이하면 totalPages를 1로 설정
+    if (filteredEmployees.length <= this.state.itemsPerPage) {
+      this.state.totalPages = 1;
+      this.state.currentPage = 1;
+      return;
+    }
+    
+    const newTotalPages = Math.ceil(filteredEmployees.length / this.state.itemsPerPage);
+    
+    // 현재 페이지가 새로운 총 페이지 수보다 크면 마지막 페이지로 이동
+    if (this.state.currentPage > newTotalPages) {
+      this.state.currentPage = Math.max(1, newTotalPages);
+    }
+    
+    this.state.totalPages = newTotalPages;
   }
 
+  // 페이지네이션 버튼 렌더링 부분 수정
   template() {
     const currentEmployees = this.getCurrentPageEmployees();
     const sidebar = new Sidebar('listing');
+    const totalEmployees = this.filterEmployees().length;
+    const showPagination = totalEmployees > this.state.itemsPerPage; // 8개 초과일 때만 페이지네이션 표시
     
     return `
       <div class="page-container">
         ${sidebar.template()}
-        <div class="content">
-          <header class="header">
-            <h2 class="title">직원목록</h2>
-            <div class="search-container">
-              <i class="fas fa-search search-icon"></i>
-              <input 
-                class="search-input"
-                type="text" 
-                placeholder="직원 이름, 이메일 또는 지점을 입력하세요"
-                value="${this.state.searchText}"
-              >
-            </div>
+        <main class="content">
+          <header>
+            <h1>직원목록</h1>
+            ${this.searchBar.template()}
           </header>
-          <div class="${styles.teamCard}">
+          <div class="my-content">
             <div class="${styles.teamHeader}">
               <button>Edit</button>
             </div>
@@ -252,19 +311,11 @@ class ListingPage extends Component {
                 </tbody>
               </table>
             </div>
-            <div class="${styles.pagination}">
-              <button class="${styles.pageBtn} prev-btn ${this.state.currentPage === 1 ? 'disabled' : ''}">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <div class="${styles.pageNumbers}">
-                ${this.renderPageNumbers()}
-              </div>
-              <button class="${styles.pageBtn} next-btn ${this.state.currentPage === this.state.totalPages ? 'disabled' : ''}">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
+            ${showPagination ? `
+              ${this.pagination.template()}
+            ` : ''}
           </div>
-        </div>
+        </main>
       </div>
     `;
   }
@@ -274,21 +325,8 @@ class ListingPage extends Component {
     const sidebar = new Sidebar('listing');
     sidebar.setEvent(this.target);
 
-    // 검색 이벤트
-    const searchInput = this.target.querySelector('.search-input');
-    if (searchInput) {
-      let debounceTimer;
-      searchInput.addEventListener('input', (e) => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-          this.setState({ 
-            searchText: e.target.value,
-            currentPage: 1
-          });
-          this.updateTotalPages();
-        }, 300);
-      });
-    }
+    this.searchBar.setEvent(this.target);
+    this.pagination.setEvent(this.target);
 
     // 삭제 버튼 이벤트
     this.target.addEventListener('click', (e) => {
@@ -298,24 +336,6 @@ class ListingPage extends Component {
         console.log('Delete employee:', id);
       }
     });
-
-    // 페이지네이션 이벤트
-    const pagination = this.target.querySelector('.pagination');
-    if (pagination) {
-      pagination.addEventListener('click', (e) => {
-        const btn = e.target.closest('.page-btn');
-        if (!btn) return;
-
-        if (btn.classList.contains('prev-btn') && this.state.currentPage > 1) {
-          this.setState({ currentPage: this.state.currentPage - 1 });
-        } else if (btn.classList.contains('next-btn') && this.state.currentPage < this.state.totalPages) {
-          this.setState({ currentPage: this.state.currentPage + 1 });
-        } else if (!btn.classList.contains('prev-btn') && !btn.classList.contains('next-btn')) {
-          const pageNum = parseInt(btn.dataset.page);
-          this.setState({ currentPage: pageNum });
-        }
-      });
-    }
   }
 }
 

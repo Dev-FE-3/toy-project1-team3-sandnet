@@ -2,6 +2,7 @@ import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
 import "./mypage.css";
+import Sidebar from "../../components/Sidebar.js";
 
 class Component {
   constructor(target) {
@@ -41,10 +42,11 @@ class MyPage extends Component {
   template() {
     const { attendance, writer, workStartTime, workEndTime, isWorking } =
       this.state;
+    const sidebar = new Sidebar('mypage');
 
     return `
     <div class="page-container">
-      <div class="sidebar"></div> <!-- 사이드바 -->
+      ${sidebar.template()}
       <main class="content">
         <!-- 프로필 -->
         <div class="grid-item section profile-section modal-trigger">
@@ -53,6 +55,7 @@ class MyPage extends Component {
         </div>
 
         <!-- 시간관리 -->
+        <div class="my-content">
         <div class="grid-item section time-management-section">
           <div class="current-time">
             <p>현재시각</p>
@@ -167,6 +170,10 @@ class MyPage extends Component {
     this.initTimeUpdate();
     this.initWorkManagement();
     this.initAttendanceManagement();
+
+    // 사이드바 이벤트 설정
+    const sidebar = new Sidebar('mypage');
+    sidebar.setEvent(this.target);
   }
 
   // 모달 초기화

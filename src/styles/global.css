@@ -10,6 +10,21 @@ body {
   overflow: hidden;
 }
 
+/* 헤더 영역 */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--color-black);
+}
+
 .page-container {
   display: flex;
   height: 100vh;
@@ -87,18 +102,15 @@ body {
   box-sizing: border-box;
 }
 
-/* 헤더 영역 */
-header {
+.my-content {
+  background-color: var(--color-white);
+  padding: 2rem;
+  border: 5px solid var(--color-dark-green);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  height: calc(100vh - 220px);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 2rem;
-}
-
-.title {
-  font-size: 30px;
-  font-weight: 500;
-  color: var(--color-dark-green);
+  flex-direction: column;
 }
 
 /* 검색 영역 */

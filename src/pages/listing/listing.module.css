@@ -1,15 +1,3 @@
-/* 팀 카드 스타일 */
-.teamCard {
-  background-color: var(--color-white);
-  padding: 2rem;
-  border: 5px solid var(--color-dark-green);
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  height: calc(100vh - 200px);
-  display: flex;
-  flex-direction: column;
-}
-
 /* 팀 헤더 영역 */
 .teamHeader {
   display: flex;
@@ -83,44 +71,7 @@
   cursor: pointer;
 }
 
-/* 페이지네이션 */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1.5rem 0;
-  margin-top: auto;
-}
 
-.pageNumbers {
-  display: flex;
-  gap: 5px;
-  margin: 0 15px;
-}
-
-.pageBtn {
-  min-width: 32px;
-  height: 32px;
-  border: 1px solid var(--color-gray);
-  background-color: var(--color-white);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.pageBtn.active {
-  background-color: var(--color-dark-green);
-  border-color: var(--color-dark-green);
-  color: var(--color-white);
-}
-
-.pageBtn:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
 
 /* 스크롤바 스타일 */
 .tableContainer::-webkit-scrollbar {

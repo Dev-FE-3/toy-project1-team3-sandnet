@@ -2,6 +2,8 @@ import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
 import "./notice.css";
+import Sidebar from "../../components/Sidebar.js";
+
 
 class Component {
   constructor(target) {
@@ -28,19 +30,11 @@ class NoitcePage extends Component {
   }
 
   template () {
+    const sidebar = new Sidebar('notice');
+
     return `
     <div class="page-container">
-      <!--Sidebar-->
-      <div class="sidebar">
-        <h1>SandNet</h1>
-          <ul>
-            <li>Home</li>
-            <li class="active">Management</li>
-            <li>Notification</li>
-            <li>My page</li>
-          </ul>
-      </div>
-
+      ${sidebar.template()}
       <!--Main Content-->
       <main class="content">
         <header>
@@ -52,6 +46,7 @@ class NoitcePage extends Component {
         </header>
 
         <!--Scrollable Cards Section-->
+        <div class="my-content">
         <section class="cards">
           <!--카드1-->
           <div id="card1" class="card">
@@ -267,6 +262,8 @@ class NoitcePage extends Component {
     const modalTitle = document.getElementById('modalTitle');
     const modalText = document.getElementById('modalText');
     const modalCloseButton = document.getElementById('modalCloseButton');
+    const sidebar = new Sidebar('notice');
+    sidebar.setEvent(this.target);
   
     // 카드 텍스트 제한 함수
     const truncateText = (text, limit = 80) =>

@@ -1,5 +1,14 @@
-import { initHome } from "./pages/home/home";
+import { handleRouting } from '@/app/router/router';
+import { renderController } from '@/libs/renderController';
 
-document.addEventListener("DOMContentLoaded", initHome);
+// 초기 라우팅 설정
+document.addEventListener('DOMContentLoaded', () => {
+  handleRouting();
+});
 
-export default initHome;
+// 브라우저 뒤로가기/앞으로가기 처리
+window.addEventListener('popstate', handleRouting);
+
+const app = document.querySelector('#app');
+renderController('/admin', app); // /admin 경로로 렌더링
+

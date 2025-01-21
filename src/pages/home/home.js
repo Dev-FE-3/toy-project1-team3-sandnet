@@ -1,18 +1,18 @@
-import Sidebar from '../../components/sidebar.js';
-import "../../../reset.css";
-import "../../styles/variables.css";
-import "../../styles/global.css";
-import './home.css';  // 홈 스타일 import 추가
+import Sidebar from '@/components/sidebar.js';
+import '../../../reset.css'
+import "@/styles/variables.css";
+import "@/styles/global.css";
+import './home.css';
 
-export function initHome() {
+export const initHome = (app) => {
   const sidebar = new Sidebar('home');
   
-  document.querySelector("#app").innerHTML = `
+  const template = `
     <div class="page-container">
       ${sidebar.template()}
       <div class="content">
         <header>
-          <h2 class="title">SandNet</h2>
+          <h1>SandNet</h1>
         </header>
         <div class="main-content">
           <h1>SandNet에 오신 것을 환영합니다</h1>
@@ -36,5 +36,9 @@ export function initHome() {
   `;
 
   // 사이드바 이벤트 설정
-  sidebar.setEvent(document.querySelector("#app"));
-} 
+  setTimeout(() => {
+    sidebar.setEvent(app);
+  }, 0);
+
+  return template;
+}; 
