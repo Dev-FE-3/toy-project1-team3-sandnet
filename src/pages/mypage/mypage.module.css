@@ -14,7 +14,7 @@
   gap: 20px; /* 그리드 아이템 간격 추가 */
 }
 
-.grid-item {
+.gridItem {
   background-color: var(--color-beige);
   border-radius: 40px;
   text-align: center;
@@ -25,33 +25,30 @@
   padding: 20px;
 }
 
-.section-title {
+.sectionTitle {
   font-size: 16px;
 }
 
 /* 프로필 */
 
 /* 출퇴근관리 */
-.time-management-section {
+.timeManagementSection {
   align-items: center; /* 수직 중앙 정렬 */
   justify-content: center; /* 수평 중앙 정렬 */
   height: 100%;
 }
-.current-time {
+.currentTime {
   margin-bottom: 20px;
 }
 
-.current-time p:first-child {
-}
-
-.current-time-value {
+.currentTimeValue {
   font-size: 30px;
   font-weight: bold;
   color: var(--color-black);
   margin: 20px 0;
 }
 
-.work-time-list {
+.workTimeList {
   display: flex;
   justify-content: space-around;
   margin-bottom: 10px;
@@ -59,21 +56,21 @@
   padding: 0;
 }
 
-.work-time-item {
+.workTimeItem {
   text-align: center;
 }
 
-.time-label {
+.timeLabel {
 }
 
-.time-value {
+.timeValue {
   width: 100px;
   font-weight: bold;
   font-size: 24px;
   margin: 5px 0;
 }
 
-.work-btn {
+.workBtn {
   background-color: var(--color-dark-green);
   color: var(--color-white);
   border: none;
@@ -85,7 +82,7 @@
 }
 
 /* 근태*/
-.attendance-section {
+.attendanceSection {
   position: relative;
   display: flex;
   grid-column: 1 / span 2; /* 그리드 아이템 너비 설정 */
@@ -94,35 +91,35 @@
   height: 100%;
 }
 
-.attendance-section .section-title {
+.attendanceSection .sectionTitle {
   margin: 0 auto 20px;
 }
 
-.attendance-list-section {
+.attendanceListSection {
   width: 100%; /* 너비를 100%로 설정 */
   height: 100%; /* 높이를 100%로 설정 */
   padding: 20px; /* 패딩 추가 */
   font-size: 14px;
 }
 
-.attendance-header {
+.attendanceHeader {
   display: flex;
   margin: 0 15px 10px 60px;
 }
 
-.header-item {
+.headerItem {
   flex: 1;
   text-align: left;
 }
 
-.header-item .title {
+.headerItem .title {
   flex: 1.5;
 }
 
-.attendance-list {
+.attendanceList {
 }
 
-.attendance-item {
+.attendanceItem {
   display: flex;
   align-items: center;
   padding: 5px;
@@ -131,24 +128,24 @@
   margin-bottom: 10px;
 }
 
-.profile-circle {
+.profileImage {
   width: 40px;
   height: 40px;
-  background-color: var(--color-beige);
   border-radius: 50%;
+  object-fit: cover; /* 이미지가 동그랗게 잘리도록 설정 */
   margin-right: 15px;
 }
 
-.item-content {
+.itemContent {
   flex: 1;
   text-align: left;
 }
 
-.item-content .title {
+.itemContent .title {
   flex: 1.5;
 }
 
-.add-attendance-btn {
+.addAttendanceBtn {
   position: absolute;
   bottom: 20px;
   right: 20px;
@@ -165,23 +162,23 @@
   line-height: 1;
   z-index: 1;
 }
-.add-attendance-btn p {
+.addAttendanceBtn p {
   line-height: 1;
   font-size: 50px;
   padding-top: 10px;
 }
-.add-attendance-btn:hover {
+.addAttendanceBtn:hover {
   background-color: var(--color-light-green);
 }
 
 /* 모달 트리거 */
-.modal-trigger {
+.modalTrigger {
   cursor: pointer;
 }
-.modal-trigger:hover {
+.modalTrigger:hover {
   background-color: var(--color-hover-beige);
 }
-.modal-trigger.btn:hover {
+.modalTrigger.btn:hover {
   background-color: var(--color-light-green);
 }
 /* 프로필 모달 */
@@ -241,7 +238,6 @@
   max-width: 700px;
 } */
 
-
 /* 모달 */
 
 .modal {
@@ -255,7 +251,7 @@
   background-color: rgba(0, 0, 0, 0.4); /* 반투명 검은 배경 */
 }
 
-.modal .modal-content {
+.modal .modalContent {
   width: 40%;
   background-color: var(--color-beige); /* 베이지 배경으로 변경 */
   padding: 20px;
@@ -290,39 +286,39 @@
 /* 각 모달별 크기 조정 */
 
 /* 출퇴근관리 모달 스타일*/
-.modal .work-btn-modal .modal-content {
+.modal .workBtnModal .modalContent {
   max-width: 500px;
   text-align: center;
   padding: 20px;
 }
 
-.modal .current-time-title {
+.modal .currentTimeTitle {
   color: var(--color-black);
   font-size: 24px;
   margin: 10px 0;
 }
 
-.modal .current-time-value {
+.modal .currentTimeValue {
   color: var(--color-black);
   font-size: 48px;
   font-weight: bold;
   margin: 20px 0;
 }
 
-.modal .work-start-question {
+.modal .workStartQuestion {
   color: var(--color-black);
   font-size: 16px;
   margin: 0 0 30px 0;
 }
 
-.modal .modal-buttons {
+.modal .modalButtons {
   display: flex;
   justify-content: center;
   gap: 30px;
   margin: 0 0 10px 0;
 }
 
-.modal .modal-buttons button {
+.modal .modalButtons button {
   padding: 10px 40px;
   border: none;
   border-radius: 5px;
@@ -331,37 +327,37 @@
   color: var(--color-white);
 }
 
-.modal .confirm-btn {
+.modal .confirmBtn {
   background-color: var(--color-dark-green);
 }
 
-.modal .cancel-btn {
+.modal .cancelBtn {
   background-color: var(--color-gray);
   color: #333;
 }
 
-.modal .confirm-btn:hover {
+.modal .confirmBtn:hover {
   background-color: var(--color-light-green);
 }
 
-.modal .cancel-btn:hover {
+.modal .cancelBtn:hover {
   background-color: #ccc;
 }
 
 /* 근태 목록 모달 스타일 */
 /* 근태목록 모달 */
-.modal .attendance-modal .modal-content {
+.modal .attendanceModal .modalContent {
   width: 80%;
   max-width: 500px;
   max-height: 800px;
   overflow-y: auto;
 }
 
-.modal .attendance-list {
+.modal .attendanceList {
   padding: 20px;
 }
 
-.modal .modal-header {
+.modal .modalHeader {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -369,12 +365,12 @@
   position: relative;
 }
 
-.modal .modal-header h2 {
+.modal .modalHeader h2 {
   text-align: center;
   margin: 0;
 }
 
-.modal .attendance-type-select {
+.modal .attendanceTypeSelect {
   position: absolute;
   right: 0;
   padding: 8px;
@@ -384,7 +380,7 @@
   cursor: pointer;
 }
 
-.modal .list-header {
+.modal .listHeader {
   display: flex;
   padding: 15px 15px 15px 70px;
   background-color: var(--color-dark-green);
@@ -392,22 +388,22 @@
   margin-bottom: 10px;
 }
 
-.modal .header-item {
+.modal .headerItem {
   flex: 1;
   color: var(--color-white);
 }
 
-.modal .header-item.title {
+.modal .headerItem.title {
   flex: 2;
 }
 
-.modal .list-items {
+.modal .listItems {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.modal .list-item {
+.modal .listItem {
   display: flex;
   align-items: center;
   padding: 15px;
@@ -415,7 +411,7 @@
   border: 1px solid var(--color-dark-green);
 }
 
-.modal .profile-circle {
+.modal .profileCircle {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -423,35 +419,35 @@
   margin-right: 15px;
 }
 
-.modal .item-content {
+.modal .itemContent {
   flex: 1;
   text-align: left;
 }
 
-.modal .item-content.title {
+.modal .itemContent.title {
   flex: 1.5;
 }
 
 /* 근태신청 모달 스타일 */
-.modal .add-attendance-btn-modal {
+.modal .addAttendanceBtnModal {
   width: 500px;
   padding: 20px;
   text-align: center;
 }
 
-.modal .attendance-form-modal h2 {
+.modal .attendanceFormModal h2 {
   margin-bottom: 30px;
   font-size: 24px;
 }
 
-.modal .attendance-type-buttons {
+.modal .attendanceTypeButtons {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.modal .type-btn {
+.modal .typeBtn {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -461,25 +457,25 @@
   transition: all 0.3s ease;
 }
 
-.modal .type-btn:hover {
+.modal .typeBtn:hover {
   background-color: var(--color-dark-green);
 }
 
-.modal .attendance-form {
+.modal .attendanceForm {
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
 }
 
-.modal .date-picker-container {
+.modal .datePickerContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
 }
 
-.modal .submit-btn {
+.modal .submitBtn {
   padding: 10px 40px;
   border: none;
   border-radius: 5px;
@@ -489,6 +485,6 @@
   font-size: 16px;
 }
 
-.modal .submit-btn:hover {
+.modal .submitBtn:hover {
   background-color: var(--color-light-green);
 }

@@ -1,7 +1,7 @@
 import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
-import "./mypage.css";
+import styles from "./mypage.module.css";
 
 class Component {
   constructor(target) {
@@ -43,64 +43,76 @@ class MyPage extends Component {
       this.state;
 
     return `
-    <div class="page-container">
+    <div class="${styles.pageContainer}">
       <div class="sidebar"></div> <!-- 사이드바 -->
-      <main class="content">
+      <main class="${styles.content}">
         <header>
           <h1>마이 페이지</h1>
         </header>
-      <div class = "wrapper">
+      <div class="${styles.wrapper}">
         <!-- 프로필 -->
-        <div class="grid-item section profile-section modal-trigger">
-          <p class="section-title">프로필</p>
+        <div class="${styles.gridItem} ${styles.section} ${
+      styles.profileSection
+    } ${styles.modalTrigger}">
+          <p class="${styles.sectionTitle}">프로필</p>
           <!-- 프로필 이미지, 정보 -->
         </div>
 
         <!-- 시간관리 -->
-        <div class="grid-item section time-management-section">
-          <div class="current-time">
+        <div class="${styles.gridItem} ${styles.section} ${
+      styles.timeManagementSection
+    }">
+          <div class="${styles.currentTime}">
             <p>현재시각</p>
-            <p class="current-time-value">--:--</p>
+            <p class="${styles.currentTimeValue}">--:--</p>
           </div>
-          <ul class="work-time-list">
-            <li class="work-time-item">
+          <ul class="${styles.workTimeList}">
+            <li class="${styles.workTimeItem}">
               <!-- 근무 시작 시간 -->
-              <p class="time-label">근무 시작</p>
-              <p class="time-value">${workStartTime || "-"}</p>
+              <p class="${styles.timeLabel}">근무 시작</p>
+              <p class="${styles.timeValue}">${workStartTime || "-"}</p>
             </li>
-            <li class="work-time-item">
+            <li class="${styles.workTimeItem}">
               <!-- 근무 종료 시간 -->
-              <p class="time-label">근무 종료</p>
-              <p class="time-value">${workEndTime || "-"}</p>
+              <p class="${styles.timeLabel}">근무 종료</p>
+              <p class="${styles.timeValue}">${workEndTime || "-"}</p>
             </li>
           </ul>
           <!-- 근무 시작 버튼 -->
-          <button class="modal-trigger btn work-btn" id="work-btn">
+          <button class="${styles.modalTrigger} ${styles.btn} ${
+      styles.workBtn
+    }" id="workBtn">
             <p>${isWorking ? "근무 종료" : "근무 시작"}</p>
           </button>
         </div>
 
         <!-- 근태관리 -->
-        <div class="grid-item section attendance-section">
+        <div class="${styles.gridItem} ${styles.section} ${
+      styles.attendanceSection
+    }">
           <!-- 근태 신청 내역 -->
-          <div class="attendance-list-section section modal-trigger">
-          <p class="section-title">근태 내역</p>
-            <div class="attendance-header">
-              <div class="header-item title">제목</div>
-              <div class="header-item type">종류</div>
-              <div class="header-item date">일자</div>
-              <div class="header-item writer">작성자</div>
+          <div class="${styles.attendanceListSection} ${styles.section} ${
+      styles.modalTrigger
+    }">
+          <p class="${styles.sectionTitle}">근태 내역</p>
+            <div class="${styles.attendanceHeader}">
+              <div class="${styles.headerItem} ${styles.title}">제목</div>
+              <div class="${styles.headerItem} ${styles.type}">종류</div>
+              <div class="${styles.headerItem} ${styles.date}">일자</div>
+              <div class="${styles.headerItem} ${styles.writer}">작성자</div>
             </div>
-            <div class="attendance-list">
+            <div class="${styles.attendanceList}">
               ${attendance
+                .slice() // 원본 배열을 변경하지 않기 위해 복사본을 생성
+                .reverse() // 배열을 역순으로 뒤집음
                 .map(
                   (item) => `
-                <div class="attendance-item">
-                  <div class="profile-circle"></div>
-                  <div class="item-content title">${item.title}</div>
-                  <div class="item-content type">${item.type}</div>
-                  <div class="item-content date">${item.date}</div>
-                  <div class="item-content writer">${item.writer}</div>
+                <div class="${styles.attendanceItem}">
+                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지" class="${styles.profileImage}" />
+                  <div class="${styles.itemContent} ${styles.title}">${item.title}</div>
+                  <div class="${styles.itemContent} ${styles.type}">${item.type}</div>
+                  <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
+                  <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
                 </div>
               `
                 )
@@ -108,7 +120,9 @@ class MyPage extends Component {
             </div>
           </div>
           <!-- 근태신청버튼 -->
-          <button class="add-attendance-btn btn modal-trigger">
+          <button class="${styles.addAttendanceBtn} ${styles.btn} ${
+      styles.modalTrigger
+    }">
             <p>+</p>
           </button>
       </main>
@@ -118,47 +132,52 @@ class MyPage extends Component {
      
 
       <!-- 근무모달 -->
-      <div class="modal work-btn-modal">
-        <div class="modal-content .work-btn-modal">
-          <span class="close">&times;</span>
+      <div class="${styles.modal} ${styles.workBtnModal}">
+        <div class="${styles.modalContent} ${styles.workBtnModal}">
+          <span class="${styles.close}">&times;</span>
           <!-- 모달 내용 -->
-          <h2 class="current-time-title">현재시각</h2>
-          <p class="current-time-value">--:--</p>
-          <p class="work-start-question">근무를 ${
-            this.state.isWorking ? "종료" : "시작"
-          }하시겠습니까?</p>
-          <div class="modal-buttons">
-            <button class="confirm-btn">확인</button>
-            <button class="cancel-btn">취소</button>
+          <h2 class="${styles.currentTimeTitle}">현재시각</h2>
+          <p class="${styles.currentTimeValue}">--:--</p>
+          <p class="${styles.workStartQuestion}">근무를 ${
+      this.state.isWorking ? "종료" : "시작"
+    }하시겠습니까?</p>
+          <div class="${styles.modalButtons}">
+            <button class="${styles.confirmBtn}">확인</button>
+            <button class="${styles.cancelBtn}">취소</button>
           </div>
         </div>
       </div>
 
       <!-- 근태모달 -->
-      <div class="modal attendance-modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <div class="attendance-list">
-            <div class="modal-header">
+      <div class="${styles.modal} ${styles.attendanceModal}">
+        <div class="${styles.modalContent}">
+          <span class="${styles.close}">&times;</span>
+          <div class="${styles.attendanceList}">
+            <div class="${styles.modalHeader}">
               <h2>근태 목록</h2>
             </div>
-            <div class="attendance-list-container">
-              <div class="list-header">
-                <span class="header-item title">제목</span>
-                <span class="header-item type">종류</span>
-                <span class="header-item writer">작성자</span>
+            <div class="${styles.attendanceListContainer}">
+              <div class="${styles.listHeader}">
+                <span class="${styles.headerItem} ${styles.title}">제목</span>
+                <span class="${styles.headerItem} ${styles.type}">종류</span>
+                <span class="${styles.headerItem} ${styles.date}">일자</span>
+                <span class="${styles.headerItem} ${
+      styles.writer
+    }">작성자</span>
               </div>
 
-            <div class="attendance-list">
+            <div class="${styles.attendanceList}">
               ${attendance
+                .slice() // 원본 배열을 변경하지 않기 위해 복사본을 생성
+                .reverse() // 배열을 역순으로 뒤집음
                 .map(
                   (item) => `
-                <div class="attendance-item">
-                  <div class="profile-circle"></div>
-                  <div class="item-content title">${item.title}</div>
-                  <div class="item-content type">${item.type}</div>
-                  <div class="item-content date">${item.date}</div>
-                  <div class="item-content writer">${item.writer}</div>
+                <div class="${styles.attendanceItem}">
+                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지" class="${styles.profileImage}" />
+                  <div class="${styles.itemContent} ${styles.title}">${item.title}</div>
+                  <div class="${styles.itemContent} ${styles.type}">${item.type}</div>
+                  <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
+                  <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
                 </div>
               `
                 )
@@ -171,26 +190,28 @@ class MyPage extends Component {
       </div>
 
       <!-- 근태신청모달 -->
-      <div class="modal add-attendance-btn-modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <div class="attendance-form">
+      <div class="${styles.modal} ${styles.addAttendanceBtnModal}">
+        <div class="${styles.modalContent}">
+          <span class="${styles.close}">&times;</span>
+          <div class="${styles.attendanceForm}">
             <h2>근태 신청</h2>
-            <div class="attendance-type-buttons">
-              <button class="type-btn">연차</button>
-              <button class="type-btn">반차</button>
-              <button class="type-btn">조퇴</button>
-              <button class="type-btn">기타</button>
+            <div class="${styles.attendanceTypeButtons}">
+              <button class="${styles.typeBtn}">연차</button>
+              <button class="${styles.typeBtn}">반차</button>
+              <button class="${styles.typeBtn}">조퇴</button>
+              <button class="${styles.typeBtn}">기타</button>
             </div>
-            <div class="attendance-form">
-              <div class="date-picker-container">
+            <div class="${styles.attendanceForm}">
+              <div class="${styles.datePickerContainer}">
                 <label for="start-date">시작일</label>
-                <input type="date" id="start-date" class="date-picker" />
+                <input type="date" id="start-date" class="${
+                  styles.datePicker
+                }" />
 
                 <label for="end-date">종료일</label>
-                <input type="date" id="end-date" class="date-picker" />
+                <input type="date" id="end-date" class="${styles.datePicker}" />
               </div>
-              <button class="submit-btn">신청</button>
+              <button class="${styles.submitBtn}">신청</button>
             
           </div>
         </div>
@@ -209,27 +230,23 @@ class MyPage extends Component {
   // 모달 초기화
   initModals() {
     const modals = {
-      profile: {
-        trigger: document.querySelector(".profile-section"),
-        modal: document.querySelector(".profile-modal"),
-      },
       workBtn: {
-        trigger: document.querySelector("#work-btn"),
-        modal: document.querySelector(".work-btn-modal"),
+        trigger: document.querySelector(`.${styles.workBtn}`),
+        modal: document.querySelector(`.${styles.workBtnModal}`),
       },
       attendance: {
-        trigger: document.querySelector(".attendance-list-section"),
-        modal: document.querySelector(".attendance-modal"),
+        trigger: document.querySelector(`.${styles.attendanceListSection}`),
+        modal: document.querySelector(`.${styles.attendanceModal}`),
       },
       addAttendance: {
-        trigger: document.querySelector(".add-attendance-btn"),
-        modal: document.querySelector(".add-attendance-btn-modal"),
+        trigger: document.querySelector(`.${styles.addAttendanceBtn}`),
+        modal: document.querySelector(`.${styles.addAttendanceBtnModal}`),
       },
     };
 
     Object.values(modals).forEach(({ trigger, modal }) => {
       if (!trigger || !modal) return;
-      const closeBtn = modal.querySelector(".close");
+      const closeBtn = modal.querySelector(`.${styles.close}`);
 
       trigger.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -256,7 +273,7 @@ class MyPage extends Component {
   // 시간 업데이트 초기화
   initTimeUpdate() {
     const currentTimeElements = document.querySelectorAll(
-      ".current-time-value"
+      `.${styles.currentTimeValue}`
     );
     if (!currentTimeElements.length) return;
 
@@ -279,12 +296,12 @@ class MyPage extends Component {
 
   // 근무 시작/종료 관리
   initWorkManagement() {
-    const workBtnModal = document.querySelector(".work-btn-modal");
+    const workBtnModal = document.querySelector(`.${styles.workBtnModal}`);
     if (!workBtnModal) return;
 
     // 확인 버튼 이벤트
-    const confirmBtn = workBtnModal.querySelector(".confirm-btn");
-    const cancelBtn = workBtnModal.querySelector(".cancel-btn");
+    const confirmBtn = workBtnModal.querySelector(`.${styles.confirmBtn}`);
+    const cancelBtn = workBtnModal.querySelector(`.${styles.cancelBtn}`);
 
     if (confirmBtn) {
       confirmBtn.addEventListener("click", () => {
@@ -320,14 +337,18 @@ class MyPage extends Component {
 
   // 근태 관리
   initAttendanceManagement() {
-    const addAttendanceBtn = document.querySelector(".add-attendance-btn");
+    const addAttendanceBtn = document.querySelector(
+      `.${styles.addAttendanceBtn}`
+    );
     const addAttendanceModal = document.querySelector(
-      ".add-attendance-btn-modal"
+      `.${styles.addAttendanceBtnModal}`
     );
     if (!addAttendanceBtn || !addAttendanceModal) return;
 
     // 근태 유형 버튼 이벤트
-    const typeButtons = addAttendanceModal.querySelectorAll(".type-btn");
+    const typeButtons = addAttendanceModal.querySelectorAll(
+      `.${styles.typeBtn}`
+    );
     typeButtons.forEach((button) => {
       button.addEventListener("click", (e) => {
         // 모든 버튼의 선택 상태를 먼저 제거
@@ -339,7 +360,7 @@ class MyPage extends Component {
     });
 
     // 신청 버튼 이벤트
-    const submitBtn = addAttendanceModal.querySelector(".submit-btn");
+    const submitBtn = addAttendanceModal.querySelector(`.${styles.submitBtn}`);
     if (submitBtn) {
       submitBtn.addEventListener("click", () => {
         const startDate = document.querySelector("#start-date").value;
