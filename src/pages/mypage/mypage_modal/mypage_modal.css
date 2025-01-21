@@ -1,0 +1,248 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%; /* 전체 화면 너비 */
+  height: 100%; /* 전체 화면 높이 */
+  background-color: rgba(0, 0, 0, 0.4); /* 반투명 검은 배경 */
+}
+
+.modal .modal-content {
+  width: 40%;
+  background-color: var(--color-beige); /* 베이지 배경으로 변경 */
+  padding: 20px;
+  border: 3px solid var(--color-dark-green);
+  border-radius: 60px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 50%; /* 뷰포트의 50% 아래 */
+  left: 50%; /* 뷰포트의 50% 오른쪽 */
+  transform: translate(-50%, -50%); /*자기 자신의 크기만큼 좌상단으로 이동*/
+  text-align: center;
+  min-width: fit-content;
+}
+
+.modal .close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #aaa;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.modal .close:hover {
+  color: var(--color-black);
+}
+/* 각 모달별 크기 조정 */
+
+/* 출퇴근관리 모달 스타일*/
+.modal .work-btn-modal .modal-content {
+  max-width: 500px;
+  text-align: center;
+  padding: 20px;
+}
+
+.modal .current-time-title {
+  color: var(--color-black);
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.modal .current-time-value {
+  color: var(--color-black);
+  font-size: 48px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.modal .work-start-question {
+  color: var(--color-black);
+  font-size: 16px;
+  margin: 0 0 30px 0;
+}
+
+.modal .modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 0 0 10px 0;
+}
+
+.modal .modal-buttons button {
+  padding: 10px 40px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--color-white);
+}
+
+.modal .confirm-btn {
+  background-color: var(--color-dark-green);
+}
+
+.modal .cancel-btn {
+  background-color: var(--color-gray);
+  color: #333;
+}
+
+.modal .confirm-btn:hover {
+  background-color: var(--color-light-green);
+}
+
+.modal .cancel-btn:hover {
+  background-color: #ccc;
+}
+
+/* 근태 목록 모달 스타일 */
+/* 근태목록 모달 */
+.modal .attendance-modal .modal-content {
+  width: 80%;
+  max-width: 500px;
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+.modal .attendance-list {
+  padding: 20px;
+}
+
+.modal .modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.modal .modal-header h2 {
+  text-align: center;
+  margin: 0;
+}
+
+.modal .attendance-type-select {
+  position: absolute;
+  right: 0;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.modal .list-header {
+  display: flex;
+  padding: 15px 15px 15px 70px;
+  background-color: var(--color-dark-green);
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.modal .header-item {
+  flex: 1;
+  color: var(--color-white);
+}
+
+.modal .header-item.title {
+  flex: 2;
+}
+
+.modal .list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal .list-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid var(--color-dark-green);
+}
+
+.modal .profile-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ddd;
+  margin-right: 15px;
+}
+
+.modal .item-content {
+  flex: 1;
+  text-align: left;
+}
+
+.modal .item-content.title {
+  flex: 1.5;
+}
+
+/* 근태신청 모달 스타일 */
+.modal .add-attendance-btn-modal {
+  width: 500px;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal .attendance-form-modal h2 {
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.modal .attendance-type-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.modal .type-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--color-light-green);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal .type-btn:hover {
+  background-color: var(--color-dark-green);
+}
+
+.modal .attendance-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.modal .date-picker-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.modal .submit-btn {
+  padding: 10px 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.modal .submit-btn:hover {
+  background-color: var(--color-light-green);
+}

@@ -1,7 +1,8 @@
 import "../../../reset.css";
 import "../../styles/global.css";
 import "../../styles/variables.css";
-import "./mypage.css";
+import "./mypage.module.css";
+import "./mypage_modal/mypage_modal.css";
 
 class Component {
   constructor(target) {
@@ -46,6 +47,9 @@ class MyPage extends Component {
     <div class="page-container">
       <div class="sidebar"></div> <!-- 사이드바 -->
       <main class="content">
+        <header>
+          <h1>마이 페이지</h1>
+        </header>
       <div class = "wrapper">
         <!-- 프로필 -->
         <div class="grid-item section profile-section modal-trigger">
@@ -80,7 +84,7 @@ class MyPage extends Component {
         <!-- 근태관리 -->
         <div class="grid-item section attendance-section">
           <!-- 근태 신청 내역 -->
-          <div class="attendance-list-section modal-trigger">
+          <div class="attendance-list-section section modal-trigger">
           <p class="section-title">근태 내역</p>
             <div class="attendance-header">
               <div class="header-item title">제목</div>
@@ -106,39 +110,72 @@ class MyPage extends Component {
           </div>
           <!-- 근태신청버튼 -->
           <button class="add-attendance-btn btn modal-trigger">
-            </p>+</p>
+            <p>+</p>
           </button>
       </main>
 
       <!-- 모달들을 여기로 이동 -->
-      <div class="modal profile-modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <h2>프로필 정보</h2>
-          <!-- 모달 내용 -->
-        </div>
-      </div>
+      <!-- 프로필모달 -->
+     
 
+      <!-- 근무모달 -->
       <div class="modal work-btn-modal">
-        <div class="modal-content">
+        <div class="modal-content .work-btn-modal">
           <span class="close">&times;</span>
-          <h2>근무 시작</h2>
           <!-- 모달 내용 -->
+          <h2 class="current-time-title">현재시각</h2>
+          <p class="current-time-value">--:--</p>
+          <p class="work-start-question">근무를 ${
+            this.state.isWorking ? "종료" : "시작"
+          }하시겠습니까?</p>
+          <div class="modal-buttons">
+            <button class="confirm-btn">확인</button>
+            <button class="cancel-btn">취소</button>
+          </div>
         </div>
       </div>
 
+      <!-- 근태모달 -->
       <div class="modal attendance-modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <h2>근태 내역</h2>
-          <!-- 모달 내용 -->
+          <div class="attendance-list">
+            <div class="modal-header">
+              <h2>근태 목록</h2>
+            </div>
+            <div class="attendance-list-container">
+              <div class="list-header">
+                <span class="header-item title">제목</span>
+                <span class="header-item type">종류</span>
+                <span class="header-item writer">작성자</span>
+              </div>
+
+            <div class="attendance-list">
+              ${attendance
+                .map(
+                  (item) => `
+                <div class="attendance-item">
+                  <div class="profile-circle"></div>
+                  <div class="item-content title">${item.title}</div>
+                  <div class="item-content type">${item.type}</div>
+                  <div class="item-content date">${item.date}</div>
+                  <div class="item-content writer">${item.writer}</div>
+                </div>
+              `
+                )
+                .join("")}
+              </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
+      <!-- 근태신청모달 -->
       <div class="modal add-attendance-btn-modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <div class="attendance-form-modal">
+          <div class="attendance-form">
             <h2>근태 신청</h2>
             <div class="attendance-type-buttons">
               <button class="type-btn">연차</button>
@@ -155,7 +192,7 @@ class MyPage extends Component {
                 <input type="date" id="end-date" class="date-picker" />
               </div>
               <button class="submit-btn">신청</button>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -193,7 +230,6 @@ class MyPage extends Component {
 
     Object.values(modals).forEach(({ trigger, modal }) => {
       if (!trigger || !modal) return;
-
       const closeBtn = modal.querySelector(".close");
 
       trigger.addEventListener("click", (e) => {
@@ -220,15 +256,22 @@ class MyPage extends Component {
 
   // 시간 업데이트 초기화
   initTimeUpdate() {
-    const currentTimeElement = document.querySelector(".current-time-value");
-    if (!currentTimeElement) return;
+    const currentTimeElements = document.querySelectorAll(
+      ".current-time-value"
+    );
+    if (!currentTimeElements.length) return;
 
     const updateTime = () => {
       const now = new Date();
       const hours = String(now.getHours()).padStart(2, "0");
       const minutes = String(now.getMinutes()).padStart(2, "0");
       const seconds = String(now.getSeconds()).padStart(2, "0");
-      currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
+      const timeString = `${hours}:${minutes}:${seconds}`;
+
+      // NodeList의 각 요소를 순회하면서 시간을 업데이트
+      currentTimeElements.forEach((element) => {
+        element.textContent = timeString;
+      });
     };
 
     updateTime();
@@ -237,28 +280,43 @@ class MyPage extends Component {
 
   // 근무 시작/종료 관리
   initWorkManagement() {
-    const workBtn = document.querySelector("#work-btn");
-    if (!workBtn) return;
+    const workBtnModal = document.querySelector(".work-btn-modal");
+    if (!workBtnModal) return;
 
-    workBtn.addEventListener("click", () => {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, "0");
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const currentTime = `${hours}:${minutes}`;
+    // 확인 버튼 이벤트
+    const confirmBtn = workBtnModal.querySelector(".confirm-btn");
+    const cancelBtn = workBtnModal.querySelector(".cancel-btn");
 
-      if (!this.state.isWorking) {
-        this.setState({
-          workStartTime: currentTime,
-          workEndTime: null,
-          isWorking: true,
-        });
-      } else {
-        this.setState({
-          workEndTime: currentTime,
-          isWorking: false,
-        });
-      }
-    });
+    if (confirmBtn) {
+      confirmBtn.addEventListener("click", () => {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const currentTime = `${hours}:${minutes}`;
+
+        if (!this.state.isWorking) {
+          this.setState({
+            workStartTime: currentTime,
+            workEndTime: null,
+            isWorking: true,
+          });
+        } else {
+          this.setState({
+            workEndTime: currentTime,
+            isWorking: false,
+          });
+        }
+        workBtnModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+    }
+
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", () => {
+        workBtnModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+    }
   }
 
   // 근태 관리

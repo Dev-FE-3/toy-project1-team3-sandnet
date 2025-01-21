@@ -1,49 +1,60 @@
 /* 메인 */
+.content {
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 flex 설정 */
+  height: 100vh; /* 전체 화면 높이 */
+}
+
 .wrapper {
+  flex: 1;
   display: grid;
-  grid-template-rows: 450px 500px; /* 각 행의 높이 최소 400px, 최대 40vh */
+  height: calc(100%);
+  grid-template-rows: minmax(200px, 1fr) minmax(200px, 1fr); /* 각 행의 높이를 minmax로 조정 */
   grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr); /* 각 열의 너비 최소 300px, 최대 1fr */
-  margin-left: 200px;
-  padding: 45px;
-  gap: 45px; /* 그리드 아이템 간격 추가 */
+  gap: 20px; /* 그리드 아이템 간격 추가 */
 }
 
 .grid-item {
   background-color: var(--color-beige);
-  border-radius: 60px;
-  padding: 40px;
+  border-radius: 40px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   /* margin: 10px; */
 }
+.section {
+  padding: 20px;
+}
 
 .section-title {
-  font-size: 24px;
+  font-size: 16px;
 }
 
 /* 프로필 */
 
 /* 출퇴근관리 */
+.time-management-section {
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  height: 100%;
+}
 .current-time {
   margin-bottom: 20px;
 }
 
 .current-time p:first-child {
-  font-size: 24px;
-  font-weight: bold;
 }
 
 .current-time-value {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: bold;
-  color: #333;
-  margin: 30px 0;
+  color: var(--color-black);
+  margin: 20px 0;
 }
 
 .work-time-list {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   list-style: none;
   padding: 0;
 }
@@ -53,36 +64,34 @@
 }
 
 .time-label {
-  margin-bottom: 8px;
 }
 
 .time-value {
   width: 100px;
   font-weight: bold;
-  font-size: 30px;
-  margin: 10px 0;
+  font-size: 24px;
+  margin: 5px 0;
 }
 
 .work-btn {
-  font-size: 20px;
   background-color: var(--color-dark-green);
   color: var(--color-white);
-  font-weight: bold;
   border: none;
   border-radius: 30px;
-  width: 130px; /* 버튼 너비 고정 */
+  width: 100px; /* 버튼 너비 고정 */
   display: block; /* 블록 요소로 변경 */
-  margin: 0 auto; /* 좌우 마진을 auto로 설정하여 중앙 정렬 */
-  padding: 20px;
+  margin: 0 auto 20px; /* 좌우 마진을 auto로 설정하여 중앙 정렬 */
+  padding: 10px;
 }
 
 /* 근태*/
 .attendance-section {
   position: relative;
-  padding: 20px;
-  display: block;
+  display: flex;
   grid-column: 1 / span 2; /* 그리드 아이템 너비 설정 */
   overflow: hidden;
+  padding: 0;
+  height: 100%;
 }
 
 .attendance-section .section-title {
@@ -90,17 +99,15 @@
 }
 
 .attendance-list-section {
-  width: calc(100% + 40px);  /* padding 값을 고려해서 너비 조정 */
-  height: calc(100% + 40px);  /* padding 값을 고려해서 높이 조정 */
-  padding: 40px;
-  box-sizing: border-box;
-  margin: -20px;
+  width: 100%; /* 너비를 100%로 설정 */
+  height: 100%; /* 높이를 100%로 설정 */
+  padding: 20px; /* 패딩 추가 */
+  font-size: 14px;
 }
 
 .attendance-header {
   display: flex;
-  padding: 15px 0;
-  margin: 0 15px 10px 70px;
+  margin: 0 15px 10px 60px;
 }
 
 .header-item {
@@ -113,13 +120,12 @@
 }
 
 .attendance-list {
-  margin-top: 20px;
 }
 
 .attendance-item {
   display: flex;
   align-items: center;
-  padding: 15px;
+  padding: 5px;
   background-color: var(--color-light-green);
   border-radius: 10px;
   margin-bottom: 10px;
@@ -146,21 +152,24 @@
   position: absolute;
   bottom: 20px;
   right: 20px;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background-color: var(--color-dark-green);
   color: var(--color-white);
   border: none;
-  font-size: 50px;
   display: flex;
-  align-items: center;
+  align-items: center; /* 수직 중앙 정렬 */
   justify-content: center;
   padding: 0;
   line-height: 1;
   z-index: 1;
 }
-
+.add-attendance-btn p {
+  line-height: 1;
+  font-size: 50px;
+  padding-top: 10px;
+}
 .add-attendance-btn:hover {
   background-color: var(--color-light-green);
 }
@@ -177,7 +186,7 @@
 }
 /* 프로필 모달 */
 
-.profile-modal .modal-content {
+/* .profile-modal .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
@@ -187,20 +196,9 @@
   border-radius: 5px;
   position: relative;
 }
+ */
 
-/* 공통 모달 스타일 */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  left: 0;
-  top: 0;
-  width: 100%; /* 전체 화면 너비 */
-  height: 100%; /* 전체 화면 높이 */
-  background-color: rgba(0, 0, 0, 0.4); /* 반투명 검은 배경 */
-}
-
-.modal .modal-content {
+/* .modal .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
@@ -209,10 +207,10 @@
   max-width: 500px;
   border-radius: 5px;
   position: relative;
-}
+} */
 
 /* 닫기 버튼 스타일 수정 */
-.modal .close {
+/* .modal .close {
   position: absolute;
   right: 20px;
   top: 10px;
@@ -224,15 +222,14 @@
   height: 30px;
   line-height: 30px;
   text-align: center;
-  /* z-index: 10; */
-}
+} */
 
-.modal .close:hover {
+/* .modal .close:hover {
   color: #000;
-}
+} */
 
 /* 각 모달별 특정 스타일 */
-.work-btn-modal .modal-content {
+/* .work-btn-modal .modal-content {
   max-width: 400px;
 }
 
@@ -242,4 +239,4 @@
 
 .add-attendance-btn-modal .modal-content {
   max-width: 700px;
-}
+} */
