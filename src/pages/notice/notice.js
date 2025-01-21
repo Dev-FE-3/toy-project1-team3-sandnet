@@ -1,8 +1,5 @@
-import "../../../reset.css";
-import "../../styles/global.css";
-import "../../styles/variables.css";
 import "./notice.css";
-import Sidebar from "../../components/Sidebar.js";
+import Sidebar from "@/components/navigation/sidebar";
 
 
 class Component {
@@ -328,6 +325,6 @@ class NoitcePage extends Component {
 }
 
 // 앱 실행
-new NoitcePage(document.querySelector('#app'));
+// new NoitcePage(document.querySelector('#page-container'));
 
 export default NoitcePage; 

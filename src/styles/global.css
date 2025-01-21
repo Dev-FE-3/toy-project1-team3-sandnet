@@ -25,13 +25,21 @@ h1 {
   color: var(--color-black);
 }
 
-.page-container {
+#page-container {
   display: flex;
   height: 100vh;
 }
 
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+
 /* 사이드바 스타일 */
-.sidebar {
+/* .sidebar {
   width: 250px;
   height: 90vh;
   margin: auto 15px;
@@ -45,10 +53,10 @@ h1 {
   border: 5px solid var(--color-dark-green);
   border-radius: 2rem;
   box-sizing: border-box;
-}
+} */
 
 /* 사이드바 로고 스타일 */
-.sidebar-logo {
+/* .sidebar-logo {
   margin-top: 40px;
   margin-bottom: 60px;
   width: 180px;
@@ -92,26 +100,12 @@ h1 {
 .sidebar li:hover, .sidebar li.active {
   background-color: var(--color-dark-green);
   color: var(--color-white);
-}
+} */
 
 /* 메인 컨텐츠 영역 */
-.content {
-  flex: 1;
-  margin-left: 280px;
-  padding: 2rem;
-  box-sizing: border-box;
-}
 
-.my-content {
-  background-color: var(--color-white);
-  padding: 2rem;
-  border: 5px solid var(--color-dark-green);
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  height: calc(100vh - 220px);
-  display: flex;
-  flex-direction: column;
-}
+
+
 
 /* 검색 영역 */
 .search-container {

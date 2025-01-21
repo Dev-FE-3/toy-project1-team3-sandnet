@@ -1,8 +1,4 @@
-import "../../../reset.css";
-import "../../styles/global.css";
-import "../../styles/variables.css";
 import styles from './listing.module.css';
-import Sidebar from "../../components/Sidebar.js";
 import SearchBar from '@/components/SearchBar';
 import Pagination from '@/components/Pagination';
 
@@ -10,9 +6,9 @@ import Pagination from '@/components/Pagination';
 class Component {
   constructor(target) {
     this.target = target;
-    this.setup();
-    this.render();
-    this.setEvent();
+    // this.setup();
+    // this.render();
+    // this.setEvent();
   }
 
   setup() {}
@@ -29,6 +25,11 @@ class Component {
 }
 
 class ListingPage extends Component {
+  constructor(target) {
+    super(target);
+    this.setup();
+  }
+
   setup() {
     this.state = {
       employees: [
@@ -263,19 +264,17 @@ class ListingPage extends Component {
   // 페이지네이션 버튼 렌더링 부분 수정
   template() {
     const currentEmployees = this.getCurrentPageEmployees();
-    const sidebar = new Sidebar('listing');
+    // const sidebar = new Sidebar('listing');
     const totalEmployees = this.filterEmployees().length;
     const showPagination = totalEmployees > this.state.itemsPerPage; // 8개 초과일 때만 페이지네이션 표시
     
     return `
-      <div class="page-container">
-        ${sidebar.template()}
-        <main class="content">
+        <main class="main-content">
           <header>
             <h1>직원목록</h1>
             ${this.searchBar.template()}
           </header>
-          <div class="my-content">
+          <div class="${styles.myContent}">
             <div class="${styles.teamHeader}">
               <button>Edit</button>
             </div>
@@ -316,30 +315,29 @@ class ListingPage extends Component {
             ` : ''}
           </div>
         </main>
-      </div>
     `;
   }
 
   setEvent() {
     // 사이드바 이벤트 설정
-    const sidebar = new Sidebar('listing');
-    sidebar.setEvent(this.target);
+    // const sidebar = new Sidebar('listing');
+    // sidebar.setEvent(this.target);
 
-    this.searchBar.setEvent(this.target);
-    this.pagination.setEvent(this.target);
+    // this.searchBar.setEvent(this.target);
+    // this.pagination.setEvent(this.target);
 
     // 삭제 버튼 이벤트
-    this.target.addEventListener('click', (e) => {
-      if (e.target.classList.contains('delete-btn')) {
-        const tr = e.target.closest('tr');
-        const id = tr.dataset.id;
-        console.log('Delete employee:', id);
-      }
-    });
+    // this.target.addEventListener('click', (e) => {
+    //   if (e.target.classList.contains('delete-btn')) {
+    //     const tr = e.target.closest('tr');
+    //     const id = tr.dataset.id;
+    //     console.log('Delete employee:', id);
+    //   }
+    // });
   }
 }
 
 // 앱 실행
-new ListingPage(document.querySelector('#app'));
+// new ListingPage(document.querySelector('#page-container'));
 
 export default ListingPage; 

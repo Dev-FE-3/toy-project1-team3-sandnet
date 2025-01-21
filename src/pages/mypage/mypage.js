@@ -1,8 +1,5 @@
-import "../../../reset.css";
-import "../../styles/global.css";
-import "../../styles/variables.css";
 import "./mypage.css";
-import Sidebar from "../../components/Sidebar.js";
+import Sidebar from "@/components/navigation/sidebar";
 
 class Component {
   constructor(target) {

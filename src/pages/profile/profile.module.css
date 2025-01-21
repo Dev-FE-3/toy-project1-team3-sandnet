@@ -1,0 +1,248 @@
+/* main {
+  display: flex;
+  width: calc(100vw - var(--sidebar-width));
+  height: 100vh;
+  margin-left: var(--sidebar-width);
+  background: #c7c7c7;
+  padding: 2rem;
+  box-sizing: border-box;
+} */
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
+.primaryProfileContainer {
+  width: 100%;
+  height: fit-content;
+  border: 2px solid #c7c7c7;
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.primaryProfileContainer header {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  position: relative;
+  width: 100%;
+}
+
+.primaryProfileContainer img {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.profileInfo h1 {
+  font-size: 2rem;
+  font-weight: 700; /* 또는 bold */
+  color: #333;
+}
+
+.editButton {
+  margin-left: auto;
+}
+
+.profileDetailContainer {
+  width: 100%;
+  height: fit-content;
+  border: 2px solid #c7c7c7;
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 2rem;
+  margin-top: 2rem;
+  background: #fff;
+}
+
+.personalInfoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #c7c7c7;
+  border-radius: 0.5rem;
+  background: none;
+  color: #8b8b8b;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+i {
+  font-size: 1.2rem;
+}
+
+&:hover {
+  color: #333;
+}
+
+.personalInfo-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;    
+}
+
+.infoGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.infoItem.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.infoItem label {
+  color: #666;
+  font-size: 1rem;
+}
+
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #c7c7c7;
+  border-radius: 0.5rem;
+  background: none;
+  color: #8b8b8b;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.editButton i {
+  font-size: 1.2rem;
+}
+
+.editButton:hover {
+  color: #333;
+}
+
+.submenu {
+  display: none; /* 기본적으로 숨김 */
+  padding-left: 20px; /* 서브메뉴 들여쓰기 */
+}
+
+.menuItem.active + .submenu {
+  display: block; /* 활성화된 메뉴의 서브메뉴 표시 */
+}
+
+.submenuItem {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #f6f6f6;
+  margin-left: 20px; /* 들여쓰기 */
+  position: relative; /* 자식 요소의 절대 위치를 위한 설정 */
+}
+
+.line {
+  position: absolute; /* 절대 위치 설정 */
+  left: -10px; /* 메뉴명 왼쪽에 위치 */
+  top: 0; /* 상단 정렬 */
+  width: 2px;
+  height: 100%; /* 부모 요소의 높이에 맞춤 */
+  background: black; /* 줄 색상 */
+}
+
+.submenuItem a {
+  color: #757575; /* 기본 텍스트 색상 */
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+.submenuItem a:hover {
+  color: black; /* 호버 시 텍스트 색상 변경 */
+}
+
+.logoContainer {
+  text-align: center; /* 중앙 정렬 */
+  font-size: 2.5rem; /* 글자 크기 조정 */
+  font-weight: bold; /* 글자 두께 조정 */
+}
+
+.breadColor {
+  color: #f8bd64; /* 햄버거 빵 색깔 */
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.gradientText {
+  background: linear-gradient(to right, #afd6b8, #055d20, #49c064);
+  -webkit-background-clip: text; /* 텍스트에 그라데이션 적용 */
+  -webkit-text-fill-color: transparent; /* 텍스트 색상 투명하게 설정 */
+  margin: 0 2px; /* 좌우 여백 추가하여 간격 조정 */
+}
+
+@media all and (max-width: 450px) {
+  .sidebar {
+    padding-top: 15px;
+    width: 5rem;
+
+    a {
+      font-size: 1.5rem;
+    }
+
+    i {
+      display: block;
+    }
+
+    span.menu-name {
+      display: none;
+    }
+    main {
+      margin-left: 10rem; /* sidebar width만큼 */
+      padding: 1rem;
+    }
+  }
+
+  main {
+    margin-left: 5rem;
+    width: calc(100% - 5rem); /* 모바일에서는 좁아진 사이드바 너비 반영 */
+  }
+}
