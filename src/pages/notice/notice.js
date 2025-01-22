@@ -1,4 +1,4 @@
-import styles from "./notice.module.css";
+import styles from './notice.module.css';
 import { noticeData } from '@/data/noticeData.js';
 
 class Component {
@@ -34,8 +34,7 @@ class NoticePage extends Component {
     this.cards = noticeData.slice(0);
     this.filteredCards = [...this.cards];
   }
-  
-  
+
   createCardHTML(card) {
     return `
       <div class="${styles.card}" data-notice-id="${card.id}">
@@ -44,9 +43,7 @@ class NoticePage extends Component {
         <p>${card.content}</p>
       </div>
     `;
-  };
-    
-
+  }
 
   template() {
     return `
@@ -61,14 +58,14 @@ class NoticePage extends Component {
 
         <div class="my-content green-border">
           <section class="${styles.cards}">
-          ${this.filteredCards.map((card) => this.createCardHTML(card)).join("")}
+          ${this.filteredCards.map((card) => this.createCardHTML(card)).join('')}
           </section>
         </div>
 
         <!--card modal-->
         <div class="${styles.modalContainer} ${styles.hidden}">
           <div class="${styles.modalContent}">
-            <span class="${styles.modalCloseButton} close-icon material-icons">close</span>
+            <span class="${styles.close} close-icon material-icons">close</span>
             <div class="${styles.modalArea}">
               <div  class="${styles.modalImage}"></div>
               <div class="${styles.modalTextContent}">
@@ -86,27 +83,26 @@ class NoticePage extends Component {
   setEvent() {
     // console.log("NoticePage ~ setup ~ filteredCards: ", this.filteredCards);
 
-    this.initializeModal();
-    this.initializeCards();
+    this.initModal();
+    this.initCards();
   }
 
-  initializeModal() {
-    const modals = [
-      {
+  //모달 초기화
+  initModal() {
+    const modals = {
+      card: {
         trigger: document.querySelectorAll(`.${styles.card}`),
         modal: document.querySelector(`.${styles.modalContainer}`),
       },
-    ];
+    };
 
-    modals.forEach(({ trigger, modal }) => {
+    Object.values(modals).forEach(({ trigger, modal }) => {
       if (!trigger || !modal) return;
-
-      const closeBtn = modal.querySelector(`.${styles.modalCloseButton}`);
+      const closeBtn = modal.querySelector(`.${styles.close}`);
 
       // 트리거 클릭 시 모달 열기
       trigger.forEach((card) => {
-        card.addEventListener('click', (e) => {
-          e.stopPropagation(); // 이벤트 전파 막기
+        card.addEventListener('click', () => {
           this.openModal(card); // openModal 사용
           modal.style.display = 'flex';
           document.body.style.overflow = 'hidden';
@@ -131,7 +127,7 @@ class NoticePage extends Component {
     });
   }
 
-  initializeCards() {
+  initCards() {
     const cards = document.querySelectorAll(`.${styles.card}`);
     cards.forEach((card) => this.setupCard(card));
   }

@@ -150,7 +150,7 @@
   color: #555555;
 }
 
-.modalCloseButton {
+.close {
   position: absolute;
   top: 20px;
   right: 20px;

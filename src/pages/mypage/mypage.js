@@ -288,9 +288,8 @@ class MyPage extends Component {
       if (!trigger || !modal) return;
       const closeBtn = modal.querySelector(`.${styles.close}`);
 
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        modal.style.display = 'block';
+      trigger.addEventListener('click', () => {
+        modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
       });
 
