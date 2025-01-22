@@ -1,10 +1,4 @@
 /* 메인 */
-.content {
-  display: flex;
-  flex-direction: column; /* 세로 방향으로 flex 설정 */
-  height: 100vh; /* 전체 화면 높이 */
-}
-
 .wrapper {
   flex: 1;
   display: grid;
@@ -30,6 +24,59 @@
 }
 
 /* 프로필 */
+
+/* 프로필 */
+.profileContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  height: auto;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+.profileImageName {
+  display: flex;
+  flex-direction: column;
+}
+
+.myprofileImage {
+  width: 10vw;
+  min-width: 100px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #9f9f9f;
+  aspect-ratio: 1;
+}
+
+.profileName {
+  margin-top: 30px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.profileInfo {
+  list-style: none;
+  font-size: 1rem;
+  color: #333;
+  
+
+  li {
+    display: flex;
+    margin:10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    line-height: 50px;
+  }
+
+  .materialIcons {
+    margin-right: 20px;
+    color: #055d20;
+    line-height: 50px;
+  }
+} 
 
 /* 출퇴근관리 */
 .timeManagementSection {

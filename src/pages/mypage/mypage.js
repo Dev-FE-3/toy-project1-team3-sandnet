@@ -1,6 +1,3 @@
-import "../../../reset.css";
-import "../../styles/global.css";
-import "../../styles/variables.css";
 import styles from "./mypage.module.css";
 
 class Component {
@@ -41,21 +38,35 @@ class MyPage extends Component {
   template() {
     const { attendance, writer, workStartTime, workEndTime, isWorking } =
       this.state;
+    
 
     return `
-    <div class="page-container"> <!-- global.css -->
-      <div class="sidebar"></div> <!-- 사이드바 -->
-      <main class="content">
+      <main class="main-content">
         <header>
           <h1>마이 페이지</h1>
         </header>
-      <div class="${styles.wrapper}">
+        <div class="my-content green-border">
+      <div class = "wrapper">
         <!-- 프로필 -->
         <div class="${styles.gridItem} ${styles.section} ${
       styles.profileSection
     } ${styles.modalTrigger}">
           <p class="${styles.sectionTitle}">프로필</p>
           <!-- 프로필 이미지, 정보 -->
+          <div class="${styles.profileContainer}">
+            <div class="${styles.profileImageName}">
+              <img class="${styles.myprofileImage}" src="./src/assets/images/employee.jpg" alt="사용자 프로필 이미지"></img>
+              <div class="${styles.profileName}">박샌드</div>
+            </div>
+            <div>
+              <ul class="${styles.profileInfo}">
+                <li><span class="${styles.materialIcons}">phone</span>010-1234-1234</li>
+                <li><span class="${styles.materialIcons}">work</span>홀 매니저</li>
+                <li><span class="${styles.materialIcons}">email</span>yummy@sandwish.com</li>
+                <li><span class="${styles.materialIcons}">location_on</span>123 Main Street, City</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <!-- 시간관리 -->
@@ -192,6 +203,7 @@ class MyPage extends Component {
               </div>
             </div>
           </div>
+          </div>
         </div>
       </div>
 
@@ -221,8 +233,7 @@ class MyPage extends Component {
             
           </div>
         </div>
-      </div>
-    </div>
+    
     `;
   }
 
@@ -231,6 +242,14 @@ class MyPage extends Component {
     this.initTimeUpdate();
     this.initWorkManagement();
     this.initAttendanceManagement();
+
+    //프로필 클릭 시 페이지 이동
+    // const profileSection = document.querySelector(".profile-section");
+    // if (profileSection) {
+    //   profileSection.addEventListener("click", () => {
+    //     window.location.href = "";
+    //   });
+    // }
   }
 
   // 모달 초기화

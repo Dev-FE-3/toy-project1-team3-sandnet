@@ -1,0 +1,108 @@
+/* .pageContainer {
+  display: flex;
+  height: 100vh;
+} */
+
+
+.myContent {
+  background-color: var(--color-white);
+  padding: 2rem;
+  border: 5px solid var(--color-dark-green);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  height: calc(100vh - 220px);
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* 팀 헤더 영역 */
+.teamHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.teamHeader button {
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.teamHeader button:hover {
+  background-color: var(--color-light-green);
+}
+
+/* 테이블 스타일 */
+.tableContainer {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--color-white);
+  border-radius: 10px;
+}
+
+.teamTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.teamTable th {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-white);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 5px solid var(--color-dark-green);
+}
+
+.teamTable td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-gray);
+  vertical-align: middle;
+}
+
+.teamTable tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* 프로필 이미지 */
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* 액션 버튼 */
+.actions button {
+  background-color: red;
+  color: var(--color-white);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+/* 스크롤바 스타일 */
+.tableContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+} 
