@@ -17,7 +17,7 @@
 }
 
 /* 사이드바 로고 스타일 */
-.sidebar-logo {
+.sidebarLogo {
   margin-top: 4rem;
   width: 180px;
   height: 60px;
@@ -28,18 +28,20 @@
   transition: transform 0.2s ease;
 }
 
-.sidebar-logo img {
+.sidebarLogo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.sidebar-logo:hover {
+.sidebarLogo:hover {
   transform: scale(1.08);
 }
 
+
+
 /* 네비게이션 메뉴 스타일 */
-.nav-menu {
+.navMenu {
   list-style: none;
   width: 90%;
   display: flex;
@@ -49,7 +51,7 @@
   padding-bottom: 2rem;
 }
 
-.nav-menu li {
+.navMenu li {
   padding: 1rem;
   color: var(--color-dark-green);
   text-align: center;
@@ -58,7 +60,7 @@
   transition: all 0.3s ease;
 }
 
-.nav-menu li a {
+.navMenu li a {
   color: inherit;
   text-decoration: none;
   display: block;
@@ -66,8 +68,8 @@
   font-size: 1.1rem;
 }
 
-.nav-menu li:hover, 
-.nav-menu li.active {
+.navMenu li:hover, 
+.navMenu li.active {
   background-color: var(--color-dark-green);
   color: var(--color-white);
 } 

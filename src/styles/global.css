@@ -25,28 +25,28 @@ h1 {
   color: var(--color-black);
 }
 
-.page-container {
-  display: flex;
-  height: 100vh;
-}
 
-
-/* 메인 컨텐츠 영역 */
-.content {
+.main-content {
   flex: 1;
   margin-left: 280px;
   padding: 2rem;
+}
+
+.green-border {
+  border: 5px solid var(--color-dark-green);
+  border-radius: 2rem;
   box-sizing: border-box;
 }
 
 .my-content {
-  background-color: var(--color-white);
-  padding: 2rem;
-  border: 5px solid var(--color-dark-green);
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  height: calc(100vh - 220px);
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 220px);
+  background-color: var(--color-white);
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
+
+
+
 

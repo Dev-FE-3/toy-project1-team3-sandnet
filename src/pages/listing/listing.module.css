@@ -1,3 +1,21 @@
+/* .pageContainer {
+  display: flex;
+  height: 100vh;
+} */
+
+
+.myContent {
+  background-color: var(--color-white);
+  padding: 2rem;
+  border: 5px solid var(--color-dark-green);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  height: calc(100vh - 220px);
+  display: flex;
+  flex-direction: column;
+}
+
+
 /* 팀 헤더 영역 */
 .teamHeader {
   display: flex;
@@ -47,6 +65,7 @@
 .teamTable td {
   padding: 1rem;
   border-bottom: 1px solid var(--color-gray);
+  vertical-align: middle;
 }
 
 .teamTable tr:hover {
