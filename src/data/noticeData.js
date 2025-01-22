@@ -1,7 +1,7 @@
 const noticeData = [
   {
     id: 1,
-    image: "./src/assets/images/img1.png",
+    image: "src/assets/images/img1.png",
     title: "주간 근무 스케줄 공지",
     content: `안녕하세요, 모든 직원 여러분!
 
@@ -23,7 +23,7 @@ const noticeData = [
   },
   {
     id: 2,
-    image: "./src/assets/images/img2.png",
+    image: "src/assets/images/img2.png",
     title: "신메뉴 출시",
     content: `안녕하세요!
               이번 주에는 고객들에게 더욱 즐거운 경험을 제공하기 위해 신메뉴가 출시됩니다. 새롭게 추가된 메뉴에 대한 세부 사항은 아래를 참고해주세요.

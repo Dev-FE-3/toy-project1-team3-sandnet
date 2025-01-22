@@ -1,16 +1,17 @@
-import styles from "./mypage.module.css";
+import styles from './mypage.module.css';
 
 class Component {
   constructor(target) {
     this.target = target;
-    this.setup();
-    this.render();
-    this.setEvent();
+    // this.setup();
+    // this.render();
+    // this.setEvent();
+    // this.setState();
   }
 
   setup() {}
   template() {
-    return "";
+    return '';
   }
   render() {
     this.target.innerHTML = this.template();
@@ -18,16 +19,34 @@ class Component {
   setEvent() {}
   setState(newState) {
     this.state = { ...this.state, ...newState };
-    this.render();
-    this.setEvent();
+    // this.render();
+    // this.setEvent();
   }
 }
 
 class MyPage extends Component {
+  constructor(target) {
+    super(target);
+    this.setup();
+    this.setEvent();
+    this.setState();
+  }
+
+  render() {
+    this.target.innerHTML = this.template();
+  }
+
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
+
+    // this.render();
+    // this.setEvent();
+  }
+
   setup() {
     this.state = {
       attendance: [], // 근태 내역
-      writer: "장은혜", // 작성자
+      writer: '장은혜', // 작성자
 
       workStartTime: null, // 근무 시작 시간
       workEndTime: null, // 근무 종료 시간
@@ -36,9 +55,8 @@ class MyPage extends Component {
   }
 
   template() {
-    const { attendance, writer, workStartTime, workEndTime, isWorking } =
-      this.state;
-    
+    const { attendance, writer, workStartTime, workEndTime, isWorking } = this.state;
+    console.log('MyPage ~ template ~ workStartTime: ', workStartTime);
 
     return `
       <main class="main-content">
@@ -46,16 +64,18 @@ class MyPage extends Component {
           <h1>마이 페이지</h1>
         </header>
         <div class="my-content green-border">
-      <div class = "wrapper">
+      <div class = "${styles.wrapper}">
         <!-- 프로필 -->
-        <div class="${styles.gridItem} ${styles.section} ${
-      styles.profileSection
-    } ${styles.modalTrigger}">
+        <div class="${styles.gridItem} ${styles.section} ${styles.profileSection} ${
+      styles.modalTrigger
+    }">
           <p class="${styles.sectionTitle}">프로필</p>
           <!-- 프로필 이미지, 정보 -->
           <div class="${styles.profileContainer}">
             <div class="${styles.profileImageName}">
-              <img class="${styles.myprofileImage}" src="./src/assets/images/employee.jpg" alt="사용자 프로필 이미지"></img>
+              <img class="${
+                styles.myprofileImage
+              }" src="./src/assets/images/employee.jpg" alt="사용자 프로필 이미지"></img>
               <div class="${styles.profileName}">박샌드</div>
             </div>
             <div>
@@ -63,16 +83,16 @@ class MyPage extends Component {
                 <li><span class="${styles.materialIcons}">phone</span>010-1234-1234</li>
                 <li><span class="${styles.materialIcons}">work</span>홀 매니저</li>
                 <li><span class="${styles.materialIcons}">email</span>yummy@sandwish.com</li>
-                <li><span class="${styles.materialIcons}">location_on</span>123 Main Street, City</li>
+                <li><span class="${
+                  styles.materialIcons
+                }">location_on</span>123 Main Street, City</li>
               </ul>
             </div>
           </div>
         </div>
 
         <!-- 시간관리 -->
-        <div class="${styles.gridItem} ${styles.section} ${
-      styles.timeManagementSection
-    }">
+        <div class="${styles.gridItem} ${styles.section} ${styles.timeManagementSection}">
           <div class="${styles.currentTime}">
             <p>현재시각</p>
             <div class="${styles.currentTimeValue}">
@@ -83,30 +103,24 @@ class MyPage extends Component {
             <li class="${styles.workTimeItem}">
               <!-- 근무 시작 시간 -->
               <p class="${styles.timeLabel}">근무 시작</p>
-              <p class="${styles.timeValue}">${workStartTime || "-"}</p>
+              <p class="${styles.timeValue} work-start-time">${workStartTime || '-'}</p>
             </li>
             <li class="${styles.workTimeItem}">
               <!-- 근무 종료 시간 -->
               <p class="${styles.timeLabel}">근무 종료</p>
-              <p class="${styles.timeValue}">${workEndTime || "-"}</p>
+              <p class="${styles.timeValue} work-end-time">${workEndTime || '-'}</p>
             </li>
           </ul>
           <!-- 근무 시작 버튼 -->
-          <button class="${styles.modalTrigger} ${styles.btn} ${
-      styles.workBtn
-    }" id="workBtn">
-            <p>${isWorking ? "근무 종료" : "근무 시작"}</p>
+          <button class="${styles.modalTrigger} ${styles.btn} ${styles.workBtn}" id="workBtn">
+            <p class="work-btn-text">${isWorking ? '근무 종료' : '근무 시작'}</p>
           </button>
         </div>
 
         <!-- 근태관리 -->
-        <div class="${styles.gridItem} ${styles.section} ${
-      styles.attendanceSection
-    }">
+        <div class="${styles.gridItem} ${styles.section} ${styles.attendanceSection}">
           <!-- 근태 신청 내역 -->
-          <div class="${styles.attendanceListSection} ${styles.section} ${
-      styles.modalTrigger
-    }">
+          <div class="${styles.attendanceListSection} ${styles.section} ${styles.modalTrigger}">
           <p class="${styles.sectionTitle}">근태 목록</p>
             <div class="${styles.attendanceHeader}">
             <div class="${styles.headerItem} ${styles.writer}">작성자</div>
@@ -127,15 +141,13 @@ class MyPage extends Component {
                   <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
                   <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
                 </div>
-              `
+              `,
                 )
-                .join("")}
+                .join('')}
             </div>
           </div>
           <!-- 근태신청버튼 -->
-          <button class="${styles.addAttendanceBtn} ${styles.btn} ${
-      styles.modalTrigger
-    }">
+          <button class="${styles.addAttendanceBtn} ${styles.btn} ${styles.modalTrigger}">
             <p>+</p>
           </button>
       </main>
@@ -154,7 +166,7 @@ class MyPage extends Component {
             <span>-</span>:<span>-</span>:<span>-</span>
           </div>
           <p class="${styles.workStartQuestion}">근무를 ${
-      this.state.isWorking ? "종료" : "시작"
+      this.state.isWorking ? '종료' : '시작'
     }하시겠습니까?</p>
           <div class="${styles.modalButtons}">
             <button class="${styles.confirmBtn}">확인</button>
@@ -173,14 +185,10 @@ class MyPage extends Component {
             </div>
             <div class="${styles.attendanceListContainer}">
               <div class="${styles.listHeader}">
-                <span class="${styles.headerItem} ${
-      styles.writer
-    }">작성자</span>
+                <span class="${styles.headerItem} ${styles.writer}">작성자</span>
                 <span class="${styles.headerItem} ${styles.type}">종류</span>
                 <span class="${styles.headerItem} ${styles.date}">일자</span>
-                <span class="${styles.headerItem} ${
-      styles.applyDate
-    }">신청일</span>
+                <span class="${styles.headerItem} ${styles.applyDate}">신청일</span>
               </div>
 
             <div class="${styles.attendanceList}">
@@ -196,9 +204,9 @@ class MyPage extends Component {
                   <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
                   <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
                 </div>
-              `
+              `,
                 )
-                .join("")}
+                .join('')}
               </div>
               </div>
             </div>
@@ -222,9 +230,7 @@ class MyPage extends Component {
             <div class="${styles.attendanceForm}">
               <div class="${styles.datePickerContainer}">
                 <label for="start-date">시작일</label>
-                <input type="date" id="start-date" class="${
-                  styles.datePicker
-                }" />
+                <input type="date" id="start-date" class="${styles.datePicker}" />
 
                 <label for="end-date">종료일</label>
                 <input type="date" id="end-date" class="${styles.datePicker}" />
@@ -242,14 +248,16 @@ class MyPage extends Component {
     this.initTimeUpdate();
     this.initWorkManagement();
     this.initAttendanceManagement();
+    console.log('MyPage ~ setEvent ~ initAttendanceManagement: ');
 
     //프로필 클릭 시 페이지 이동
-    // const profileSection = document.querySelector(".profile-section");
-    // if (profileSection) {
-    //   profileSection.addEventListener("click", () => {
-    //     window.location.href = "";
-    //   });
-    // }
+    const profileSection = document.querySelector(`.${styles.profileSection}`);
+    if (profileSection) {
+      profileSection.addEventListener('click', () => {
+        window.location.href = '/profile';
+        handleRouting();
+      });
+    }
   }
 
   // 모달 초기화
@@ -273,23 +281,23 @@ class MyPage extends Component {
       if (!trigger || !modal) return;
       const closeBtn = modal.querySelector(`.${styles.close}`);
 
-      trigger.addEventListener("click", (e) => {
+      trigger.addEventListener('click', (e) => {
         e.stopPropagation();
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
       });
 
       if (closeBtn) {
-        closeBtn.addEventListener("click", () => {
-          modal.style.display = "none";
-          document.body.style.overflow = "auto";
+        closeBtn.addEventListener('click', () => {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
         });
       }
 
-      window.addEventListener("click", (e) => {
+      window.addEventListener('click', (e) => {
         if (e.target === modal) {
-          modal.style.display = "none";
-          document.body.style.overflow = "auto";
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
         }
       });
     });
@@ -297,19 +305,17 @@ class MyPage extends Component {
 
   // 시간 업데이트 초기화
   initTimeUpdate() {
-    const currentTimeElements = document.querySelectorAll(
-      `.${styles.currentTimeValue}`
-    );
+    const currentTimeElements = document.querySelectorAll(`.${styles.currentTimeValue}`);
     if (!currentTimeElements.length) return;
 
     const updateTime = () => {
       const now = new Date();
-      const hours = String(now.getHours()).padStart(2, "0");
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const seconds = String(now.getSeconds()).padStart(2, "0");
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
 
       currentTimeElements.forEach((element) => {
-        const spans = element.querySelectorAll("span");
+        const spans = element.querySelectorAll('span');
         if (spans.length === 3) {
           spans[0].textContent = hours;
           spans[1].textContent = minutes;
@@ -324,18 +330,24 @@ class MyPage extends Component {
 
   // 근무 시작/종료 관리
   initWorkManagement() {
+    console.log('MyPage ~ 근무 시작');
+
     const workBtnModal = document.querySelector(`.${styles.workBtnModal}`);
     if (!workBtnModal) return;
+    console.log('MyPage ~ initWorkManagement ~ workBtnModal: ', workBtnModal);
 
     // 확인 버튼 이벤트
     const confirmBtn = workBtnModal.querySelector(`.${styles.confirmBtn}`);
     const cancelBtn = workBtnModal.querySelector(`.${styles.cancelBtn}`);
+    // console.log("MyPage ~ initWorkManagement ~ confirmBtn: ", confirmBtn)
 
     if (confirmBtn) {
-      confirmBtn.addEventListener("click", () => {
+      console.log('MyPage ~ initWorkManagement ~ confirmBtn: ', confirmBtn);
+      confirmBtn.addEventListener('click', () => {
+        console.log('MyPage ~ initWorkManagement ~ confirmBtn: 클릭!!!!!!!');
         const now = new Date();
-        const hours = String(now.getHours()).padStart(2, "0");
-        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
         const currentTime = `${hours}:${minutes}`;
 
         if (!this.state.isWorking) {
@@ -344,45 +356,49 @@ class MyPage extends Component {
             workEndTime: null,
             isWorking: true,
           });
+
+          document.querySelector('.work-start-time').textContent = currentTime;
         } else {
           this.setState({
             workEndTime: currentTime,
             isWorking: false,
           });
+          document.querySelector('.work-end-time').textContent = currentTime;
+          // document.querySelector(".work-btn-text").textContent = this.state.isWorking ? "근무 시작" : "근무 종료";
         }
-        workBtnModal.style.display = "none";
-        document.body.style.overflow = "auto";
+        console.log('MyPage ~ confirmBtn.addEventListener ~ currentTime: ', this.state);
+
+        document.querySelector(`.${styles.workStartQuestion}`).textContent = this.state.isWorking
+          ? '근무를 종료하시겠습니까?'
+          : '근무를 시작하시겠습니까?';
+        document.querySelector('.work-btn-text').textContent = this.state.isWorking
+          ? '근무 종료'
+          : '근무 시작';
+        workBtnModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
       });
     }
 
     if (cancelBtn) {
-      cancelBtn.addEventListener("click", () => {
-        workBtnModal.style.display = "none";
-        document.body.style.overflow = "auto";
+      cancelBtn.addEventListener('click', () => {
+        workBtnModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
       });
     }
   }
 
   // 근태 관리
   initAttendanceManagement() {
-    const addAttendanceBtn = document.querySelector(
-      `.${styles.addAttendanceBtn}`
-    );
-    const addAttendanceModal = document.querySelector(
-      `.${styles.addAttendanceBtnModal}`
-    );
+    const addAttendanceBtn = document.querySelector(`.${styles.addAttendanceBtn}`);
+    const addAttendanceModal = document.querySelector(`.${styles.addAttendanceBtnModal}`);
     if (!addAttendanceBtn || !addAttendanceModal) return;
 
     // 근태 유형 버튼 이벤트
-    const typeButtons = addAttendanceModal.querySelectorAll(
-      `.${styles.typeBtn}`
-    );
+    const typeButtons = addAttendanceModal.querySelectorAll(`.${styles.typeBtn}`);
     typeButtons.forEach((button) => {
-      button.addEventListener("click", (e) => {
+      button.addEventListener('click', (e) => {
         // 모든 버튼의 선택 상태를 먼저 제거
-        typeButtons.forEach((btn) =>
-          btn.classList.remove(`${styles.selected}`)
-        );
+        typeButtons.forEach((btn) => btn.classList.remove(`${styles.selected}`));
         // 클릭한 버튼만 선택 상태로 변경
         e.target.classList.add(`${styles.selected}`);
         this.state.selectedAttendanceType = e.target.textContent;
@@ -392,13 +408,13 @@ class MyPage extends Component {
     // 신청 버튼 이벤트
     const submitBtn = addAttendanceModal.querySelector(`.${styles.submitBtn}`);
     if (submitBtn) {
-      submitBtn.addEventListener("click", () => {
-        const startDate = document.querySelector("#start-date").value;
-        const endDate = document.querySelector("#end-date").value;
+      submitBtn.addEventListener('click', () => {
+        const startDate = document.querySelector('#start-date').value;
+        const endDate = document.querySelector('#end-date').value;
         // 근태 유형(연차, 반차 등)이 선택되지 않았거나
         // 시작일이 선택되지 않았을 때 알림 메시지 출력
         if (!this.state.selectedAttendanceType || !startDate) {
-          alert("근태 유형과 날짜를 선택해주세요.");
+          alert('근태 유형과 날짜를 선택해주세요.');
           return; // 함수 종료
         }
 
@@ -417,23 +433,21 @@ class MyPage extends Component {
         });
 
         // 모달 닫기 및 초기화
-        addAttendanceModal.style.display = "none";
-        document.querySelector("#start-date").value = "";
-        document.querySelector("#end-date").value = "";
-        typeButtons.forEach((btn) =>
-          btn.classList.remove(`${styles.selected}`)
-        );
+        addAttendanceModal.style.display = 'none';
+        document.querySelector('#start-date').value = '';
+        document.querySelector('#end-date').value = '';
+        typeButtons.forEach((btn) => btn.classList.remove(`${styles.selected}`));
       });
     }
 
     const modalClose = addAttendanceModal.querySelector(`.${styles.close}`);
     if (modalClose) {
-      modalClose.addEventListener("click", () => {
+      modalClose.addEventListener('click', () => {
         typeButtons.forEach((btn) => btn.classList.remove(styles.selected)); // 상태 초기화
       });
     }
 
-    window.addEventListener("click", (e) => {
+    window.addEventListener('click', (e) => {
       if (e.target === addAttendanceModal) {
         typeButtons.forEach((btn) => btn.classList.remove(styles.selected)); // 상태 초기화
       }
@@ -443,8 +457,8 @@ class MyPage extends Component {
   formatDate(startDate, endDate) {
     const start = new Date(startDate);
     const startYear = start.getFullYear().toString().slice(-2);
-    const startMonth = (start.getMonth() + 1).toString().padStart(2, "0");
-    const startDay = start.getDate().toString().padStart(2, "0");
+    const startMonth = (start.getMonth() + 1).toString().padStart(2, '0');
+    const startDay = start.getDate().toString().padStart(2, '0');
 
     if (!endDate) {
       return `${startYear}${startMonth}${startDay}`;
@@ -452,8 +466,8 @@ class MyPage extends Component {
 
     const end = new Date(endDate);
     const endYear = end.getFullYear().toString().slice(-2);
-    const endMonth = (end.getMonth() + 1).toString().padStart(2, "0");
-    const endDay = end.getDate().toString().padStart(2, "0");
+    const endMonth = (end.getMonth() + 1).toString().padStart(2, '0');
+    const endDay = end.getDate().toString().padStart(2, '0');
 
     if (startMonth === endMonth) {
       return `${startYear}${startMonth}${startDay}`;
@@ -463,6 +477,6 @@ class MyPage extends Component {
 }
 
 // 앱 실행
-new MyPage(document.querySelector("#app"));
+// new MyPage(document.querySelector("#app"));
 
 export default MyPage;
