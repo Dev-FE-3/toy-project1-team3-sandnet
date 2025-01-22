@@ -406,7 +406,7 @@ class MyPage extends Component {
         );
       });
     }
-    
+
     const modalClose = addAttendanceModal.querySelector(`.${styles.close}`);
     if (modalClose) {
       modalClose.addEventListener("click", () => {
@@ -424,22 +424,22 @@ class MyPage extends Component {
   formatDate(startDate, endDate) {
     const start = new Date(startDate);
     const startYear = start.getFullYear().toString().slice(-2);
-    const startMonth = start.getMonth() + 1;
-    const startDay = start.getDate();
+    const startMonth = (start.getMonth() + 1).toString().padStart(2, "0");
+    const startDay = start.getDate().toString().padStart(2, "0");
 
     if (!endDate) {
-      return `${startYear}/${startMonth}/${startDay}`;
+      return `${startYear}${startMonth}${startDay}`;
     }
 
     const end = new Date(endDate);
     const endYear = end.getFullYear().toString().slice(-2);
-    const endMonth = end.getMonth() + 1;
-    const endDay = end.getDate();
+    const endMonth = (end.getMonth() + 1).toString().padStart(2, "0");
+    const endDay = end.getDate().toString().padStart(2, "0");
 
     if (startMonth === endMonth) {
-      return `${startYear}/${startMonth}/${startDay}`;
+      return `${startYear}${startMonth}${startDay}`;
     }
-    return `${startYear}/${startMonth}/${startDay}~${endYear}/${endMonth}/${endDay}`;
+    return `${startYear}${startMonth}${startDay}~${endYear}${endMonth}${endDay}`;
   }
 }
 
