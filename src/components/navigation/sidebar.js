@@ -1,4 +1,4 @@
-import styles from './Sidebar.module.css';  // CSS 모듈 import 추가
+import styles from './sidebar.module.css';  // CSS 모듈 import 추가
 import { handleRouting, getRoute } from '@/app/router/router';
 import logo from '@/assets/images/logo.png';  // 로고 이미지 import
 

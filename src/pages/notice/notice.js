@@ -1,6 +1,5 @@
-import "./notice.module.css";
+import styles from './notice.module.css';
 import { noticeData } from '@/data/noticeData.js';
-
 
 class Component {
   constructor(target) {
@@ -10,7 +9,9 @@ class Component {
     // this.setEvent();
   }
   setup() {}
-  template() { return ''; }
+  template() {
+    return '';
+  }
   // render() {
   //   this.target.innerHTML = this.template();
   // }
@@ -42,12 +43,9 @@ class NoitcePage extends Component {
         <p>${card.content}</p>
       </div>
     `;
-  };
-    
-    
+  }
 
-
-  template () {
+  template() {
     return `
       <main class="main-content">
         <header>
@@ -68,10 +66,9 @@ class NoitcePage extends Component {
               <h2>${card.title}</h2>
               <p>${card.description}</p>
               </div>
-              `
+              `,
             )
-          .join("")
-        }
+            .join('')}
 
           </section>
         </div>
@@ -111,30 +108,30 @@ class NoitcePage extends Component {
       if (!trigger || !modal) return;
 
       const closeBtn = modal.querySelector(`.${styles.modalCloseButton}`);
-      
+
       // 트리거 클릭 시 모달 열기
       trigger.forEach((card) => {
-        card.addEventListener("click", (e) => {
+        card.addEventListener('click', (e) => {
           e.stopPropagation(); // 이벤트 전파 막기
           this.openModal(card); // openModal 사용
-          modal.style.display = "flex";
-          document.body.style.overflow = "hidden";
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
         });
       });
 
       // 닫기 버튼 클릭 시 모달 닫기
       if (closeBtn) {
-        closeBtn.addEventListener("click", () => {
-          modal.style.display = "none";
-          document.body.style.overflow = "auto";
+        closeBtn.addEventListener('click', () => {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
         });
       }
 
       // 모달 외부 클릭 시 닫기
-      window.addEventListener("click", (e) => {
+      window.addEventListener('click', (e) => {
         if (e.target === modal) {
-          modal.style.display = "none";
-          document.body.style.overflow = "auto";
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
         }
       });
     });
@@ -183,10 +180,9 @@ class NoitcePage extends Component {
   truncateText(text, limit = 40) {
     return text.length <= limit ? text : `${text.slice(0, limit)}...`;
   }
-
 }
 
 // 앱 실행
 new NoitcePage(document.querySelector('#app'));
 
-export default NoticePage; 
+export default NoticePage;
