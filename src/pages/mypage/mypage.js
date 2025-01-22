@@ -1,4 +1,5 @@
 import styles from './mypage.module.css';
+import ProfilePage from '../profile/profile.js';
 
 class Component {
   constructor(target) {
@@ -27,6 +28,7 @@ class Component {
 class MyPage extends Component {
   constructor(target) {
     super(target);
+    this.profilePage = new ProfilePage(target);
     this.setup();
     this.setEvent();
     this.setState();
@@ -57,6 +59,7 @@ class MyPage extends Component {
   template() {
     const { attendance, writer, workStartTime, workEndTime, isWorking } = this.state;
     console.log('MyPage ~ template ~ workStartTime: ', workStartTime);
+    const profileData = this.profilePage.getProfileData();
 
     return `
       <main class="main-content">
@@ -73,23 +76,23 @@ class MyPage extends Component {
           <!-- 프로필 이미지, 정보 -->
           <div class="${styles.profileContainer}">
             <div class="${styles.profileImageName}">
-              <img class="${
-                styles.myprofileImage
-              }" src="./src/assets/images/employee.jpg" alt="사용자 프로필 이미지"></img>
-              <div class="${styles.profileName}">박샌드</div>
+              <img class="${styles.myprofileImage}" src="${
+      profileData.profileImage
+    }" alt="사용자 프로필 이미지"></img>
+              <div class="${styles.profileName}">${profileData.name}</div>
             </div>
             <div>
               <ul class="${styles.profileInfo}">
-                <li><span class="${
-                  styles.materialIcons
-                } material-icons">phone</span>010-1234-1234</li>
-                <li><span class="${styles.materialIcons} material-icons">work</span>홀 매니저</li>
-                <li><span class="${
-                  styles.materialIcons
-                } material-icons">email</span>yummy@sandwish.com</li>
-                <li><span class="${
-                  styles.materialIcons
-                } material-icons">location_on</span>서울특별시 강남구 역삼동 123-45, 101호</li>
+                <li><span class="${styles.materialIcons} material-icons">phone</span>${
+      profileData.phone
+    }</li>
+                <li><span class="${styles.materialIcons} material-icons">work</span>${
+      profileData.jobTitle
+    }</li>
+                <li><span class="${styles.materialIcons} material-icons">email</span>${
+      profileData.email
+    }</li>
+                
               </ul>
             </div>
           </div>

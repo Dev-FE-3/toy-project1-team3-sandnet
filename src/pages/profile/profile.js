@@ -2,15 +2,15 @@
 import styles from './profile.module.css';
 import profileImg from '@/assets/images/princess01.webp';
 
-
 class Component {
   constructor(target) {
     this.target = target;
   }
 
-  setup() {
+  setup() {}
+  template() {
+    return '';
   }
-  template() { return ''; }
   setEvent() {}
   setState(newState) {
     this.state = { ...this.state, ...newState };
@@ -20,6 +20,17 @@ class Component {
 class ProfilePage extends Component {
   constructor(target) {
     super(target);
+    this.state = {
+      profileData: {
+        name: '박샌드',
+        phone: '010-1234-1234',
+        email: 'yummy@sandwish.com',
+        jobTitle: '홀 매니저',
+        location: '서울특별시 강남구 역삼동 123-45, 101호',
+        profileImage: '/src/assets/images/employee.jpg',
+      },
+    };
+
     this.setup();
     this.validateFileSize = this.validateFileSize.bind(this);
   }
@@ -45,7 +56,13 @@ class ProfilePage extends Component {
     // };
   }
 
+  // 인스턴스 메서드로 변경
+  getProfileData() {
+    return this.state.profileData;
+  }
+
   template() {
+    const profileData = this.getProfileData();
     return `
         <main class="main-content">
         <header>
@@ -54,11 +71,11 @@ class ProfilePage extends Component {
         <div class="my-content green-border">
           <article class="${styles.primaryProfileContainer}">
             <header>
-              <img id="profileImage" src="${profileImg}" alt="프로필 사진" />
+              <img id="profileImage" src="${profileData.profileImage}" alt="프로필 사진" />
               <div class="${styles.profileInfo}">
-                <h1 id="profileName">Jack Adams</h1>
-                <p id="profileJob" class="${styles.jobTitle}">Product Designer</p>
-                <address id="profileLocation" class="${styles.location}">Los Angeles, California, USA</address>
+                <h1 id="profileName">${profileData.name}</h1>
+                <p id="profileJob" class="${styles.jobTitle}">${profileData.jobTitle}</p>
+                <address id="profileLocation" class="${styles.location}">${profileData.location}</address>
               </div>
               <button type="button" data-role="primary-edit-button" class="${styles.editButton}">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -109,23 +126,21 @@ class ProfilePage extends Component {
 
   setEvent() {
     const editButton = document.querySelector('[data-role="primary-edit-button"]');
-    
+
     if (editButton) {
       editButton.addEventListener('click', () => {
         this.toggleEditMode();
       });
     } else {
-      console.warn("Edit button not found.");
+      console.warn('Edit button not found.');
     }
 
     // 이미지 클릭 시 파일 업로드 창 열기
     const profileImage = document.getElementById('profileImage');
     const imageUploadButton = document.querySelector('[data-role="image-upload-button"]');
 
-    
     profileImage.addEventListener('click', () => {
       imageUploadButton.click(); // 파일 입력 필드 클릭
-      
     });
   }
 
@@ -137,13 +152,13 @@ class ProfilePage extends Component {
     const imageUpload = document.getElementById('imageUpload');
     const profileImage = document.getElementById('profileImage');
 
-    if (editButton.innerText === "Edit") {
+    if (editButton.innerText === 'Edit') {
       // 편집 모드로 전환
       nameElement.innerHTML = `<input type="text" value="${nameElement.innerText}" />`;
       jobElement.innerHTML = `<input type="text" value="${jobElement.innerText}" />`;
       locationElement.innerHTML = `<input type="text" value="${locationElement.innerText}" />`;
-      editButton.innerText = "Save";
-      // imageUpload.style.display = "block"; // 파일 입력 필드 보이기 
+      editButton.innerText = 'Save';
+      // imageUpload.style.display = "block"; // 파일 입력 필드 보이기
 
       // 이미지 업로드 이벤트 리스너 추가
       imageUpload.onchange = (event) => {
@@ -170,8 +185,7 @@ class ProfilePage extends Component {
       nameElement.innerText = newName;
       jobElement.innerText = newJob;
       locationElement.innerText = newLocation;
-      editButton.innerText = "Edit";
-
+      editButton.innerText = 'Edit';
 
       // 여기서 createImage() 호출 가능
       // createImage();
@@ -179,7 +193,12 @@ class ProfilePage extends Component {
   }
 
   validateFileSize(file) {
-    console.log("ProfilePage ~ validateFileSize ~ file: ",file.size, this.MAX_FILE_SIZE, file.size > this.MAX_FILE_SIZE)
+    console.log(
+      'ProfilePage ~ validateFileSize ~ file: ',
+      file.size,
+      this.MAX_FILE_SIZE,
+      file.size > this.MAX_FILE_SIZE,
+    );
     if (file.size > this.MAX_FILE_SIZE) {
       alert('파일 크기가 너무 큽니다. 최대 2MB까지 업로드 가능합니다.');
       return false;
@@ -191,4 +210,4 @@ class ProfilePage extends Component {
 // 앱 실행
 // new ProfilePage(document.querySelector('#page-container'));
 
-export default ProfilePage; 
+export default ProfilePage;
