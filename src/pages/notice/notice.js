@@ -90,76 +90,95 @@ class NoticePage extends Component {
   }
 
   setEvent() {
-    // 공통 DOM 요소 가져오기
-    const modalContainer = document.querySelector(`.${styles.modalContainer}`);
-    const modalImage = modalContainer.querySelector(`.${styles.modalImage}`);
-    const modalTitle = modalContainer.querySelector(`.${styles.modalTitle}`);
-    const modalText = modalContainer.querySelector(`.${styles.modalText}`);
-    const modalCloseButton = modalContainer.querySelector(`.${styles.modalCloseButton}`);
-  
-    // 텍스트 제한 함수
-    const truncateText = (text, limit = 40) =>
-      text.length <= limit ? text : `${text.slice(0, limit)}...`;
-  
-    // 모달 열기 함수
-    const openModal = (card) => {
-      const cardImage = card.querySelector(`.${styles.imagePlaceholder}`).cloneNode(true);
-      const cardTitle = card.querySelector('h2').textContent;
-      const fullText = card.dataset.fullText;
-  
-      // 모달 내용 업데이트
-      modalImage.innerHTML = ''; // 기존 이미지 제거
-      modalImage.appendChild(cardImage); // 새 이미지 추가
-      modalTitle.textContent = cardTitle;
-      modalText.textContent = fullText;
-  
-      modalContainer.classList.remove(styles.hidden); // 모달 표시
-    };
-  
-    // 모달 닫기 함수
-    const closeModal = () => {
-      modalContainer.classList.add(styles.hidden); // 모달 숨기기
-    };
-  
-    // 외부 클릭 시 모달 닫기
-    const handleOutsideClick = (e) => {
-      if (e.target === modalContainer) closeModal();
-    };
-  
-    // 카드별 이벤트 설정 함수
-    const setupCardEvents = (card) => {
-      const cardText = card.querySelector('p');
-      const fullText = cardText.textContent;
-  
-      // 원본 텍스트 저장
-      card.dataset.fullText = fullText;
-  
-      // 카드 텍스트 줄이기
-      cardText.textContent = truncateText(fullText);
-  
-      // 카드 클릭 시 모달 열기
-      card.addEventListener('click', () => openModal(card));
-    };
-  
-    // 초기화 함수
-    const initialize = () => {
-      const cards = document.querySelectorAll(`.${styles.card}`);
-  
-      // 각 카드에 이벤트 바인딩
-      cards.forEach(setupCardEvents);
-  
-      // 모달 닫기 버튼 이벤트 바인딩
-      modalCloseButton.addEventListener('click', closeModal);
-  
-      // 모달 외부 클릭 이벤트 바인딩
-      modalContainer.addEventListener('click', handleOutsideClick);
-    };
-  
-    // 초기화 실행
-    initialize();
+    this.initializeModal();
+    this.initializeCards();
   }
-  
-  
+
+  initializeModal() {
+    const modals = [
+      {
+        trigger: document.querySelectorAll(`.${styles.card}`),
+        modal: document.querySelector(`.${styles.modalContainer}`),
+      },
+    ];
+
+    modals.forEach(({ trigger, modal }) => {
+      if (!trigger || !modal) return;
+
+      const closeBtn = modal.querySelector(`.${styles.modalCloseButton}`);
+      
+      // 트리거 클릭 시 모달 열기
+      trigger.forEach((card) => {
+        card.addEventListener("click", (e) => {
+          e.stopPropagation(); // 이벤트 전파 막기
+          this.openModal(card); // openModal 사용
+          modal.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      // 닫기 버튼 클릭 시 모달 닫기
+      if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+          modal.style.display = "none";
+          document.body.style.overflow = "auto";
+        });
+      }
+
+      // 모달 외부 클릭 시 닫기
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      });
+    });
+  }
+
+  initializeCards() {
+    const cards = document.querySelectorAll(`.${styles.card}`);
+    cards.forEach((card) => this.setupCard(card));
+  }
+
+  setupCard(card) {
+    const cardText = card.querySelector('p');
+    if (cardText) {
+      const fullText = cardText.textContent;
+      card.dataset.fullText = fullText;
+      cardText.textContent = this.truncateText(fullText);
+    }
+  }
+
+  //모달 열기기
+  openModal(card) {
+    const modalElements = this.getModalElements();
+    const cardImage = card.querySelector(`.${styles.imagePlaceholder}`).cloneNode(true);
+    const cardTitle = card.querySelector('h2').textContent;
+    const fullText = card.dataset.fullText;
+
+    modalElements.image.innerHTML = ''; // 기존 이미지 초기화
+    modalElements.image.appendChild(cardImage);
+    modalElements.title.textContent = cardTitle;
+    modalElements.text.textContent = fullText;
+
+    modalElements.container.classList.remove(styles.hidden);
+  }
+
+  //모달 요소 가져오기
+  getModalElements() {
+    return {
+      container: document.querySelector(`.${styles.modalContainer}`),
+      image: document.querySelector(`.${styles.modalImage}`),
+      title: document.querySelector(`.${styles.modalTitle}`),
+      text: document.querySelector(`.${styles.modalText}`),
+      closeButton: document.querySelector(`.${styles.modalCloseButton}`),
+    };
+  }
+
+  truncateText(text, limit = 40) {
+    return text.length <= limit ? text : `${text.slice(0, limit)}...`;
+  }
+
 }
 
 // 앱 실행
