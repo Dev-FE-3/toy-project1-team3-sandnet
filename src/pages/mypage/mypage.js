@@ -355,6 +355,7 @@ class MyPage extends Component {
             workStartTime: currentTime,
             workEndTime: null,
             isWorking: true,
+            test: true,
           });
 
           document.querySelector('.work-start-time').textContent = currentTime;
