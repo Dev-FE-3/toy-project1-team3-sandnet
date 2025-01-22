@@ -1,4 +1,4 @@
-import styles from './notice.module.css';
+import styles from "./notice.module.css";
 import { noticeData } from '@/data/noticeData.js';
 
 class Component {
@@ -23,27 +23,30 @@ class Component {
   }
 }
 
-class NoitcePage extends Component {
+class NoticePage extends Component {
   constructor(target) {
     super(target);
-    // this.setup();
-    // this.setEvent();
+    this.setup();
+    this.setEvent();
   }
 
   setup() {
-    this.cards = noticeData.cards;
+    this.cards = noticeData.slice(0);
     this.filteredCards = [...this.cards];
   }
-
+  
+  
   createCardHTML(card) {
     return `
-      <div class="card" data-notice-id="${card.id}">
-        <img src="${card.image}" alt="공지사항 이미지" class="image-placeholder"/>
+      <div class="${styles.card}" data-notice-id="${card.id}">
+        <img src="${card.image}" alt="공지사항 이미지" class="${styles.imagePlaceholder}"/>
         <h2>${card.title}</h2>
         <p>${card.content}</p>
       </div>
     `;
-  }
+  };
+    
+
 
   template() {
     return `
@@ -58,18 +61,7 @@ class NoitcePage extends Component {
 
         <div class="my-content green-border">
           <section class="${styles.cards}">
-          ${this.filteredCards
-            .map(
-              (card) => `
-              <div id= "${card.id}" class="${styles.card}">
-              <img src="${card.imgSrc}" alt="${card.title}" class="${styles.imagePlaceholder}"/>
-              <h2>${card.title}</h2>
-              <p>${card.description}</p>
-              </div>
-              `,
-            )
-            .join('')}
-
+          ${this.filteredCards.map((card) => this.createCardHTML(card)).join("")}
           </section>
         </div>
 
@@ -92,6 +84,8 @@ class NoitcePage extends Component {
   }
 
   setEvent() {
+    // console.log("NoticePage ~ setup ~ filteredCards: ", this.filteredCards);
+
     this.initializeModal();
     this.initializeCards();
   }
@@ -183,6 +177,6 @@ class NoitcePage extends Component {
 }
 
 // 앱 실행
-new NoitcePage(document.querySelector('#app'));
+// new NoticePage(document.querySelector('#app'));
 
 export default NoticePage;

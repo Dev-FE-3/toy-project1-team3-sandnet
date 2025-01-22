@@ -1,6 +1,6 @@
-import styles from './sidebar.module.css';  // CSS 모듈 import 추가
+import styles from './sidebar.module.css'; // CSS 모듈 import 추가
 import { handleRouting, getRoute } from '@/app/router/router';
-import logo from '@/assets/images/logo.png';  // 로고 이미지 import
+import logo from '@/assets/images/logo.png'; // 로고 이미지 import
 
 export default class Sidebar {
   constructor(target) {
@@ -38,25 +38,26 @@ export default class Sidebar {
     // 로고 클릭 이벤트
     const logo = document.querySelector("[data-role='sidebar-logo']");
     if (logo) {
-      logo.addEventListener("click", () => {
+      logo.addEventListener('click', () => {
         window.history.pushState({}, '', '/');
         handleRouting();
       });
     }
 
     // 페이지 이동
-    const links = document.querySelectorAll(".link");
-    console.log("Sidebar ~ setEvent ~ links: ", links)
+    const links = document.querySelectorAll('.link');
+    console.log('Sidebar ~ setEvent ~ links: ', links);
 
-    links.forEach(link => {
-      link.addEventListener("click", (e) => {
+    links.forEach((link) => {
+      link.addEventListener('click', (e) => {
         e.stopPropagation();
         e.preventDefault();
 
-        const path = e.target.tagName.toLowerCase() === 'li' 
-          ? e.target.querySelector('a').getAttribute('data-link')
-          : e.target.getAttribute('data-link');
-        console.log("Sidebar ~ link.addEventListener ~ path: ", path)
+        const path =
+          e.target.tagName.toLowerCase() === 'li'
+            ? e.target.querySelector('a').getAttribute('data-link')
+            : e.target.getAttribute('data-link');
+        console.log('Sidebar ~ link.addEventListener ~ path: ', path);
 
         window.history.pushState({}, '', `/${path}`);
         handleRouting();
@@ -68,8 +69,6 @@ export default class Sidebar {
       });
     });
 
-    
-
     // 네비게이션 이벤트
     // const navLinks = target.querySelectorAll("[data-link]");
     // navLinks.forEach(link => {
@@ -77,7 +76,7 @@ export default class Sidebar {
     //     e.preventDefault();
     //     const path = e.target.getAttribute('href');
     //     router.navigate(path);
-        
+
     //     // 활성 메뉴 표시 업데이트
     //     const menuItems = target.querySelectorAll('.nav-menu li');
     //     menuItems.forEach(item => item.classList.remove('active'));
@@ -85,4 +84,4 @@ export default class Sidebar {
     //   });
     // });
   }
-} 
+}

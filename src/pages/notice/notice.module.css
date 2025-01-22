@@ -14,8 +14,8 @@
   width: 100%;
   min-width: 200px;
   max-width: 330px;
-  height: 600px;
-  background-color: #055D20;
+  height: 36rem;
+  background-color: #055d20;
   border-radius: 20px;
   text-align: center;
   cursor: pointer;
@@ -23,12 +23,12 @@
   transition: transform 0.3s ease;
   aspect-ratio: 3/5;
   margin: 1rem 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .card:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .card h2 {
@@ -156,7 +156,7 @@
   right: 20px;
   cursor: pointer;
   font-size: 2rem;
-  color: #055D20;
+  color: #055d20;
   transition: color 0.3s ease;
 }
 
@@ -167,5 +167,3 @@
 .hidden {
   display: none;
 }
-
-
