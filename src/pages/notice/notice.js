@@ -1,39 +1,52 @@
 import "./notice.css";
-import Sidebar from "@/components/navigation/sidebar";
+import { noticeData } from '@/data/noticeData.js';
 
 
 class Component {
   constructor(target) {
     this.target = target;
-    this.setup();
-    this.render();
-    this.setEvent();
+    // this.setup();
+    // this.render();
+    // this.setEvent();
   }
   setup() {}
   template() { return ''; }
-  render() {
-    this.target.innerHTML = this.template();
-  }
+  // render() {
+  //   this.target.innerHTML = this.template();
+  // }
   setEvent() {}
   setState(newState) {
     this.state = { ...this.state, ...newState };
-    this.render();
+    // this.render();
     this.setEvent();
   }
 }
 
 class NoitcePage extends Component {
+  constructor(target) {
+    super(target);
+    // this.setup();
+    // this.setEvent();
+  }
+
   setup() {
   }
 
-  template () {
-    const sidebar = new Sidebar('notice');
+  createCardHTML(card) {
+    return `
+      <div class="card" data-notice-id="${card.id}">
+        <img src="${card.image}" alt="공지사항 이미지" class="image-placeholder"/>
+        <h2>${card.title}</h2>
+        <p>${card.content}</p>
+      </div>
+    `;
+  }
 
+  template () {
     return `
     <div class="page-container">
-      ${sidebar.template()}
       <!--Main Content-->
-      <main class="content">
+      <main class="main-content">
         <header>
           <h1>공지사항</h1>
           <div class="search-container">
@@ -43,62 +56,10 @@ class NoitcePage extends Component {
         </header>
 
         <!--Scrollable Cards Section-->
-        <div class="my-content">
+        <div class="my-content green-border">
         <section class="cards">
-          <!--카드1-->
-          <div id="card1" class="card">
-            <img src="./src/assets/images/img1.png" alt="공지사항 이미지" class="image-placeholder"/>
-            <h2>주간 근무 스케줄 공지</h2>
-            <p>
-              안녕하세요, 모든 직원 여러분!
-
-              다가오는 주의 근무 스케줄을 아래와 같이 공지합니다. 각자 본인의 근무 시간을 확인하시고, 교대 시간이 변경되거나 문제가 있을 경우 매니저에게 즉시 알려주세요.
-
-              1. 근무 시간:
-
-              - 오전 조: 09:00 ~ 14:00
-              - 오후 조: 14:00 ~ 19:00
-              - 야간 조: 19:00 ~ 23:00
-
-              2. 주요 내용:
-
-              - 교대 시간은 근무 10분 전에 대기실에서 대기해 주세요.
-
-              - 휴무일 변경 요청은 최소 3일 전에 매니저와 상의 후, 공식적으로 승인받아야 합니다.
-
-              - 변경 요청이 없을 경우, 아래 스케줄에 따라 운영됩니다.
-
-              첨부 파일: 주간 근무표(PDF 다운로드)
-            </p>
-          </div>
-
-          <!--카드2-->
-          <div id="card2" class="card">
-            <img src="./src/assets/images/img2.png" alt="공지사항 이미지" class="image-placeholder"/>
-            <h2>신메뉴 출시</h2>
-            <p>
-              안녕하세요!
-              이번 주에는 고객들에게 더욱 즐거운 경험을 제공하기 위해 신메뉴가 출시됩니다. 새롭게 추가된 메뉴에 대한 세부 사항은 아래를 참고해주세요.
-              
-              1. 메뉴 이름:
-
-              - 클래식 치즈 샌드위치 (싱글/더블 옵션)
-              - 매콤 치킨 샌드위치 콤보 (음료 포함)
-
-              2. 레시피 및 준비:
-
-              - 치즈 샌드위치: 고온에서 조리된 패티에 체다치즈와 신선한 토마토 추가.
-              - 치킨 샌드위치: 고소한 마요네즈와 특제 매운 소스 사용.
-
-              3. 홍보 방법:
-
-              - 매장 내 메뉴판 업데이트.
-              - SNS 이벤트로 "신메뉴 후기 작성 시 10% 할인 쿠폰 제공".
-              - 신메뉴 시식권 제공 이벤트 진행.
-
-              모든 직원은 신메뉴의 준비 과정을 숙지하고 고객 문의에 응답할 준비를 해주세요.</p>
-          </div>
-
+          ${noticeData.map(card => this.createCardHTML(card)).join('')}
+          
           <!--카드3-->
           <div id="card3" class="card" >
             <img src="./src/assets/images/img3.png" alt="공지사항 이미지" class="image-placeholder"/>
@@ -259,8 +220,6 @@ class NoitcePage extends Component {
     const modalTitle = document.getElementById('modalTitle');
     const modalText = document.getElementById('modalText');
     const modalCloseButton = document.getElementById('modalCloseButton');
-    const sidebar = new Sidebar('notice');
-    sidebar.setEvent(this.target);
   
     // 카드 텍스트 제한 함수
     const truncateText = (text, limit = 80) =>
