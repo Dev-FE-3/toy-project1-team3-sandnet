@@ -1,75 +1,80 @@
-import "../../../reset.css";
-import "../../styles/global.css";
-import "../../styles/variables.css";
-import styles from "./notice.module.css";
-import noticeData from "./notice-data.json";
+import "./notice.module.css";
+import { noticeData } from '@/data/noticeData.js';
+
 
 class Component {
   constructor(target) {
     this.target = target;
-    this.setup();
-    this.render();
-    this.setEvent();
+    // this.setup();
+    // this.render();
+    // this.setEvent();
   }
   setup() {}
   template() { return ''; }
-  render() {
-    this.target.innerHTML = this.template();
-  }
+  // render() {
+  //   this.target.innerHTML = this.template();
+  // }
   setEvent() {}
   setState(newState) {
     this.state = { ...this.state, ...newState };
-    this.render();
+    // this.render();
     this.setEvent();
   }
 }
 
-class NoticePage extends Component {
+class NoitcePage extends Component {
+  constructor(target) {
+    super(target);
+    // this.setup();
+    // this.setEvent();
+  }
+
   setup() {
     this.cards = noticeData.cards;
     this.filteredCards = [...this.cards];
-    
+  }
+
+  createCardHTML(card) {
+    return `
+      <div class="card" data-notice-id="${card.id}">
+        <img src="${card.image}" alt="공지사항 이미지" class="image-placeholder"/>
+        <h2>${card.title}</h2>
+        <p>${card.content}</p>
+      </div>
+    `;
   };
+    
+    
+
 
   template () {
     return `
-    <div class="page-container">
-      <!--Sidebar-->
-      <div class="sidebar">
-        <h1>SandNet</h1>
-          <ul>
-            <li>Home</li>
-            <li class="active">Management</li>
-            <li>Notification</li>
-            <li>My page</li>
-          </ul>
-      </div>
-      <!--Main Content-->
-      <main class="content">
+      <main class="main-content">
         <header>
-          <h2 class="${styles.title}">공지사항</h2>
+          <h1>공지사항</h1>
           <div class="search-container">
             <input class="search-input" type="text" placeholder="검색어를 입력하세요" >
             <span class="search-icon material-icons">search</span>
           </div>
         </header>
 
-        <!--Scrollable Cards Section-->
-        <section class="${styles.cards}">
-        ${this.filteredCards
-          .map(
-            (card) => `
-            <div id= "${card.id}" class="${styles.card}">
-            <img src="${card.imgSrc}" alt="${card.title}" class="${styles.imagePlaceholder}"/>
-            <h2>${card.title}</h2>
-            <p>${card.description}</p>
-            </div>
-            `
-          )
+        <div class="my-content green-border">
+          <section class="${styles.cards}">
+          ${this.filteredCards
+            .map(
+              (card) => `
+              <div id= "${card.id}" class="${styles.card}">
+              <img src="${card.imgSrc}" alt="${card.title}" class="${styles.imagePlaceholder}"/>
+              <h2>${card.title}</h2>
+              <p>${card.description}</p>
+              </div>
+              `
+            )
           .join("")
         }
 
-        </section>
+          </section>
+        </div>
 
         <!--card modal-->
         <div class="${styles.modalContainer} ${styles.hidden}">
@@ -85,7 +90,7 @@ class NoticePage extends Component {
           </div>
         </div>
       </main>
-    </div>
+
     `;
   }
 
@@ -182,6 +187,6 @@ class NoticePage extends Component {
 }
 
 // 앱 실행
-new NoticePage(document.querySelector('#app'));
+new NoitcePage(document.querySelector('#app'));
 
 export default NoticePage; 

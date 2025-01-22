@@ -1,7 +1,5 @@
-import "../../../reset.css";
-import "../../styles/global.css";
-import "../../styles/variables.css";
 import "./mypage.css";
+import Sidebar from "@/components/navigation/sidebar";
 
 class Component {
   constructor(target) {
@@ -41,11 +39,10 @@ class MyPage extends Component {
   template() {
     const { attendance, writer, workStartTime, workEndTime, isWorking } =
       this.state;
+    
 
     return `
-    <div class="page-container">
-      <div class="sidebar"></div> <!-- 사이드바 -->
-      <main class="content">
+      <main class="main-content">
       <div class = "wrapper">
         <!-- 프로필 -->
         <div class="grid-item section profile-section modal-trigger">
@@ -68,6 +65,7 @@ class MyPage extends Component {
         </div>
 
         <!-- 시간관리 -->
+        <div class="my-content">
         <div class="grid-item section time-management-section">
           <div class="current-time">
             <p>현재시각</p>
@@ -173,7 +171,7 @@ class MyPage extends Component {
           </div>
         </div>
       </div>
-    </div>
+    
     `;
   }
 

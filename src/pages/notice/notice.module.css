@@ -1,17 +1,4 @@
-/* notice2.module.css */
-.content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
-.title {
-  margin-left: 60px;
-  font-size: 35px;
-  font-weight: 500;
-}
-
+/* Cards 섹션 스타일 */
 .cards {
   display: flex;
   grid-template-columns: repeat(auto-fill, minmax(200px, calc((100% - 4.5rem) / 4)));
@@ -180,3 +167,5 @@
 .hidden {
   display: none;
 }
+
+
