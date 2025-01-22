@@ -345,7 +345,6 @@
   background-color: #ccc;
 }
 
-/* 근태 목록 모달 스타일 */
 /* 근태목록 모달 */
 .modal .attendanceModal .modalContent {
   width: 80%;
@@ -355,26 +354,17 @@
 }
 
 .modal .attendanceList {
-  padding: 20px;
-}
-
-.modal .modalHeader {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
-  position: relative;
-}
-
-.modal .modalHeader h2 {
-  text-align: center;
-  margin: 0;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .modal .attendanceTypeSelect {
   position: absolute;
-  right: 0;
-  padding: 8px;
+  width: 80px;
+  top: 60px;
+  right: 20px;
+  padding: 5px;
   border-radius: 5px;
   background-color: var(--color-dark-green);
   color: var(--color-white);
@@ -388,9 +378,7 @@
   border-radius: 5px;
   margin-bottom: 10px;
 }
-.modal .attendanceList {
-  padding: 0;
-}
+
 .modal .headerItem {
   flex: 1;
   color: var(--color-white);
@@ -438,7 +426,7 @@
   text-align: center;
 }
 
-.modal .attendanceFormModal h2 {
+.modal h2 {
   margin-bottom: 30px;
   font-size: 24px;
 }
@@ -468,7 +456,7 @@
   background-color: var(--color-dark-green);
 }
 
-.modal .attendanceForm {
+.modal .addAttendanceForm {
   display: flex;
   flex-direction: column;
   gap: 20px;

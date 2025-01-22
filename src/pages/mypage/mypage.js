@@ -128,22 +128,7 @@ class MyPage extends Component {
             <div class="${styles.headerItem} ${styles.date}">일자</div>
             <div class="${styles.headerItem} ${styles.applyDate}">신청일</div>
             </div>
-            <div class="${styles.attendanceList}">
-              ${attendance
-                .slice() // 원본 배열을 변경하지 않기 위해 복사본을 생성
-                .reverse() // 배열을 역순으로 뒤집음
-                .map(
-                  (item) => `
-                <div class="${styles.attendanceItem}">
-                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지" class="${styles.profileImage}" />
-                  <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
-                  <div class="${styles.itemContent} ${styles.type}">${item.type}</div>
-                  <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
-                  <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
-                </div>
-              `,
-                )
-                .join('')}
+            <div class="${styles.attendanceList} attendance-list">
             </div>
           </div>
           <!-- 근태신청버튼 -->
@@ -178,12 +163,17 @@ class MyPage extends Component {
       <!-- 근태모달 -->
       <div class="${styles.modal} ${styles.attendanceModal}">
         <div class="${styles.modalContent}">
-          <span class="${styles.close}">&times;</span>
+          <button class="${styles.close}">&times;</button>
           <div class="${styles.attendanceList}">
-            <div class="${styles.modalHeader}">
-              <h2>근태 목록</h2>
-            </div>
-            <div class="${styles.attendanceListContainer}">
+            <h2>근태 목록</h2>
+            <select class="${styles.attendanceList} ${styles.attendanceTypeSelect}">
+              <option value="all">전체</option>
+              <option value="vacation">연차</option>
+              <option value="halfday">반차</option>
+              <option value="early">조퇴</option>
+              <option value="other">기타</option>
+            </select>
+            <div class="${styles.attendanceList} ${styles.attendanceListContainer}">
               <div class="${styles.listHeader}">
                 <span class="${styles.headerItem} ${styles.writer}">작성자</span>
                 <span class="${styles.headerItem} ${styles.type}">종류</span>
@@ -191,7 +181,7 @@ class MyPage extends Component {
                 <span class="${styles.headerItem} ${styles.applyDate}">신청일</span>
               </div>
 
-            <div class="${styles.attendanceList}">
+            <div class="${styles.attendanceList} attendance-list">
               ${attendance
                 .slice() // 원본 배열을 변경하지 않기 위해 복사본을 생성
                 .reverse() // 배열을 역순으로 뒤집음
@@ -218,16 +208,16 @@ class MyPage extends Component {
       <!-- 근태신청모달 -->
       <div class="${styles.modal} ${styles.addAttendanceBtnModal}">
         <div class="${styles.modalContent}">
-          <span class="${styles.close}">&times;</span>
-          <div class="${styles.attendanceForm}">
+          <button class="${styles.close}">&times;</button>
+          <div class="${styles.addAttendanceForm}">
             <h2>근태 신청</h2>
             <div class="${styles.attendanceTypeButtons}">
-              <button class="${styles.typeBtn}">연차</button>
-              <button class="${styles.typeBtn}">반차</button>
-              <button class="${styles.typeBtn}">조퇴</button>
-              <button class="${styles.typeBtn}">기타</button>
+              <button value="vacation" class="${styles.typeBtn}">연차</button>
+              <button value="halfday" class="${styles.typeBtn}">반차</button>
+              <button value="early" class="${styles.typeBtn}">조퇴</button>
+              <button value="other" class="${styles.typeBtn}">기타</button>
             </div>
-            <div class="${styles.attendanceForm}">
+            <div class="${styles.addAttendanceForm}">
               <div class="${styles.datePickerContainer}">
                 <label for="start-date">시작일</label>
                 <input type="date" id="start-date" class="${styles.datePicker}" />
@@ -247,8 +237,8 @@ class MyPage extends Component {
     this.initModals();
     this.initTimeUpdate();
     this.initWorkManagement();
+    this.initAddAttendanceManagement();
     this.initAttendanceManagement();
-    console.log('MyPage ~ setEvent ~ initAttendanceManagement: ');
 
     //프로필 클릭 시 페이지 이동
     const profileSection = document.querySelector(`.${styles.profileSection}`);
@@ -289,6 +279,7 @@ class MyPage extends Component {
 
       if (closeBtn) {
         closeBtn.addEventListener('click', () => {
+          console.log('MyPage ~ closeBtn.addEventListener ~ closeBtn: ');
           modal.style.display = 'none';
           document.body.style.overflow = 'auto';
         });
@@ -367,7 +358,6 @@ class MyPage extends Component {
           document.querySelector('.work-end-time').textContent = currentTime;
           // document.querySelector(".work-btn-text").textContent = this.state.isWorking ? "근무 시작" : "근무 종료";
         }
-        console.log('MyPage ~ confirmBtn.addEventListener ~ currentTime: ', this.state);
 
         document.querySelector(`.${styles.workStartQuestion}`).textContent = this.state.isWorking
           ? '근무를 종료하시겠습니까?'
@@ -389,7 +379,7 @@ class MyPage extends Component {
   }
 
   // 근태 관리
-  initAttendanceManagement() {
+  initAddAttendanceManagement() {
     const addAttendanceBtn = document.querySelector(`.${styles.addAttendanceBtn}`);
     const addAttendanceModal = document.querySelector(`.${styles.addAttendanceBtnModal}`);
     if (!addAttendanceBtn || !addAttendanceModal) return;
@@ -402,7 +392,7 @@ class MyPage extends Component {
         typeButtons.forEach((btn) => btn.classList.remove(`${styles.selected}`));
         // 클릭한 버튼만 선택 상태로 변경
         e.target.classList.add(`${styles.selected}`);
-        this.state.selectedAttendanceType = e.target.textContent;
+        this.state.selectedAttendanceType = e.target.value;
       });
     });
 
@@ -433,6 +423,8 @@ class MyPage extends Component {
           attendance: [...this.state.attendance, newAttendance],
         });
 
+        this.renderAttendanceList(this.state.attendance);
+
         // 모달 닫기 및 초기화
         addAttendanceModal.style.display = 'none';
         document.querySelector('#start-date').value = '';
@@ -455,6 +447,52 @@ class MyPage extends Component {
     });
   }
 
+  initAttendanceManagement() {
+    this.AttendanceFilter();
+  }
+  AttendanceFilter() {
+    const attendanceTypeSelect = document.querySelector(`.${styles.attendanceTypeSelect}`);
+    if (attendanceTypeSelect) {
+      attendanceTypeSelect.addEventListener('change', (e) => {
+        this.filterAttendance(e.target.value);
+      });
+    }
+  }
+  // 근태 목록을 출력하는 함수
+  renderAttendanceList(attendance) {
+    const attendanceListElements = document.querySelectorAll('.attendance-list');
+    attendanceListElements.forEach((attendanceListElement) => {
+      attendanceListElement.innerHTML = attendance
+        .slice()
+        .reverse()
+        .map(
+          (item) => `
+            <div class="${styles.attendanceItem}">
+              <img src="src/assets/images/profile.jpg" alt="프로필 이미지" class="${
+                styles.profileImage
+              }" />
+              <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
+              <div class="${styles.itemContent} ${styles.type}">${this.getTypeInKorean(
+            item.type,
+          )}</div>
+              <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
+              <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
+            </div>
+          `,
+        )
+        .join('');
+    });
+  }
+
+  // 필터링 함수
+  filterAttendance(selectedType) {
+    const filteredAttendance = this.state.attendance.filter((item) => {
+      return selectedType === 'all' || item.type === selectedType;
+    });
+
+    this.renderAttendanceList(filteredAttendance);
+  }
+
   formatDate(startDate, endDate) {
     const start = new Date(startDate);
     const startYear = start.getFullYear().toString().slice(-2);
@@ -474,6 +512,16 @@ class MyPage extends Component {
       return `${startYear}${startMonth}${startDay}`;
     }
     return `${startYear}${startMonth}${startDay}~${endYear}${endMonth}${endDay}`;
+  }
+
+  getTypeInKorean(type) {
+    const typeMap = {
+      vacation: '연차',
+      halfday: '반차',
+      early: '조퇴',
+      other: '기타',
+    };
+    return typeMap[type] || type;
   }
 }
 
