@@ -122,7 +122,15 @@ class MyPage extends Component {
           <!-- 근태 신청 내역 -->
           <div class="${styles.attendanceListSection} ${styles.section} ${styles.modalTrigger}">
           <p class="${styles.sectionTitle}">근태 목록</p>
+          <select class="${styles.attendanceListSelect} ${styles.attendanceTypeSelect}">
+              <option value="all">전체</option>
+              <option value="vacation">연차</option>
+              <option value="halfday">반차</option>
+              <option value="early">조퇴</option>
+              <option value="other">기타</option>
+            </select>
             <div class="${styles.attendanceHeader}">
+            <div class="${styles.headerItem} ${styles.profileImage}"></div>
             <div class="${styles.headerItem} ${styles.writer}">작성자</div>
             <div class="${styles.headerItem} ${styles.type}">종류</div>
             <div class="${styles.headerItem} ${styles.date}">일자</div>
@@ -188,7 +196,9 @@ class MyPage extends Component {
                 .map(
                   (item) => `
                 <div class="${styles.attendanceItem}">
-                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지" class="${styles.profileImage}" />
+                  <div class="${styles.itemContent} ${styles.profileImage}">
+                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지"/>
+                  </div>
                   <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
                   <div class="${styles.itemContent} ${styles.type}">${item.type}</div>
                   <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
@@ -257,10 +267,10 @@ class MyPage extends Component {
         trigger: document.querySelector(`.${styles.workBtn}`),
         modal: document.querySelector(`.${styles.workBtnModal}`),
       },
-      attendance: {
-        trigger: document.querySelector(`.${styles.attendanceListSection}`),
-        modal: document.querySelector(`.${styles.attendanceModal}`),
-      },
+      // attendance: {
+      //   trigger: document.querySelector(`.${styles.attendanceListSection}`),
+      //   modal: document.querySelector(`.${styles.attendanceModal}`),
+      // },
       addAttendance: {
         trigger: document.querySelector(`.${styles.addAttendanceBtn}`),
         modal: document.querySelector(`.${styles.addAttendanceBtnModal}`),
@@ -468,9 +478,9 @@ class MyPage extends Component {
         .map(
           (item) => `
             <div class="${styles.attendanceItem}">
-              <img src="src/assets/images/profile.jpg" alt="프로필 이미지" class="${
-                styles.profileImage
-              }" />
+              <div class="${styles.itemContent} ${styles.profileImage}">
+                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지"/>
+                  </div>
               <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
               <div class="${styles.itemContent} ${styles.type}">${this.getTypeInKorean(
             item.type,
