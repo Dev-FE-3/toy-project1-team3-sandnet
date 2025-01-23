@@ -276,7 +276,7 @@
   background-color: var(--color-beige); /* 베이지 배경으로 변경 */
   padding: 20px;
   border: 3px solid var(--color-dark-green);
-  border-radius: 40px;
+  border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 50%; /* 뷰포트의 50% 아래 */

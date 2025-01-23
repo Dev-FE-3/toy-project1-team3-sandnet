@@ -283,7 +283,7 @@ class MyPage extends Component {
 
       trigger.addEventListener('click', (e) => {
         e.stopPropagation();
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
       });
 
