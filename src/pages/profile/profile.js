@@ -20,6 +20,14 @@ class Component {
 class ProfilePage extends Component {
   constructor(target) {
     super(target);
+    this.state = {};
+    this.setup();
+    this.validateFileSize = this.validateFileSize.bind(this);
+  }
+
+  setup() {
+    this.MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+
     this.state = {
       profileData: {
         name: '박샌드',
@@ -30,14 +38,6 @@ class ProfilePage extends Component {
         profileImage: '/src/assets/images/employee.jpg',
       },
     };
-
-    this.setup();
-    this.validateFileSize = this.validateFileSize.bind(this);
-  }
-
-  setup() {
-    this.MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
-
     // this.state = {
     //   employees: [
     //     {
@@ -56,13 +56,11 @@ class ProfilePage extends Component {
     // };
   }
 
-  // 인스턴스 메서드로 변경
   getProfileData() {
     return this.state.profileData;
   }
 
   template() {
-    const profileData = this.getProfileData();
     return `
         <main class="main-content">
         <header>
@@ -71,11 +69,11 @@ class ProfilePage extends Component {
         <div class="my-content green-border">
           <article class="${styles.primaryProfileContainer}">
             <header>
-              <img id="profileImage" src="${profileData.profileImage}" alt="프로필 사진" />
+              <img id="profileImage" src="${this.state.profileData.profileImage}" alt="프로필 사진" />
               <div class="${styles.profileInfo}">
-                <h1 id="profileName">${profileData.name}</h1>
-                <p id="profileJob" class="${styles.jobTitle}">${profileData.jobTitle}</p>
-                <address id="profileLocation" class="${styles.location}">${profileData.location}</address>
+                <h1 id="profileName">${this.state.profileData.name}</h1>
+                <p id="profileJob" class="${styles.jobTitle}">${this.state.profileData.jobTitle}</p>
+                <address id="profileLocation" class="${styles.location}">${this.state.profileData.location}</address>
               </div>
               <button type="button" data-role="primary-edit-button" class="${styles.editButton}">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -125,6 +123,16 @@ class ProfilePage extends Component {
   }
 
   setEvent() {
+    const profileData = this.state.profileData;
+
+    // 프로필 기본 정보 설정
+    document.getElementById('profileImage').src = profileData.profileImage;
+    document.getElementById('profileName').textContent = profileData.name;
+    document.getElementById('profileJob').textContent = profileData.jobTitle;
+    document.getElementById('profileLocation').textContent = profileData.location;
+    document.getElementById('email').textContent = profileData.email;
+    document.getElementById('phone').textContent = profileData.phone;
+
     const editButton = document.querySelector('[data-role="primary-edit-button"]');
 
     if (editButton) {

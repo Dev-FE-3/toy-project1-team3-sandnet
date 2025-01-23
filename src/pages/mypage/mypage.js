@@ -46,6 +46,8 @@ class MyPage extends Component {
   }
 
   setup() {
+    const profileData = this.profilePage.getProfileData();
+
     this.state = {
       attendance: [], // 근태 내역
       writer: '장은혜', // 작성자
@@ -53,13 +55,14 @@ class MyPage extends Component {
       workStartTime: null, // 근무 시작 시간
       workEndTime: null, // 근무 종료 시간
       isWorking: false, // 근무 중 여부
+
+      profileData,
     };
   }
 
   template() {
-    const { attendance, writer, workStartTime, workEndTime, isWorking } = this.state;
+    const { attendance, writer, workStartTime, workEndTime, isWorking, profileData } = this.state;
     console.log('MyPage ~ template ~ workStartTime: ', workStartTime);
-    const profileData = this.profilePage.getProfileData();
 
     return `
       <main class="main-content">
