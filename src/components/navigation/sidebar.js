@@ -1,4 +1,4 @@
-import styles from './Sidebar.module.css'; // CSS 모듈 import 추가
+import styles from './sidebar.module.css'; // CSS 모듈 import 추가
 import { handleRouting, getRoute } from '@/app/router/router';
 import logo from '@/assets/images/logo.png'; // 로고 이미지 import
 
@@ -58,7 +58,6 @@ export default class Sidebar {
     }
 
     const links = document.querySelectorAll('.link');
-    console.log('Sidebar ~ setEvent ~ links: ', links);
 
     links.forEach((link) => {
       link.addEventListener('click', (e) => {
@@ -69,7 +68,6 @@ export default class Sidebar {
           e.target.tagName.toLowerCase() === 'li'
             ? e.target.querySelector('a').getAttribute('data-link')
             : e.target.getAttribute('data-link');
-        console.log('Sidebar ~ link.addEventListener ~ path: ', path);
 
         window.history.pushState({}, '', `/${path}`);
         handleRouting();

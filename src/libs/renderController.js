@@ -5,7 +5,6 @@ export const renderController = (path, container) => {
   // console.log("renderController ~ container: ", container)
   // 경로에 따른 컴포넌트 가져오기
   const routeHandler = getRoute(path);
-  console.log('renderController ~ routeHandler: ', routeHandler);
 
   // 공통 컴포넌트 렌더링
   layout(container);
@@ -14,7 +13,6 @@ export const renderController = (path, container) => {
   if (typeof routeHandler === 'function') {
     try {
       const instance = routeHandler();
-      console.log('renderController ~ instance: ', instance);
 
       container.insertAdjacentHTML('beforeend', instance.template()); // 컴포넌트 템플릿 렌더링
       instance.setEvent(); // setEvent 호출

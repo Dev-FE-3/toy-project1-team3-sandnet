@@ -1,6 +1,12 @@
 // profile.css 파일 임포트
 import styles from './profile.module.css';
 import profileImg from '@/assets/images/princess01.webp';
+import {
+  createImage,
+  updateImage,
+  getImagesByUser,
+  deleteImage,
+} from '@/libs/firebase/firebaseService';
 
 class Component {
   constructor(target) {
@@ -20,30 +26,31 @@ class Component {
 class ProfilePage extends Component {
   constructor(target) {
     super(target);
+    this.state = {};
     this.setup();
+    this.profileInit();
     this.validateFileSize = this.validateFileSize.bind(this);
   }
 
   setup() {
-    this.MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
-
-    // this.state = {
-    //   employees: [
-    //     {
-    //       id: 1,
-    //       image: "https://avatars.githubusercontent.com/u/113437204?v=4",
-    //       name: "안요셉",
-    //       phone: "010-1234-5678",
-    //       email: "yosep@gmail.com",
-    //       branch: "1",
-    //       rank: "Leader"
-    //     },
-    //     // 더 많은 데이터...
-    //   ],
-    //   searchText: '',
-    //   currentPage: 1
-    // };
+    this.MAX_FILE_SIZE = 2 * 1024 * 1024; // 업로드 이미지 최대 파일 크기(2MB)
+    this.state = {
+      profileImgs: [],
+    };
+    //this.state = {
+    //  profileData: {
+    //    name: '박샌드',
+    //    phone: '010-1234-1234',
+    //    email: 'yummy@sandwish.com',
+    //    jobTitle: '홀 매니저',
+    //    location: '서울특별시 강남구 역삼동 123-45, 101호',
+    //    profileImage: '/src/assets/images/employee.jpg',
+    //  },
   }
+
+  //  getProfileData() {
+  //    return this.state.profileData;
+  //  }
 
   template() {
     return `
@@ -54,17 +61,17 @@ class ProfilePage extends Component {
         <div class="my-content green-border">
           <article class="${styles.primaryProfileContainer} green-border">
             <header>
-              <img id="profileImage" src="${profileImg}" alt="프로필 사진" />
-              <div class="${styles.profileInfo}">
-                <h1 id="profileName">Jack Adams</h1>
-                <p id="profileJob" class="${styles.jobTitle}">Product Designer</p>
-                <address id="profileLocation" class="${styles.location}">Los Angeles, California, USA</address>
+              <div class="${styles.imgContainer}">
+                <img id="profileImage" src="${this.state.profileImgs[0]?.imgUrl}" alt="프로필 사진" />
+                <i class="fa-solid fa-pen ${styles.imgEditIcon}" aria-hidden="true"></i>
+                <i class="fa-light fa-trash ${styles.imgDeleteIcon}"></i>
               </div>
-              <button type="button" data-role="primary-edit-button" class="${styles.editButton}">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                <span>Edit</span>
-              </button>
-              <input type="file" id="imageUpload" data-role="image-upload-button" accept="image/*" style="display: none;" />
+              <div class="${styles.profileInfo}">
+                <h1 id="profileName"></h1>
+                <p id="profileJob" class="${styles.jobTitle}"></p>
+                <address id="profileLocation" class="${styles.location}"></address>
+              </div>
+              <input type="file" accept="image/*" class="${styles.imgUpload}" />
             </header>
           </article>
           <article class="${styles.profileDetailContainer}"green-border>
@@ -75,30 +82,28 @@ class ProfilePage extends Component {
                 <span>Edit</span>
               </button>
             </header>
+            <!-- 개인정보 -->
             <form class="${styles.personalInfoContent}">
               <fieldset class="${styles.infoGroup}">
                 <div class="${styles.infoItem}">
-                  <label for="firstName">First Name</label>
-                  <output id="firstName" name="firstName">Jack</output>
+                  <label for="firstName">이름</label>
+                  <output id="firstName" name="firstName">최정훈</output>
                 </div>
                 <div class="${styles.infoItem}">
-                  <label for="lastName">Last Name</label>
-                  <output id="lastName" name="lastName">Adams</output>
+                  <label for="email">직무</label>
+                  <output name="job-role">프론트엔드 개발자</output>
                 </div>
               </fieldset>
+              
               <fieldset class="${styles.infoGroup}">
                 <div class="${styles.infoItem}">
-                  <label for="email">Email address</label>
+                  <label for="email">Email</label>
                   <output id="email" name="email">jackadams@gmail.com</output>
                 </div>
                 <div class="${styles.infoItem}">
-                  <label for="phone">Phone</label>
-                  <output id="phone" name="phone">(213) 555-1234</output>
+                  <label for="phone">전화번호</label>
+                  <output id="phone" name="phone">(010) 1234-5678</output>
                 </div>
-              </fieldset>
-              <fieldset class="${styles.infoItem} ${styles.fullWidth}">
-                <label for="bio">Bio</label>
-                <output id="bio" name="bio">Product Designer</output>
               </fieldset>
             </form>
           </article>
@@ -107,74 +112,29 @@ class ProfilePage extends Component {
     `;
   }
 
-  setEvent() {
-    const editButton = document.querySelector('[data-role="primary-edit-button"]');
+  async profileInit() {
+    try {
+      const images = await getImagesByUser();
+      this.setState({ profileImgs: images });
+      console.log('ProfilePage ~ profileInit ~ images: ', images);
 
-    if (editButton) {
-      editButton.addEventListener('click', () => {
-        this.toggleEditMode();
-      });
-    } else {
-      console.warn('Edit button not found.');
-    }
+      if (images && images.length > 0) {
+        // Base64를 Blob으로 변환
+        const response = await fetch(images[0].imgUrl);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
 
-    // 이미지 클릭 시 파일 업로드 창 열기
-    const profileImage = document.getElementById('profileImage');
-    const imageUploadButton = document.querySelector('[data-role="image-upload-button"]');
-
-    profileImage.addEventListener('click', () => {
-      imageUploadButton.click(); // 파일 입력 필드 클릭
-    });
-  }
-
-  toggleEditMode() {
-    const nameElement = document.getElementById('profileName');
-    const jobElement = document.getElementById('profileJob');
-    const locationElement = document.getElementById('profileLocation');
-    const editButton = document.querySelector('[data-role="primary-edit-button"]');
-    const imageUpload = document.getElementById('imageUpload');
-    const profileImage = document.getElementById('profileImage');
-
-    if (editButton.innerText === 'Edit') {
-      // 편집 모드로 전환
-      nameElement.innerHTML = `<input type="text" value="${nameElement.innerText}" />`;
-      jobElement.innerHTML = `<input type="text" value="${jobElement.innerText}" />`;
-      locationElement.innerHTML = `<input type="text" value="${locationElement.innerText}" />`;
-      editButton.innerText = 'Save';
-      // imageUpload.style.display = "block"; // 파일 입력 필드 보이기
-
-      // 이미지 업로드 이벤트 리스너 추가
-      imageUpload.onchange = (event) => {
-        const file = event.target.files[0];
-
-        if (file) {
-          if (!this.validateFileSize(file)) {
-            return; // 파일 크기가 유효하지 않으면 종료
-          }
-
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            profileImage.src = e.target.result; // 미리보기
-          };
-          reader.readAsDataURL(file);
+        const profileImage = document.getElementById('profileImage');
+        if (profileImage) {
+          profileImage.src = blobUrl;
         }
-      };
-    } else {
-      // 저장
-      const newName = nameElement.querySelector('input').value;
-      const newJob = jobElement.querySelector('input').value;
-      const newLocation = locationElement.querySelector('input').value;
-
-      nameElement.innerText = newName;
-      jobElement.innerText = newJob;
-      locationElement.innerText = newLocation;
-      editButton.innerText = 'Edit';
-
-      // 여기서 createImage() 호출 가능
-      // createImage();
+      }
+    } catch (error) {
+      console.error('프로필 이미지 로딩 중 오류 발생:', error);
     }
   }
 
+  // 파일 크기 검증
   validateFileSize(file) {
     console.log(
       'ProfilePage ~ validateFileSize ~ file: ',
@@ -187,6 +147,87 @@ class ProfilePage extends Component {
       return false;
     }
     return true;
+  }
+
+  // 파일을 Base64로 변환
+  convertFileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  isProfileImgs() {
+    return this.state.profileImgs.length > 0 ? true : false;
+  }
+
+  setEvent() {
+    const profileImage = document.getElementById('profileImage');
+    const imgUploadBtn = document.querySelector(`.${styles.imgUpload}`);
+    const editIcon = document.querySelector(`.${styles.imgEditIcon}`);
+    const deleteIcon = document.querySelector(`.${styles.imgDeleteIcon}`);
+
+    console.log('setEvent: img ', this.state.profileImgs);
+
+    // 프로필 이미지 클릭 시 파일 업로드 창 열기
+    // profileImage.addEventListener('click', () => {
+    //   imgUploadBtn.click(); // 파일 입력 필드 클릭
+    // });
+
+    // 이미지 호버시 에디트 아이콘 클릭 시 파일 업로드 창 열기
+    editIcon.addEventListener('click', (e) => {
+      e.stopPropagation(); // 클릭 이벤트 전파 방지
+      imgUploadBtn.click(); // 파일 입력 필드 클릭
+    });
+
+    // 삭제 아이콘 클릭 시 이미지 삭제 처리
+    deleteIcon.addEventListener('click', async (e) => {
+      e.stopPropagation(); // 클릭 이벤트 전파 방지
+      // 이미지 삭제 로직 추가
+      if (this.isProfileImgs()) {
+        await deleteImage(this.state.profileImgs[0].id); // 이미지 삭제 함수 호출
+        this.setState({
+          profileImgs: this.state.profileImgs.filter(
+            (img) => img.id !== this.state.profileImgs[0].id,
+          ),
+        }); // 상태 업데이트
+        profileImage.src = ''; // 이미지 미리보기 초기화
+      }
+    });
+
+    // 이미지 업로드
+    imgUploadBtn.onchange = async (e) => {
+      const file = e.target.files[0];
+
+      if (file) {
+        if (!this.validateFileSize(file)) return;
+
+        try {
+          // 파일을 Base64로 변환
+          const base64String = await this.convertFileToBase64(file);
+          profileImage.src = URL.createObjectURL(file); // 미리보기용 blob url
+          console.log('click', this.state, this.isProfileImgs(), this.state.profileImgs[0].id);
+
+          if (this.isProfileImgs()) {
+            await updateImage(this.state.profileImgs[0].id, base64String); // 이미지 Base64 문자열로 저장
+          } else {
+            // await createImage(base64String); // 이미지 Base64 문자열로 저장
+          }
+        } catch (error) {
+          console.error('이미지 업로드 중 오류 발생:', error);
+        }
+      }
+    };
+  }
+
+  // 컴포넌트가 언마운트될 때 Blob URL 해제 필요
+  componentWillUnmount() {
+    const profileImage = document.getElementById('profileImage');
+    if (profileImage && profileImage.src.startsWith('blob:')) {
+      URL.revokeObjectURL(profileImage.src);
+    }
   }
 }
 

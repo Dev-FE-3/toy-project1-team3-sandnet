@@ -12,6 +12,7 @@ class Component {
   template() {
     return '';
   }
+
   // render() {
   //   this.target.innerHTML = this.template();
   // }
@@ -65,7 +66,7 @@ class NoticePage extends Component {
         <!--card modal-->
         <div class="${styles.modalContainer} ${styles.hidden}">
           <div class="${styles.modalContent}">
-            <span class="${styles.modalCloseButton} close-icon material-icons">close</span>
+            <span class="${styles.close} close-icon material-icons">close</span>
             <div class="${styles.modalArea}">
               <div  class="${styles.modalImage}"></div>
               <div class="${styles.modalTextContent}">
@@ -83,19 +84,20 @@ class NoticePage extends Component {
   setEvent() {
     // console.log("NoticePage ~ setup ~ filteredCards: ", this.filteredCards);
 
-    this.initializeModal();
-    this.initializeCards();
+    this.initModal();
+    this.initCards();
   }
 
-  initializeModal() {
-    const modals = [
-      {
+  //모달 초기화
+  initModal() {
+    const modals = {
+      card: {
         trigger: document.querySelectorAll(`.${styles.card}`),
         modal: document.querySelector(`.${styles.modalContainer}`),
       },
-    ];
+    };
 
-    modals.forEach(({ trigger, modal }) => {
+    Object.values(modals).forEach(({ trigger, modal }) => {
       if (!trigger || !modal) return;
 
       const closeBtn = modal.querySelector(`.${styles.modalCloseButton}`);
@@ -103,7 +105,7 @@ class NoticePage extends Component {
       // 트리거 클릭 시 모달 열기
       trigger.forEach((card) => {
         card.addEventListener('click', (e) => {
-          e.stopPropagation(); // 이벤트 전파 막기
+          // e.stopPropagation(); // 이벤트 전파 막기
           this.openModal(card); // openModal 사용
           modal.style.display = 'flex';
           document.body.style.overflow = 'hidden';
@@ -128,7 +130,7 @@ class NoticePage extends Component {
     });
   }
 
-  initializeCards() {
+  initCards() {
     const cards = document.querySelectorAll(`.${styles.card}`);
     cards.forEach((card) => this.setupCard(card));
   }
