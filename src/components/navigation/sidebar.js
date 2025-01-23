@@ -46,7 +46,6 @@ export default class Sidebar {
 
     // 페이지 이동
     const links = document.querySelectorAll('.link');
-    console.log('Sidebar ~ setEvent ~ links: ', links);
 
     links.forEach((link) => {
       link.addEventListener('click', (e) => {
@@ -57,7 +56,6 @@ export default class Sidebar {
           e.target.tagName.toLowerCase() === 'li'
             ? e.target.querySelector('a').getAttribute('data-link')
             : e.target.getAttribute('data-link');
-        console.log('Sidebar ~ link.addEventListener ~ path: ', path);
 
         window.history.pushState({}, '', `/${path}`);
         handleRouting();
