@@ -510,7 +510,7 @@ class MyPage extends Component {
     const startDay = start.getDate().toString().padStart(2, '0');
 
     if (!endDate) {
-      return `${startYear}${startMonth}${startDay}`;
+      return `${startYear}.${startMonth}.${startDay}`;
     }
 
     const end = new Date(endDate);
@@ -518,10 +518,10 @@ class MyPage extends Component {
     const endMonth = (end.getMonth() + 1).toString().padStart(2, '0');
     const endDay = end.getDate().toString().padStart(2, '0');
 
-    if (startMonth === endMonth) {
-      return `${startYear}${startMonth}${startDay}`;
+    if (startDate === endDate) {
+      return `${startYear}.${startMonth}.${startDay}`;
     }
-    return `${startYear}${startMonth}${startDay}~${endYear}${endMonth}${endDay}`;
+    return `${startYear}.${startMonth}.${startDay}~${endYear}.${endMonth}.${endDay}`;
   }
 
   getTypeInKorean(type) {
