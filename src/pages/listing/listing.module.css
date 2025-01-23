@@ -3,7 +3,6 @@
   height: 100vh;
 } */
 
-
 .myContent {
   background-color: var(--color-white);
   padding: 2rem;
@@ -14,7 +13,6 @@
   display: flex;
   flex-direction: column;
 }
-
 
 /* 팀 헤더 영역 */
 .teamHeader {
@@ -44,6 +42,22 @@
   overflow-y: auto;
   background-color: var(--color-white);
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 테이블 헤더 영역 */
+.tableHeader {
+  width: calc(100% - 8px); /* 스크롤바 너비만큼 빼기 */
+  background-color: var(--color-white);
+}
+
+/* 스크롤 영역 */
+.scrollArea {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  max-height: calc(100vh - 400px); /* 적절한 높이 설정 */
 }
 
 .teamTable {
@@ -57,7 +71,7 @@
   top: 0;
   background-color: var(--color-white);
   padding: 1rem;
-  text-align: left;
+  text-align: center;
   font-weight: 600;
   border-bottom: 5px solid var(--color-dark-green);
 }
@@ -66,10 +80,46 @@
   padding: 1rem;
   border-bottom: 1px solid var(--color-gray);
   vertical-align: middle;
+  text-align: center;
 }
 
 .teamTable tr:hover {
   background-color: #f8f9fa;
+}
+
+.teamTable th:nth-child(1),
+.teamTable td:nth-child(1) {
+  width: 10%; /* 프로필 이미지 열 */
+}
+
+.teamTable th:nth-child(2),
+.teamTable td:nth-child(2) {
+  width: 10%; /* 이름 열 */
+}
+
+.teamTable th:nth-child(3),
+.teamTable td:nth-child(3) {
+  width: 18%; /* 전화번호 열 */
+}
+
+.teamTable th:nth-child(4),
+.teamTable td:nth-child(4) {
+  width: 18%; /* 이메일 열 */
+}
+
+.teamTable th:nth-child(5),
+.teamTable td:nth-child(5) {
+  width: 10%; /* 브랜치 열 */
+}
+
+.teamTable th:nth-child(6),
+.teamTable td:nth-child(6) {
+  width: 10%; /* 직급 열 */
+}
+
+.teamTable th:nth-child(7),
+.teamTable td:nth-child(7) {
+  width: 10%; /* 액션 버튼 열 */
 }
 
 /* 프로필 이미지 */
@@ -89,20 +139,3 @@
   border-radius: 5px;
   cursor: pointer;
 }
-
-
-
-/* 스크롤바 스타일 */
-.tableContainer::-webkit-scrollbar {
-  width: 8px;
-}
-
-.tableContainer::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-.tableContainer::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-} 

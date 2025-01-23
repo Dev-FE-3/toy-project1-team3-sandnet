@@ -102,7 +102,8 @@ class NoticePage extends Component {
 
       // 트리거 클릭 시 모달 열기
       trigger.forEach((card) => {
-        card.addEventListener('click', () => {
+        card.addEventListener('click', (e) => {
+          // e.stopPropagation(); // 이벤트 전파 막기
           this.openModal(card); // openModal 사용
           modal.style.display = 'flex';
           document.body.style.overflow = 'hidden';

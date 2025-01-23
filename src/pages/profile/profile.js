@@ -59,7 +59,7 @@ class ProfilePage extends Component {
           <h1>프로필</h1>
         </header>
         <div class="my-content green-border">
-          <article class="${styles.primaryProfileContainer}">
+          <article class="${styles.primaryProfileContainer} green-border">
             <header>
               <div class="${styles.imgContainer}">
                 <img id="profileImage" src="${this.state.profileImgs[0]?.imgUrl}" alt="프로필 사진" />
@@ -74,7 +74,7 @@ class ProfilePage extends Component {
               <input type="file" accept="image/*" class="${styles.imgUpload}" />
             </header>
           </article>
-          <article class="${styles.profileDetailContainer}">
+          <article class="${styles.profileDetailContainer}"green-border>
             <header class="${styles.personalInfoHeader}">
               <h2>Personal information</h2>
               <button type="button" class="${styles.editButton}">
