@@ -9,5 +9,6 @@
   "arrowParens": "always",
   "proseWrap": "never",
   "endOfLine": "auto",
-  "prettier.trailingComma": "all"
+  "prettier.endOfLine": "auto",
+  "prettier.bracketSpacing": true
 }

@@ -1,6 +1,11 @@
 import { handleRouting } from '@/app/router/router';
+import { renderController } from '@/libs/renderController';
+import { firebaseInit } from '@/libs/firebase/firebaseController';
 
-
+// Firebase 초기화
+(async function () {
+  await firebaseInit();
+})();
 
 // 초기 라우팅 설정
 document.addEventListener('DOMContentLoaded', handleRouting);
