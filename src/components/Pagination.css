@@ -20,7 +20,6 @@
 }
 
 .page-btn:hover:not(.disabled) {
-  background-color: var(--color-beige);
   border-color: var(--color-dark-green);
 }
 
@@ -33,9 +32,24 @@
 .page-btn.disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  pointer-events: none;
+}
+
+.prev-btn,
+.next-btn {
+  color: var(--color-dark-green);
+}
+
+.prev-btn.disabled,
+.next-btn.disabled {
+  color: var(--color-gray);
 }
 
 .page-numbers {
   display: flex;
   gap: 0.5rem;
-} 
+}
+
+.number-btn {
+  font-weight: 500;
+}

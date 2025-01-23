@@ -4,12 +4,11 @@
 }
 
 body {
-  font-family: "BMDOHYEON", Arial, sans-serif;
+  font-family: 'BMDOHYEON', Arial, sans-serif;
   background-color: #ffffff;
   height: 100vh;
   overflow: hidden;
 }
-
 
 /* Header 스타일 */
 header {
@@ -26,7 +25,6 @@ h1 {
   color: var(--color-black);
 }
 
-
 .main-content {
   flex: 1;
   margin-left: 280px;
@@ -42,12 +40,8 @@ h1 {
 .my-content {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 220px);
+  height: calc(100vh - 210px);
   background-color: var(--color-white);
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
-
-
-
-

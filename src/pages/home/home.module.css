@@ -1,0 +1,44 @@
+h1 {
+  color: var(--color-dark-green);
+  font-size: 2.5rem;
+}
+
+.welcomeTitle {
+  margin-bottom: 3rem;
+  color: var(--color-dark-green);
+  font-size: 2rem;
+  text-align: center;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboardItem {
+  background-color: var(--color-white);
+  padding: 2rem;
+  border-radius: 10px;
+  border: 5px solid var(--color-dark-green);
+  border-radius: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.dashboardItem:hover {
+  transform: translateY(-5px);
+}
+
+.dashboardItem h3 {
+  color: var(--color-dark-green);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.dashboardItem p {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-dark);
+}

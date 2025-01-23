@@ -23,7 +23,7 @@
 .primaryProfileContainer {
   width: 100%;
   height: fit-content;
-  border: 2px solid #c7c7c7;
+  border: 3px solid var(--color-dark-green);
   border-radius: 1rem;
   overflow: hidden;
   padding: 2rem;
@@ -66,8 +66,8 @@
 .profileDetailContainer {
   width: 100%;
   height: fit-content;
-  border: 2px solid #c7c7c7;
-  border-radius: 1rem;
+  border: 3px solid var(--color-dark-green);
+  border-radius: 2rem;
   overflow: hidden;
   padding: 2rem;
   margin-top: 2rem;
@@ -113,7 +113,7 @@ i {
 .personalInfo-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;    
+  gap: 2rem;
 }
 
 .infoGroup {

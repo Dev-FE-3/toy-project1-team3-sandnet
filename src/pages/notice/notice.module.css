@@ -7,7 +7,6 @@
   overflow-y: auto;
   justify-content: center;
   flex-wrap: wrap;
-  height: 650px;
 }
 
 .card {
@@ -15,7 +14,7 @@
   min-width: 200px;
   max-width: 330px;
   height: 600px;
-  background-color: #055D20;
+  background-color: #055d20;
   border-radius: 20px;
   text-align: center;
   cursor: pointer;
@@ -156,7 +155,7 @@
   right: 20px;
   cursor: pointer;
   font-size: 2rem;
-  color: #055D20;
+  color: #055d20;
   transition: color 0.3s ease;
 }
 

@@ -38,8 +38,6 @@
   transform: scale(1.08);
 }
 
-
-
 /* 네비게이션 메뉴 스타일 */
 .navMenu {
   list-style: none;
@@ -68,8 +66,8 @@
   font-size: 1.1rem;
 }
 
-.navMenu li:hover, 
+.navMenu li:hover,
 .navMenu li.active {
   background-color: var(--color-dark-green);
   color: var(--color-white);
-} 
+}

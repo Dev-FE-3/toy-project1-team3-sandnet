@@ -50,9 +50,7 @@ class Component {
         <td>${employee.phone}</td>
         <td>${employee.branch}</td>
         <td>${employee.rank}</td>
-        <td class="${styles.actions}">
-          <button class="delete-btn">삭제</button>
-        </td>
+       
       </tr>
     `;
   }
@@ -289,9 +287,7 @@ class ListingPage extends Component {
           ${this.searchBar.template()}
         </header>
         <div class="my-content green-border">
-          <div class="${styles.teamHeader}">
-            <button>직원등록</button>
-          </div>
+          
           <div class="${styles.tableContainer}">
             <div class="${styles.tableHeader}">
               <table class="${styles.teamTable}">
@@ -302,7 +298,7 @@ class ListingPage extends Component {
                     <th>전화번호</th>
                     <th>지점</th>
                     <th>직급</th>
-                    <th>삭제</th>
+                    
                   </tr>
                 </thead>
               </table>

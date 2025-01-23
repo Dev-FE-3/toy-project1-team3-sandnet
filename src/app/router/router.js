@@ -1,3 +1,4 @@
+import HomePage from '@/pages/home/home';
 import ListingPage from '@/pages/listing/listing';
 import NoticePage from '@/pages/notice/notice';
 import ProfilePage from '@/pages/profile/profile';
@@ -7,7 +8,7 @@ import { renderController } from '@/libs/renderController';
 const app = document.querySelector('#page-container');
 
 const routes = {
-  '/': () => new ListingPage(app),
+  '/': () => new HomePage(app),
   '/profile': () => new ProfilePage(app),
   '/listing': () => new ListingPage(app),
   '/notice': () => new NoticePage(app),
@@ -15,7 +16,6 @@ const routes = {
 };
 
 export const getRoute = (path) => {
-  
   // routes[/contact]
   // console.log("getRoute ~ path: ", path, typeof routes[path]);
   return routes[path];
