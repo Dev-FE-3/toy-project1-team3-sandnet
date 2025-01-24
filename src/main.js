@@ -1,5 +1,4 @@
 import { handleRouting } from '@/app/router/router';
-import { renderController } from '@/libs/renderController';
 import { firebaseInit } from '@/libs/firebase/firebaseController';
 
 // Firebase 초기화
