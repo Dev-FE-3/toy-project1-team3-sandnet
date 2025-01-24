@@ -30,7 +30,6 @@ class MyPage extends Component {
 
   template() {
     const { attendance, writer, workStartTime, workEndTime, isWorking } = this.state;
-    console.log('MyPage ~ template ~ workStartTime: ', workStartTime);
 
     return `
       <main class="main-content">
@@ -114,7 +113,7 @@ class MyPage extends Component {
             </div>
           </div>
           <!-- 근태신청버튼 -->
-          <button class="${styles.addAttendanceBtn} ${styles.btn} ${styles.modalTrigger}">
+          <button data-modal-type='addAttendanceBtnModal' class="commonModal ${styles.addAttendanceBtn} ${styles.btn} ${styles.modalTrigger}" id="addAttendanceBtn">
             <p>+</p>
           </button>
       </main>
@@ -189,26 +188,31 @@ class MyPage extends Component {
       });
     }
 
-    // document.querySelector(`.commonModal`).addEventListener('click', (e) => {
-    //   e.stopPropagation();
-    //   console.log(
-    //     'MyPage ~ document.querySelector ~ e: ',
-    //     e.target.getAttribute('data-modal-type'),
-    //   );
+    document.querySelectorAll(`.commonModal`).forEach((modal) => {
+      modal.addEventListener('click', (e) => {
+        const clickedElement = e.target.closest('[data-modal-type]'); // 가장 가까운 data-modal-type 속성을 가진 상위 요소 찾기
+        if (!clickedElement) return; // 해당 요소가 없으면 종료
 
-    //   this.commonModalController('workBtnModal');
-    // });
+        e.stopPropagation();
+        console.log('MyPage ~ document.querySelector ~ e: ', modal);
+        const modalType = clickedElement.getAttribute('data-modal-type');
+        this.commonModalController(modalType);
+        console.log('MyPage ~ document.querySelector ~ e: ', e.target.getAttribute('data-modal-type'));
+      });
+    });
     // console.log('MyPage ~ setEvent ~ commonModal: ', commonModal);
 
     // 근무 시작/종료 버튼 클릭 이벤트 추가
-    const workBtn = document.getElementById('workBtn');
-    if (workBtn) {
-      workBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // console.log('workBtn', e.target.getAttribute('data-modal-type'));
-        this.commonModalController(e.target.getAttribute('data-modal-type'));
-      });
-    }
+    // const workBtn = document.getElementById('workBtn');
+    // const addAttendanceBtn = document.getElementById('addAttendanceBtn');
+
+    // if (workBtn) {
+    //   workBtn.addEventListener('click', (e) => {
+    //     e.stopPropagation();
+    //     // console.log('workBtn', e.target.getAttribute('data-modal-type'));
+    //     this.commonModalController(e.target.getAttribute('data-modal-type'));
+    //   });
+    // }
   }
 
   commonModalController(modalType) {
@@ -235,8 +239,7 @@ class MyPage extends Component {
       </div>
     `;
 
-    const attendanceBtnModalHTML = `
-      <div class="${styles.modalContent}">
+    const addAttendanceBtnModalHTML = `
         <button class="${styles.close}">&times;</button>
         <div class="${styles.addAttendanceForm}">
           <h2>근태 신청</h2>
@@ -257,7 +260,6 @@ class MyPage extends Component {
             <button class="${styles.submitBtn}">신청</button>
           </div>
         </div>
-      </div>
     `;
 
     if (modalType === 'workBtnModal') {
@@ -331,20 +333,42 @@ class MyPage extends Component {
         }
       }
       return;
-    } else if (modalType === 'attendanceBtnModal') {
-      document.querySelector(`.${styles.addAttendanceBtnModal}`);
+    }
+    if (modalType === 'addAttendanceBtnModal') {
+      console.log('MyPage ~ commonModalController ~ modalType: ', modalType);
 
       const modalContent = document.createElement('div');
+      modal.classList.add(`${styles.addAttendanceBtnModal}`);
       modalContent.className = `${styles.modalContent}`;
-      modalContent.innerHTML = attendanceBtnModalHTML;
+      modalContent.innerHTML = addAttendanceBtnModalHTML;
 
+      
       // 기존 모달 초기화 및 새 모달콘텐츠 추가
       this.setModalContent(modal, modalContent);
+
+      // 모달 닫기 버튼
+      const modalCloseBtn = modal.querySelector(`.${styles.close}`);
+      if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', () => {
+          this.closeModal(modal);
+        });
+
+        // 모달 외부 클릭 시 모달 닫기
+        window.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            this.closeModal(modal);
+          }
+        });
+      }
+
+      this.initAddAttendanceManagement();
+      this.initAttendanceManagement();
     }
   }
 
   // 모달 콘텐츠 삽입
   setModalContent(modal, modalContent) {
+    // console.log('MyPage ~ setModalContent ~ modal: ', modal);
     if (modal.firstChild) {
       modal.replaceChild(modalContent, modal.firstChild);
     } else {
@@ -449,11 +473,12 @@ class MyPage extends Component {
 
         this.renderAttendanceList(this.state.attendance);
 
-        // 모달 닫기 및 초기화
-        // addAttendanceModal.style.display = 'none';
+        //초기화
         document.querySelector('#start-date').value = '';
         document.querySelector('#end-date').value = '';
         typeButtons.forEach((btn) => btn.classList.remove(`${styles.selected}`));
+        //모달 닫기
+        this.closeModal(addAttendanceModal);
       });
     }
 
