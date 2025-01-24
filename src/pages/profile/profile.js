@@ -7,21 +7,7 @@ import {
   getImagesByUser,
   deleteImage,
 } from '@/libs/firebase/firebaseService';
-
-class Component {
-  constructor(target) {
-    this.target = target;
-  }
-
-  setup() {}
-  template() {
-    return '';
-  }
-  setEvent() {}
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-  }
-}
+import Component from '@/components/ComponentClass';
 
 class ProfilePage extends Component {
   constructor(target) {
@@ -37,15 +23,6 @@ class ProfilePage extends Component {
     this.state = {
       profileImgs: [],
     };
-    //this.state = {
-    //  profileData: {
-    //    name: '박샌드',
-    //    phone: '010-1234-1234',
-    //    email: 'yummy@sandwish.com',
-    //    jobTitle: '홀 매니저',
-    //    location: '서울특별시 강남구 역삼동 123-45, 101호',
-    //    profileImage: '/src/assets/images/employee.jpg',
-    //  },
   }
 
   //  getProfileData() {

@@ -1,4 +1,4 @@
-import './SearchBar.css';
+import './searchBar.css';
 
 export default class SearchBar {
   constructor(options = {}) {
@@ -26,7 +26,7 @@ export default class SearchBar {
     if (!searchInput) return;
 
     let debounceTimer;
-    
+
     // 입력 이벤트
     searchInput.addEventListener('input', (e) => {
       clearTimeout(debounceTimer);
@@ -48,4 +48,4 @@ export default class SearchBar {
       this.onSearch('');
     });
   }
-} 
+}

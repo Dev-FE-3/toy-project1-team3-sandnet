@@ -1,48 +1,18 @@
 import styles from './mypage.module.css';
-import ProfilePage from '../profile/profile.js';
-
-class Component {
-  constructor(target) {
-    this.target = target;
-    // this.setup();
-    // this.render();
-    // this.setEvent();
-    // this.setState();
-  }
-
-  setup() {}
-  template() {
-    return '';
-  }
-  render() {
-    this.target.innerHTML = this.template();
-  }
-  setEvent() {}
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    // this.render();
-    // this.setEvent();
-  }
-}
+// import ProfilePage from '../profile/profile.js';
+import Component from '@/components/ComponentClass';
 
 class MyPage extends Component {
   constructor(target) {
     super(target);
     //this.profilePage = new ProfilePage(target);
     this.setup();
-    this.setEvent();
+    // this.setEvent();
     this.setState();
-  }
-
-  render() {
-    this.target.innerHTML = this.template();
   }
 
   setState(newState) {
     this.state = { ...this.state, ...newState };
-
-    // this.render();
-    // this.setEvent();
   }
 
   setup() {
@@ -112,8 +82,12 @@ class MyPage extends Component {
             </li>
           </ul>
           <!-- 근무 시작 버튼 -->
-          <button class="${styles.modalTrigger} ${styles.btn} ${styles.workBtn}" id="workBtn">
-            <p class="work-btn-text">${isWorking ? '근무 종료' : '근무 시작'}</p>
+          <button data-modal-type='workBtnModal' class="commonModal ${styles.modalTrigger} ${
+      styles.btn
+    } ${styles.workBtn}" id="workBtn">
+            <p class="work-btn-text" data-modal-type='workBtnModal'>${
+              isWorking ? '근무 종료' : '근무 시작'
+            }</p>
           </button>
         </div>
 
@@ -144,28 +118,10 @@ class MyPage extends Component {
             <p>+</p>
           </button>
       </main>
-
-      <!-- 모달들을 여기로 이동 -->
-      <!-- 프로필모달 -->
      
-
-      <!-- 근무모달 -->
-      <div class="${styles.modal} ${styles.workBtnModal}">
-        <div class="${styles.modalContent} ${styles.workBtnModal}">
-          <span class="${styles.close}">&times;</span>
-          <!-- 모달 내용 -->
-          <h2 class="${styles.currentTimeTitle}">현재시각</h2>
-          <div class="${styles.currentTimeValue}">
-            <span>-</span>:<span>-</span>:<span>-</span>
-          </div>
-          <p class="${styles.workStartQuestion}">근무를 ${
-      this.state.isWorking ? '종료' : '시작'
-    }하시겠습니까?</p>
-          <div class="${styles.modalButtons}">
-            <button class="${styles.confirmBtn}">확인</button>
-            <button class="${styles.cancelBtn}">취소</button>
-          </div>
-        </div>
+      <!-- modal -->
+      <div class="${styles.modal}">
+        <!-- insert workBtnModal, attendanceBtnModal -->
       </div>
 
       <!-- 근태모달 -->
@@ -214,37 +170,11 @@ class MyPage extends Component {
           </div>
         </div>
       </div>
-
-      <!-- 근태신청모달 -->
-      <div class="${styles.modal} ${styles.addAttendanceBtnModal}">
-        <div class="${styles.modalContent}">
-          <button class="${styles.close}">&times;</button>
-          <div class="${styles.addAttendanceForm}">
-            <h2>근태 신청</h2>
-            <div class="${styles.attendanceTypeButtons}">
-              <button value="vacation" class="${styles.typeBtn}">연차</button>
-              <button value="halfday" class="${styles.typeBtn}">반차</button>
-              <button value="early" class="${styles.typeBtn}">조퇴</button>
-              <button value="other" class="${styles.typeBtn}">기타</button>
-            </div>
-            <div class="${styles.addAttendanceForm}">
-              <div class="${styles.datePickerContainer}">
-                <label for="start-date">시작일</label>
-                <input type="date" id="start-date" class="${styles.datePicker}" />
-
-                <label for="end-date">종료일</label>
-                <input type="date" id="end-date" class="${styles.datePicker}" />
-              </div>
-              <button class="${styles.submitBtn}">신청</button>
-            
-          </div>
-        </div>
     
     `;
   }
 
   setEvent() {
-    this.initModals();
     this.initTimeUpdate();
     this.initWorkManagement();
     this.initAddAttendanceManagement();
@@ -258,50 +188,185 @@ class MyPage extends Component {
         handleRouting();
       });
     }
+
+    // document.querySelector(`.commonModal`).addEventListener('click', (e) => {
+    //   e.stopPropagation();
+    //   console.log(
+    //     'MyPage ~ document.querySelector ~ e: ',
+    //     e.target.getAttribute('data-modal-type'),
+    //   );
+
+    //   this.commonModalController('workBtnModal');
+    // });
+    // console.log('MyPage ~ setEvent ~ commonModal: ', commonModal);
+
+    // 근무 시작/종료 버튼 클릭 이벤트 추가
+    const workBtn = document.getElementById('workBtn');
+    if (workBtn) {
+      workBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // console.log('workBtn', e.target.getAttribute('data-modal-type'));
+        this.commonModalController(e.target.getAttribute('data-modal-type'));
+      });
+    }
   }
 
-  // 모달 초기화
-  initModals() {
-    const modals = {
-      workBtn: {
-        trigger: document.querySelector(`.${styles.workBtn}`),
-        modal: document.querySelector(`.${styles.workBtnModal}`),
-      },
-      // attendance: {
-      //   trigger: document.querySelector(`.${styles.attendanceListSection}`),
-      //   modal: document.querySelector(`.${styles.attendanceModal}`),
-      // },
-      addAttendance: {
-        trigger: document.querySelector(`.${styles.addAttendanceBtn}`),
-        modal: document.querySelector(`.${styles.addAttendanceBtnModal}`),
-      },
-    };
+  commonModalController(modalType) {
+    const modal = document.querySelector(`.${styles.modal}`);
 
-    Object.values(modals).forEach(({ trigger, modal }) => {
-      if (!trigger || !modal) return;
-      const closeBtn = modal.querySelector(`.${styles.close}`);
+    if (!modal) return;
 
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      });
+    // 모달 활성화
+    document.body.style.overflow = 'hidden';
+    modal.style.display = 'flex';
 
-      if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-          console.log('MyPage ~ closeBtn.addEventListener ~ closeBtn: ');
-          modal.style.display = 'none';
-          document.body.style.overflow = 'auto';
+    const workBtnModalHTML = `
+      <span class="${styles.close}">&times;</span>
+      <h2 class="${styles.currentTimeTitle}">현재시각</h2>
+      <div class="${styles.currentTimeValue}">
+        <span>-</span>:<span>-</span>:<span>-</span>
+      </div>
+      <p class="${styles.workStartQuestion}">근무를 ${
+      this.state.isWorking ? '종료' : '시작'
+    }하시겠습니까?</p>
+      <div class="${styles.modalButtons}">
+        <button class="${styles.confirmBtn}">확인</button>
+        <button class="${styles.cancelBtn}">취소</button>
+      </div>
+    `;
+
+    const attendanceBtnModalHTML = `
+      <div class="${styles.modalContent}">
+        <button class="${styles.close}">&times;</button>
+        <div class="${styles.addAttendanceForm}">
+          <h2>근태 신청</h2>
+          <div class="${styles.attendanceTypeButtons}">
+            <button value="vacation" class="${styles.typeBtn}">연차</button>
+            <button value="halfday" class="${styles.typeBtn}">반차</button>
+            <button value="early" class="${styles.typeBtn}">조퇴</button>
+            <button value="other" class="${styles.typeBtn}">기타</button>
+          </div>
+          <div class="${styles.addAttendanceForm}">
+            <div class="${styles.datePickerContainer}">
+              <label for="start-date">시작일</label>
+              <input type="date" id="start-date" class="${styles.datePicker}" />
+
+              <label for="end-date">종료일</label>
+              <input type="date" id="end-date" class="${styles.datePicker}" />
+            </div>
+            <button class="${styles.submitBtn}">신청</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    if (modalType === 'workBtnModal') {
+      // 모달 콘텐츠 기본 설정 및 콘텐츠 준비
+      const modalContent = document.createElement('div');
+      modal.classList.add(`${styles.workBtnModal}`);
+      modalContent.className = `${styles.modalContent}`;
+      modalContent.innerHTML = workBtnModalHTML;
+
+      // View
+      this.setModalContent(modal, modalContent);
+
+      // Event
+      // 시간 업데이트
+      this.initTimeUpdate();
+
+      // 모달 닫기 버튼
+      const modalCloseBtn = modal.querySelector(`.${styles.close}`);
+      if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', () => {
+          this.closeModal(modal);
         });
-      }
 
-      window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.style.display = 'none';
-          document.body.style.overflow = 'auto';
+        // 모달 외부 클릭 시 모달 닫기
+        window.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            this.closeModal(modal);
+          }
+        });
+
+        // 확인 버튼
+        const confirmBtn = modal.querySelector(`.${styles.confirmBtn}`);
+        if (confirmBtn) {
+          confirmBtn.addEventListener('click', () => {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const currentTime = `${hours}:${minutes}`;
+
+            if (!this.state.isWorking) {
+              // 근무 시작
+              this.setState({
+                workStartTime: currentTime,
+                workEndTime: null,
+                isWorking: true,
+                test: true,
+              });
+
+              document.querySelector('.work-start-time').textContent = currentTime;
+            } else {
+              // 근무 종료
+              this.setState({
+                workEndTime: currentTime,
+                isWorking: false,
+              });
+              document.querySelector('.work-end-time').textContent = currentTime;
+              // document.querySelector(".work-btn-text").textContent = this.state.isWorking ? "근무 시작" : "근무 종료";
+            }
+
+            this.updateWorkUI();
+            this.closeModal(modal);
+          });
+
+          // 취소 버튼
+          const cancelBtn = modal.querySelector(`.${styles.cancelBtn}`);
+          if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+              this.closeModal(modal);
+            });
+          }
         }
-      });
-    });
+      }
+      return;
+    } else if (modalType === 'attendanceBtnModal') {
+      document.querySelector(`.${styles.addAttendanceBtnModal}`);
+
+      const modalContent = document.createElement('div');
+      modalContent.className = `${styles.modalContent}`;
+      modalContent.innerHTML = attendanceBtnModalHTML;
+
+      // 기존 모달 초기화 및 새 모달콘텐츠 추가
+      this.setModalContent(modal, modalContent);
+    }
+  }
+
+  // 모달 콘텐츠 삽입
+  setModalContent(modal, modalContent) {
+    if (modal.firstChild) {
+      modal.replaceChild(modalContent, modal.firstChild);
+    } else {
+      modal.appendChild(modalContent);
+    }
+  }
+
+  // 근무 시작/종료 UI 업데이트
+  updateWorkUI() {
+    const workQuestion = document.querySelector(`.${styles.workStartQuestion}`);
+    const workBtnText = document.querySelector('.work-btn-text');
+
+    workQuestion.textContent = this.state.isWorking
+      ? '근무를 종료하시겠습니까?'
+      : '근무를 시작하시겠습니까?';
+    workBtnText.textContent = this.state.isWorking ? '근무 종료' : '근무 시작';
+  }
+
+  // 모달 닫기
+  closeModal(modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
   }
 
   // 시간 업데이트 초기화
@@ -331,61 +396,10 @@ class MyPage extends Component {
 
   // 근무 시작/종료 관리
   initWorkManagement() {
-    console.log('MyPage ~ 근무 시작');
+    // console.log('MyPage ~ 근무 시작');
 
     const workBtnModal = document.querySelector(`.${styles.workBtnModal}`);
     if (!workBtnModal) return;
-    console.log('MyPage ~ initWorkManagement ~ workBtnModal: ', workBtnModal);
-
-    // 확인 버튼 이벤트
-    const confirmBtn = workBtnModal.querySelector(`.${styles.confirmBtn}`);
-    const cancelBtn = workBtnModal.querySelector(`.${styles.cancelBtn}`);
-    // console.log("MyPage ~ initWorkManagement ~ confirmBtn: ", confirmBtn)
-
-    if (confirmBtn) {
-      console.log('MyPage ~ initWorkManagement ~ confirmBtn: ', confirmBtn);
-      confirmBtn.addEventListener('click', () => {
-        console.log('MyPage ~ initWorkManagement ~ confirmBtn: 클릭!!!!!!!');
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const currentTime = `${hours}:${minutes}`;
-
-        if (!this.state.isWorking) {
-          this.setState({
-            workStartTime: currentTime,
-            workEndTime: null,
-            isWorking: true,
-            test: true,
-          });
-
-          document.querySelector('.work-start-time').textContent = currentTime;
-        } else {
-          this.setState({
-            workEndTime: currentTime,
-            isWorking: false,
-          });
-          document.querySelector('.work-end-time').textContent = currentTime;
-          // document.querySelector(".work-btn-text").textContent = this.state.isWorking ? "근무 시작" : "근무 종료";
-        }
-
-        document.querySelector(`.${styles.workStartQuestion}`).textContent = this.state.isWorking
-          ? '근무를 종료하시겠습니까?'
-          : '근무를 시작하시겠습니까?';
-        document.querySelector('.work-btn-text').textContent = this.state.isWorking
-          ? '근무 종료'
-          : '근무 시작';
-        workBtnModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      });
-    }
-
-    if (cancelBtn) {
-      cancelBtn.addEventListener('click', () => {
-        workBtnModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      });
-    }
   }
 
   // 근태 관리
@@ -436,7 +450,7 @@ class MyPage extends Component {
         this.renderAttendanceList(this.state.attendance);
 
         // 모달 닫기 및 초기화
-        addAttendanceModal.style.display = 'none';
+        // addAttendanceModal.style.display = 'none';
         document.querySelector('#start-date').value = '';
         document.querySelector('#end-date').value = '';
         typeButtons.forEach((btn) => btn.classList.remove(`${styles.selected}`));

@@ -1,13 +1,21 @@
 import styles from './sidebar.module.css'; // CSS 모듈 import 추가
 import { handleRouting, getRoute } from '@/app/router/router';
 import logo from '@/assets/images/logo.png'; // 로고 이미지 import
-
-export default class Sidebar {
+import Component from '@/components/ComponentClass';
+export default class Sidebar extends Component {
   constructor(target) {
+    super(target);
     this.target = target;
-    this.currentPage = window.location.pathname.replace('/', '') || 'profile';
-    this.render();
+
+    this.setup();
     this.setEvent(target);
+  }
+
+  setup() {
+    this.state = {
+      roleAndUserPath: '/',
+      currentPage: window.location.pathname.replace('/', '') || 'profile',
+    };
   }
 
   // 사이드바 HTML 생성
@@ -32,6 +40,24 @@ export default class Sidebar {
     `;
   }
 
+  logoInit() {
+    const logo = document.querySelector(`.${styles.sidebarLogo}`);
+
+    if (logo) {
+      logo.addEventListener('click', () => {
+        window.history.pushState({}, '', '/');
+        handleRouting();
+        this.setState({
+          currentPage: 'home',
+        });
+        console.log('Sidebar ~ logo.addEventListener ~ currentPage: ', this.state);
+
+        // this.currentPage = 'home';
+        this.updateActiveMenu();
+      });
+    }
+  }
+
   updateActiveMenu() {
     const currentPath = window.location.pathname.replace('/', '') || 'home';
     const menuItems = document.querySelectorAll('.link');
@@ -46,17 +72,33 @@ export default class Sidebar {
     });
   }
 
-  setEvent(target) {
-    const logo = document.querySelector("[data-role='sidebar-logo']");
-    if (logo) {
-      logo.addEventListener('click', () => {
-        window.history.pushState({}, '', '/');
-        handleRouting();
-        this.currentPage = 'home';
-        this.updateActiveMenu();
-      });
-    }
+  checkRoleAndUser() {
+    const currentRole = sessionStorage.getItem('currentRole'); // 권한
+    const currentUser = sessionStorage.getItem('currentUser'); // 유저
+    const { roleAndUserPath } = this.state;
 
+    if (currentRole && currentUser) {
+      switch (currentRole) {
+        case 'admin':
+          this.setState({
+            roleAndUserPath: `${roleAndUserPath}admin`,
+          });
+          break;
+        case 'user':
+          this.setState({
+            roleAndUserPath: `${roleAndUserPath}user`,
+          });
+          break;
+        default:
+      }
+      return true;
+    } else {
+      alert('권한과 유저 정보를 선택해 주세요.');
+      return false; // 권한 또는 유저 정보가 없음
+    }
+  }
+
+  linkToPage() {
     const links = document.querySelectorAll('.link');
 
     links.forEach((link) => {
@@ -69,23 +111,27 @@ export default class Sidebar {
             ? e.target.querySelector('a').getAttribute('data-link')
             : e.target.getAttribute('data-link');
 
-        window.history.pushState({}, '', `/${path}`);
-        handleRouting();
+        if (this.checkRoleAndUser()) {
+          window.history.pushState({}, '', `${this.state.roleAndUserPath}/${path}`);
+          handleRouting();
+        }
+        // window.history.pushState({}, '', `/${path}`);
 
         // 활성 메뉴 업데이트
         this.currentPage = path;
         this.updateActiveMenu();
       });
     });
+  }
+
+  setEvent() {
+    this.logoInit();
+    this.linkToPage();
 
     // 브라우저 뒤로가기/앞으로가기 처리
     window.addEventListener('popstate', () => {
       this.currentPage = window.location.pathname.replace('/', '') || 'home';
       this.updateActiveMenu();
     });
-  }
-
-  render() {
-    this.target.innerHTML = this.template();
   }
 }

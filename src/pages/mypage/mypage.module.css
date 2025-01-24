@@ -307,6 +307,11 @@
 /* 각 모달별 크기 조정 */
 
 /* 출퇴근관리 모달 스타일*/
+/* .modal {
+  max-width: 500px;
+  text-align: center;
+  padding: 20px;
+} */
 .modal .workBtnModal .modalContent {
   max-width: 500px;
   text-align: center;
@@ -502,4 +507,11 @@
 
 .modal .submitBtn:hover {
   background-color: var(--color-light-green);
+}
+
+.modal.modalActive {
+  display: block;
+}
+.modal.modalInactive {
+  display: none;
 }
