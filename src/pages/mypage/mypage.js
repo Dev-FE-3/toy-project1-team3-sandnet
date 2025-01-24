@@ -113,7 +113,9 @@ class MyPage extends Component {
             </div>
           </div>
           <!-- 근태신청버튼 -->
-          <button data-modal-type='addAttendanceBtnModal' class="commonModal ${styles.addAttendanceBtn} ${styles.btn} ${styles.modalTrigger}" id="addAttendanceBtn">
+          <button data-modal-type='addAttendanceBtnModal' class="commonModal ${
+            styles.addAttendanceBtn
+          } ${styles.btn} ${styles.modalTrigger}" id="addAttendanceBtn">
             <p>+</p>
           </button>
       </main>
@@ -194,13 +196,10 @@ class MyPage extends Component {
         if (!clickedElement) return; // 해당 요소가 없으면 종료
 
         e.stopPropagation();
-        console.log('MyPage ~ document.querySelector ~ e: ', modal);
         const modalType = clickedElement.getAttribute('data-modal-type');
         this.commonModalController(modalType);
-        console.log('MyPage ~ document.querySelector ~ e: ', e.target.getAttribute('data-modal-type'));
       });
     });
-    // console.log('MyPage ~ setEvent ~ commonModal: ', commonModal);
 
     // 근무 시작/종료 버튼 클릭 이벤트 추가
     // const workBtn = document.getElementById('workBtn');
@@ -209,7 +208,6 @@ class MyPage extends Component {
     // if (workBtn) {
     //   workBtn.addEventListener('click', (e) => {
     //     e.stopPropagation();
-    //     // console.log('workBtn', e.target.getAttribute('data-modal-type'));
     //     this.commonModalController(e.target.getAttribute('data-modal-type'));
     //   });
     // }
@@ -335,14 +333,11 @@ class MyPage extends Component {
       return;
     }
     if (modalType === 'addAttendanceBtnModal') {
-      console.log('MyPage ~ commonModalController ~ modalType: ', modalType);
-
       const modalContent = document.createElement('div');
       modal.classList.add(`${styles.addAttendanceBtnModal}`);
       modalContent.className = `${styles.modalContent}`;
       modalContent.innerHTML = addAttendanceBtnModalHTML;
 
-      
       // 기존 모달 초기화 및 새 모달콘텐츠 추가
       this.setModalContent(modal, modalContent);
 
@@ -368,7 +363,6 @@ class MyPage extends Component {
 
   // 모달 콘텐츠 삽입
   setModalContent(modal, modalContent) {
-    // console.log('MyPage ~ setModalContent ~ modal: ', modal);
     if (modal.firstChild) {
       modal.replaceChild(modalContent, modal.firstChild);
     } else {
@@ -420,8 +414,6 @@ class MyPage extends Component {
 
   // 근무 시작/종료 관리
   initWorkManagement() {
-    // console.log('MyPage ~ 근무 시작');
-
     const workBtnModal = document.querySelector(`.${styles.workBtnModal}`);
     if (!workBtnModal) return;
   }
