@@ -7,7 +7,6 @@ export default class Sidebar extends Component {
     super(target);
     this.target = target;
 
-    this.currentPage = window.location.pathname.replace('/', '') || 'profile';
     this.setup();
     this.setEvent(target);
   }
@@ -15,6 +14,7 @@ export default class Sidebar extends Component {
   setup() {
     this.state = {
       roleAndUserPath: '/',
+      currentPage: window.location.pathname.replace('/', '') || 'profile',
     };
   }
 
@@ -38,6 +38,24 @@ export default class Sidebar extends Component {
         </ul>
       </div>
     `;
+  }
+
+  logoInit() {
+    const logo = document.querySelector(`.${styles.sidebarLogo}`);
+
+    if (logo) {
+      logo.addEventListener('click', () => {
+        window.history.pushState({}, '', '/');
+        handleRouting();
+        this.setState({
+          currentPage: 'home',
+        });
+        console.log('Sidebar ~ logo.addEventListener ~ currentPage: ', this.state);
+
+        // this.currentPage = 'home';
+        this.updateActiveMenu();
+      });
+    }
   }
 
   updateActiveMenu() {
@@ -80,17 +98,7 @@ export default class Sidebar extends Component {
     }
   }
 
-  setEvent() {
-    const logo = document.querySelector("[data-role='sidebar-logo']");
-    if (logo) {
-      logo.addEventListener('click', () => {
-        window.history.pushState({}, '', '/');
-        handleRouting();
-        this.currentPage = 'home';
-        this.updateActiveMenu();
-      });
-    }
-
+  linkToPage() {
     const links = document.querySelectorAll('.link');
 
     links.forEach((link) => {
@@ -114,6 +122,11 @@ export default class Sidebar extends Component {
         this.updateActiveMenu();
       });
     });
+  }
+
+  setEvent() {
+    this.logoInit();
+    this.linkToPage();
 
     // 브라우저 뒤로가기/앞으로가기 처리
     window.addEventListener('popstate', () => {
