@@ -97,8 +97,8 @@ class MyPage extends Component {
           <p class="${styles.sectionTitle}">근태 목록</p>
           <select class="${styles.attendanceListSelect} ${styles.attendanceTypeSelect}">
               <option value="all">전체</option>
-              <option value="vacation">연차</option>
-              <option value="halfday">반차</option>
+              <option value="vacation">휴가</option>
+              <option value="sick">병가</option>
               <option value="early">조퇴</option>
               <option value="other">기타</option>
             </select>
@@ -133,8 +133,8 @@ class MyPage extends Component {
             <h2>근태 목록</h2>
             <select class="${styles.attendanceList} ${styles.attendanceTypeSelect}">
               <option value="all">전체</option>
-              <option value="vacation">연차</option>
-              <option value="halfday">반차</option>
+              <option value="vacation">휴가</option>
+              <option value="sick">병가</option>
               <option value="early">조퇴</option>
               <option value="other">기타</option>
             </select>
@@ -157,7 +157,9 @@ class MyPage extends Component {
                   <img src="src/assets/images/profile.jpg" alt="프로필 이미지"/>
                   </div>
                   <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
-                  <div class="${styles.itemContent} ${styles.type}">${item.type}</div>
+                  <div class="${styles.itemContent} ${styles.type}">
+                    ${document.querySelector(`.${styles.attendanceTypeSelect} option[value="${item.type}"]`)?.textContent || item.type}
+                  </div>
                   <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
                   <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
                 </div>
@@ -242,8 +244,8 @@ class MyPage extends Component {
         <div class="${styles.addAttendanceForm}">
           <h2>근태 신청</h2>
           <div class="${styles.attendanceTypeButtons}">
-            <button value="vacation" class="${styles.typeBtn}">연차</button>
-            <button value="halfday" class="${styles.typeBtn}">반차</button>
+            <button value="vacation" class="${styles.typeBtn}">휴가</button>
+            <button value="sick" class="${styles.typeBtn}">병가</button>
             <button value="early" class="${styles.typeBtn}">조퇴</button>
             <button value="other" class="${styles.typeBtn}">기타</button>
           </div>
@@ -513,9 +515,9 @@ class MyPage extends Component {
                   <img src="src/assets/images/profile.jpg" alt="프로필 이미지"/>
                   </div>
               <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
-              <div class="${styles.itemContent} ${styles.type}">${this.getTypeInKorean(
-            item.type,
-          )}</div>
+              <div class="${styles.itemContent} ${styles.type}">
+                ${document.querySelector(`.${styles.attendanceTypeSelect} option[value="${item.type}"]`)?.textContent || item.type}
+              </div>
               <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
               <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
             </div>
@@ -553,16 +555,6 @@ class MyPage extends Component {
       return `${startYear}.${startMonth}.${startDay}`;
     }
     return `${startYear}.${startMonth}.${startDay}~${endYear}.${endMonth}.${endDay}`;
-  }
-
-  getTypeInKorean(type) {
-    const typeMap = {
-      vacation: '연차',
-      halfday: '반차',
-      early: '조퇴',
-      other: '기타',
-    };
-    return typeMap[type] || type;
   }
 }
 
