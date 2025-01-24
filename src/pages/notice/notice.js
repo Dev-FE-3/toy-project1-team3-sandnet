@@ -142,7 +142,7 @@ class NoticePage extends Component {
     }
   }
 
-  //모달 열기기
+  //모달 열기
   openModal(card) {
     const modalElements = this.getModalElements();
     const cardImage = card.querySelector(`.${styles.imagePlaceholder}`).cloneNode(true);
