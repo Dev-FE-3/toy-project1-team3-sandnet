@@ -42,3 +42,11 @@ h1 {
   font-weight: bold;
   color: var(--color-dark);
 }
+
+.roleButton {
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  margin: 1rem;
+}

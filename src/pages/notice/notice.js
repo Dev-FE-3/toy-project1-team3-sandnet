@@ -1,27 +1,6 @@
 import styles from './notice.module.css';
-import { noticeData } from '@/data/noticeData.js';
-
-class Component {
-  constructor(target) {
-    this.target = target;
-    // this.setup();
-    // this.render();
-    // this.setEvent();
-  }
-  setup() {}
-  template() {
-    return '';
-  }
-  // render() {
-  //   this.target.innerHTML = this.template();
-  // }
-  setEvent() {}
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    // this.render();
-    this.setEvent();
-  }
-}
+import { noticeData } from '@/data/noticeData';
+import Component from '@/components/ComponentClass';
 
 class NoticePage extends Component {
   constructor(target) {
