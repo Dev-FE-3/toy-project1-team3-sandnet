@@ -49,7 +49,7 @@ class NoticePage extends Component {
     return `
       <main class="main-content">
         <header>
-          <h1>공지사항</h1>
+          <h1>공지사항항</h1>
           <div class="search-container">
             <input class="search-input" type="text" placeholder="검색어를 입력하세요" >
             <span class="search-icon material-icons">search</span>
