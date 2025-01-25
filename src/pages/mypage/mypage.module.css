@@ -74,7 +74,7 @@
 
   .materialIcons {
     margin-right: 20px;
-    color: #055d20;
+    color: var(--color-dark-green);
     line-height: 2vw;
     font-size: 1.3vw;
   }
@@ -116,9 +116,6 @@
   text-align: center;
 }
 
-.timeLabel {
-}
-
 .timeValue {
   width: 100px;
   font-weight: bold;
@@ -145,7 +142,7 @@
   position: relative;
   display: flex;
   grid-column: 1 / span 2; /* 그리드 아이템 너비 설정 */
-  overflow-y: auto;
+  overflow: hidden;
   padding: 0;
   height: 100%;
 }
@@ -164,7 +161,7 @@
   position: absolute;
   width: 80px;
   top: 20px;
-  right: 20px;
+  left: 2rem;
   padding: 5px;
   border: none;
   border-radius: 5px;
@@ -188,7 +185,6 @@
 .headerItem {
   align-items: center;
   display: flex;
-  padding: 5px 0 5px 5px;
   margin-bottom: 10px;
 }
 
@@ -216,6 +212,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.attendanceList {
+  height: calc(100% - 5rem); /* 전체 높이에서 헤더(약 60px)와 제목(약 60px) 높이를 뺌 */
+  overflow-y: auto;
+}
+
+.attendanceList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.attendanceList::-webkit-scrollbar-thumb {
+  background-color: #b1b1b1;
+  border-radius: 10px;
+}
+
+.attendanceList::-webkit-scrollbar-track {
+  background-color: #ffffff;
 }
 
 .attendanceItem {
@@ -377,7 +391,6 @@
   width: 80%;
   max-width: 500px;
   max-height: 800px;
-  overflow-y: auto;
 }
 
 .modal .attendanceList {

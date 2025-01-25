@@ -22,7 +22,7 @@ class MyPage extends Component {
 
     this.state = {
       attendance: [], // 근태 내역
-      writer: '장은혜', // 작성자
+      writer: user.name, // 작성자
       user,
 
       workStartTime: null, // 근무 시작 시간
@@ -109,8 +109,8 @@ class MyPage extends Component {
           <p class="${styles.sectionTitle}">근태 목록</p>
           <select class="${styles.attendanceListSelect} ${styles.attendanceTypeSelect}">
               <option value="all">전체</option>
-              <option value="vacation">연차</option>
-              <option value="halfday">반차</option>
+              <option value="vacation">휴가</option>
+              <option value="sick">병가</option>
               <option value="early">조퇴</option>
               <option value="other">기타</option>
             </select>
@@ -125,7 +125,9 @@ class MyPage extends Component {
             </div>
           </div>
           <!-- 근태신청버튼 -->
-          <button class="${styles.addAttendanceBtn} ${styles.btn} ${styles.modalTrigger}">
+          <button data-modal-type='addAttendanceBtnModal' class="commonModal ${
+            styles.addAttendanceBtn
+          } ${styles.btn} ${styles.modalTrigger}" id="addAttendanceBtn">
             <p>+</p>
           </button>
       </main>
@@ -143,8 +145,8 @@ class MyPage extends Component {
             <h2>근태 목록</h2>
             <select class="${styles.attendanceList} ${styles.attendanceTypeSelect}">
               <option value="all">전체</option>
-              <option value="vacation">연차</option>
-              <option value="halfday">반차</option>
+              <option value="vacation">휴가</option>
+              <option value="sick">병가</option>
               <option value="early">조퇴</option>
               <option value="other">기타</option>
             </select>
@@ -164,10 +166,16 @@ class MyPage extends Component {
                   (item) => `
                 <div class="${styles.attendanceItem}">
                   <div class="${styles.itemContent} ${styles.profileImage}">
-                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지"/>
+                  <img src="${item.image}" alt="프로필 이미지"/>
                   </div>
                   <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
-                  <div class="${styles.itemContent} ${styles.type}">${item.type}</div>
+                  <div class="${styles.itemContent} ${styles.type}">
+                    ${
+                      document.querySelector(
+                        `.${styles.attendanceTypeSelect} option[value="${item.type}"]`,
+                      )?.textContent || item.type
+                    }
+                  </div>
                   <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
                   <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
                 </div>
@@ -200,26 +208,37 @@ class MyPage extends Component {
     //   });
     // }
 
-    // document.querySelector(`.commonModal`).addEventListener('click', (e) => {
-    //   e.stopPropagation();
-    //   console.log(
-    //     'MyPage ~ document.querySelector ~ e: ',
-    //     e.target.getAttribute('data-modal-type'),
-    //   );
+    document.querySelectorAll(`.commonModal`).forEach((modal) => {
+      modal.addEventListener('click', (e) => {
+        const clickedElement = e.target.closest('[data-modal-type]'); // 가장 가까운 data-modal-type 속성을 가진 상위 요소 찾기
+        if (!clickedElement) return; // 해당 요소가 없으면 종료
 
-    //   this.commonModalController('workBtnModal');
-    // });
-    // console.log('MyPage ~ setEvent ~ commonModal: ', commonModal);
+        e.stopPropagation();
+        const modalType = clickedElement.getAttribute('data-modal-type');
+        this.commonModalController(modalType);
+      });
+    });
 
     // 근무 시작/종료 버튼 클릭 이벤트 추가
     const workBtn = document.getElementById('workBtn');
     if (workBtn) {
       workBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        // console.log('workBtn', e.target.getAttribute('data-modal-type'));
-        this.commonModalController(e.target.getAttribute('data-modal-type'));
+        const modalType = clickedElement.getAttribute('data-modal-type');
+        this.commonModalController(modalType);
       });
     }
+
+    // 근무 시작/종료 버튼 클릭 이벤트 추가
+    // const workBtn = document.getElementById('workBtn');
+    // const addAttendanceBtn = document.getElementById('addAttendanceBtn');
+
+    // if (workBtn) {
+    //   workBtn.addEventListener('click', (e) => {
+    //     e.stopPropagation();
+    //     this.commonModalController(e.target.getAttribute('data-modal-type'));
+    //   });
+    // }
   }
 
   commonModalController(modalType) {
@@ -246,14 +265,13 @@ class MyPage extends Component {
       </div>
     `;
 
-    const attendanceBtnModalHTML = `
-      <div class="${styles.modalContent}">
+    const addAttendanceBtnModalHTML = `
         <button class="${styles.close}">&times;</button>
         <div class="${styles.addAttendanceForm}">
           <h2>근태 신청</h2>
           <div class="${styles.attendanceTypeButtons}">
-            <button value="vacation" class="${styles.typeBtn}">연차</button>
-            <button value="halfday" class="${styles.typeBtn}">반차</button>
+            <button value="vacation" class="${styles.typeBtn}">휴가</button>
+            <button value="sick" class="${styles.typeBtn}">병가</button>
             <button value="early" class="${styles.typeBtn}">조퇴</button>
             <button value="other" class="${styles.typeBtn}">기타</button>
           </div>
@@ -268,7 +286,6 @@ class MyPage extends Component {
             <button class="${styles.submitBtn}">신청</button>
           </div>
         </div>
-      </div>
     `;
 
     if (modalType === 'workBtnModal') {
@@ -342,15 +359,33 @@ class MyPage extends Component {
         }
       }
       return;
-    } else if (modalType === 'attendanceBtnModal') {
-      document.querySelector(`.${styles.addAttendanceBtnModal}`);
-
+    }
+    if (modalType === 'addAttendanceBtnModal') {
       const modalContent = document.createElement('div');
+      modal.classList.add(`${styles.addAttendanceBtnModal}`);
       modalContent.className = `${styles.modalContent}`;
-      modalContent.innerHTML = attendanceBtnModalHTML;
+      modalContent.innerHTML = addAttendanceBtnModalHTML;
 
       // 기존 모달 초기화 및 새 모달콘텐츠 추가
       this.setModalContent(modal, modalContent);
+
+      // 모달 닫기 버튼
+      const modalCloseBtn = modal.querySelector(`.${styles.close}`);
+      if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', () => {
+          this.closeModal(modal);
+        });
+
+        // 모달 외부 클릭 시 모달 닫기
+        window.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            this.closeModal(modal);
+          }
+        });
+      }
+
+      this.initAddAttendanceManagement();
+      this.initAttendanceManagement();
     }
   }
 
@@ -407,8 +442,6 @@ class MyPage extends Component {
 
   // 근무 시작/종료 관리
   initWorkManagement() {
-    // console.log('MyPage ~ 근무 시작');
-
     const workBtnModal = document.querySelector(`.${styles.workBtnModal}`);
     if (!workBtnModal) return;
   }
@@ -460,11 +493,12 @@ class MyPage extends Component {
 
         this.renderAttendanceList(this.state.attendance);
 
-        // 모달 닫기 및 초기화
-        // addAttendanceModal.style.display = 'none';
+        //초기화
         document.querySelector('#start-date').value = '';
         document.querySelector('#end-date').value = '';
         typeButtons.forEach((btn) => btn.classList.remove(`${styles.selected}`));
+        //모달 닫기
+        this.closeModal(addAttendanceModal);
       });
     }
 
@@ -504,12 +538,16 @@ class MyPage extends Component {
           (item) => `
             <div class="${styles.attendanceItem}">
               <div class="${styles.itemContent} ${styles.profileImage}">
-                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지"/>
+                  <img src="${this.state.user.profileImage}" alt="프로필 이미지"/>
                   </div>
               <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
-              <div class="${styles.itemContent} ${styles.type}">${this.getTypeInKorean(
-            item.type,
-          )}</div>
+              <div class="${styles.itemContent} ${styles.type}">
+                ${
+                  document.querySelector(
+                    `.${styles.attendanceTypeSelect} option[value="${item.type}"]`,
+                  )?.textContent || item.type
+                }
+              </div>
               <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
               <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
             </div>
@@ -535,7 +573,7 @@ class MyPage extends Component {
     const startDay = start.getDate().toString().padStart(2, '0');
 
     if (!endDate) {
-      return `${startYear}${startMonth}${startDay}`;
+      return `${startYear}.${startMonth}.${startDay}`;
     }
 
     const end = new Date(endDate);
@@ -543,20 +581,10 @@ class MyPage extends Component {
     const endMonth = (end.getMonth() + 1).toString().padStart(2, '0');
     const endDay = end.getDate().toString().padStart(2, '0');
 
-    if (startMonth === endMonth) {
-      return `${startYear}${startMonth}${startDay}`;
+    if (startDate === endDate) {
+      return `${startYear}.${startMonth}.${startDay}`;
     }
-    return `${startYear}${startMonth}${startDay}~${endYear}${endMonth}${endDay}`;
-  }
-
-  getTypeInKorean(type) {
-    const typeMap = {
-      vacation: '연차',
-      halfday: '반차',
-      early: '조퇴',
-      other: '기타',
-    };
-    return typeMap[type] || type;
+    return `${startYear}.${startMonth}.${startDay}~${endYear}.${endMonth}.${endDay}`;
   }
 }
 
