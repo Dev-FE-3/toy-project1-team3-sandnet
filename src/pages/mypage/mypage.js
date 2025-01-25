@@ -17,8 +17,19 @@ class MyPage extends Component {
   }
 
   setup() {
+    // 세션 스토리지에서 현재 선택된 사용자 가져오기
+    const selectedUser = sessionStorage.getItem('currentUser') || 'user1';
+    console.log('Selected User:', selectedUser); // 어떤 값이 저장되었는지 확인
+
+    // 선택된 사용자 ID에 맞는 숫자로 변환
+    const userId = parseInt(selectedUser.replace('user', ''), 10);
+    console.log('User ID:', userId); // 변환된 숫자 확인
+
+    // userData에서 해당 ID의 사용자 찾기
+    const user = userData.find((user) => user.userId === userId) || userData[0];
+    console.log('Found User:', user); // 찾아진 사용자 확인
+
     //const profileData = this.profilePage.getProfileData();
-    const user = userData.find((user) => user.userId === 1);
 
     this.state = {
       attendance: [], // 근태 내역
@@ -43,9 +54,7 @@ class MyPage extends Component {
         <div class="my-content green-border">
       <div class = "${styles.wrapper}">
         <!-- 프로필 -->
-        <div class="${styles.gridItem} ${styles.section} ${styles.profileSection} ${
-      styles.modalTrigger
-    }">
+        <div class="${styles.gridItem} ${styles.section} ${styles.profileSection}">
           <p class="${styles.sectionTitle}">프로필</p>
           <!-- 프로필 이미지, 정보 -->
           <div class="${styles.profileContainer}">
@@ -115,7 +124,7 @@ class MyPage extends Component {
               <option value="other">기타</option>
             </select>
             <div class="${styles.attendanceHeader}">
-            <div class="${styles.headerItem} ${user.profileImage}"></div>
+            <div class="${styles.headerItem} ${styles.profileImage} ${user.profileImage}"></div>
             <div class="${styles.headerItem} ${user.name}">작성자</div>
             <div class="${styles.headerItem} ${styles.type}">종류</div>
             <div class="${styles.headerItem} ${styles.date}">일자</div>
@@ -198,15 +207,6 @@ class MyPage extends Component {
     this.initWorkManagement();
     this.initAddAttendanceManagement();
     this.initAttendanceManagement();
-
-    // //프로필 클릭 시 페이지 이동
-    // const profileSection = document.querySelector(`.${styles.profileSection}`);
-    // if (profileSection) {
-    //   profileSection.addEventListener('click', () => {
-    //     window.location.href = '/profile';
-    //     handleRouting();
-    //   });
-    // }
 
     document.querySelectorAll(`.commonModal`).forEach((modal) => {
       modal.addEventListener('click', (e) => {

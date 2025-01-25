@@ -2,6 +2,7 @@ import styles from './listing.module.css';
 import SearchBar from '@/components/searchBar';
 import Pagination from '@/components/pagination';
 import Component from '@/components/ComponentClass';
+import { userData } from '../../data/userData';
 
 class ListingPage extends Component {
   constructor(target) {
@@ -12,105 +13,7 @@ class ListingPage extends Component {
 
   setup() {
     this.state = {
-      employees: [
-        {
-          id: 1,
-          image: 'https://avatars.githubusercontent.com/u/113437204?v=4',
-          name: '안요셉',
-          phone: '010-1234-5678',
-          branch: '1',
-          rank: 'Leader',
-        },
-        {
-          id: 2,
-          image: 'https://avatars.githubusercontent.com/u/103546376?v=4',
-          name: '이지원',
-          phone: '010-1234-5678',
-          branch: '2',
-          rank: 'Leader',
-        },
-        {
-          id: 3,
-          image: 'https://avatars.githubusercontent.com/u/39721166?v=4',
-          name: '최정훈',
-          phone: '010-1234-5678',
-          branch: '3',
-          rank: 'Leader',
-        },
-        {
-          id: 4,
-          image: 'https://avatars.githubusercontent.com/u/173143133?v=4',
-          name: '장은혜',
-          phone: '010-1234-5678',
-          branch: '4',
-          rank: 'Leader',
-        },
-        {
-          id: 5,
-          image: 'https://avatars.githubusercontent.com/u/113437204?v=4',
-          name: '최영일',
-          phone: '010-1234-5678',
-          branch: '1',
-          rank: 'Mate1',
-        },
-        {
-          id: 6,
-          image: 'https://avatars.githubusercontent.com/u/113437204?v=4',
-          name: '이영이',
-          phone: '010-1234-5678',
-          branch: '2',
-          rank: 'Mate1',
-        },
-        {
-          id: 7,
-          image: 'https://avatars.githubusercontent.com/u/113437204?v=4',
-          name: '장영삼',
-          phone: '010-1234-5678',
-          branch: '3',
-          rank: 'Mate1',
-        },
-        {
-          id: 8,
-          image: 'https://avatars.githubusercontent.com/u/113437204?v=4',
-          name: '안영사',
-          phone: '010-1234-5678',
-          branch: '4',
-          rank: 'Mate1',
-        },
-        {
-          id: 9,
-          image: 'https://avatars.githubusercontent.com/u/113437204?v=4',
-          name: '홍길동',
-          phone: '010-1234-5678',
-          branch: '1',
-          rank: 'Mate2',
-        },
-        {
-          id: 10,
-          image: 'https://avatars.githubusercontent.com/u/113437204?v=4',
-          name: '심청이',
-          phone: '010-1234-5678',
-          branch: '2',
-          rank: 'Mate2',
-        },
-        {
-          id: 11,
-          image: 'https://avatars.githubusercontent.com/u/113437204?v=4',
-          name: '고두심',
-          phone: '010-1234-5678',
-          branch: '3',
-          rank: 'Mate2',
-        },
-        {
-          id: 12,
-          image: 'https://avatars.githubusercontent.com/u/113437204?v=4',
-          name: '서현진',
-          phone: '010-1234-5678',
-          branch: '1',
-          rank: 'Mate2',
-        },
-        // 더 많은 데이터...
-      ],
+      employees: userData,
       searchText: '',
       currentPage: 1,
       itemsPerPage: 8, // 한 페이지당 8개로 수정
@@ -166,7 +69,7 @@ class ListingPage extends Component {
     return `
       <tr data-id="${employee.id}">
         <td>
-          <img src="${employee.image}" alt="프로필" class="${styles.profileImage}">
+          <img src="${employee.profileImage}" alt="프로필" class="${styles.profileImage}">
         </td>
         <td>${employee.name}</td>
         <td>${employee.phone}</td>
@@ -343,6 +246,17 @@ class ListingPage extends Component {
         console.log('Add new employee');
       });
     }
+
+    //프로필 페이지로 이동동
+    const profileSections = document.querySelectorAll('tr');
+    profileSections.forEach((profileSection) => {
+      profileSection.addEventListener('click', () => {
+        // 세션 스토리지에 사용자 데이터 저장
+        //sessionStorage.setItem('currentUser', JSON.stringify(userData));
+        window.location.href = '/profile';
+        handleRouting();
+      });
+    });
   }
 }
 

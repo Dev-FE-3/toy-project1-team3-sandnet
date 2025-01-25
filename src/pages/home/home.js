@@ -40,10 +40,10 @@ export default class Home {
               </div>
               <div class="user-selection">
                 <select class="${styles.userSelect}">
-                  <option value="user1">유저 1</option>
-                  <option value="user2">유저 2</option>
-                  <option value="user3">유저 3</option>
-                  <option value="user4">유저 4</option>
+                  <option value="user1">안샌드</option>
+                  <option value="user2">장샌드</option>
+                  <option value="user3">이샌드</option>
+                  <option value="user4">최샌드</option>
                 </select>
               </div>
             </div>
