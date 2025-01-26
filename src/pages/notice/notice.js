@@ -12,6 +12,7 @@ class NoticePage extends Component {
   setup() {
     this.cards = noticeData.slice(0);
     this.filteredCards = [...this.cards];
+    this.searchText = '';
   }
 
   createCardHTML(card) {
@@ -30,7 +31,9 @@ class NoticePage extends Component {
         <header>
           <h1>공지사항</h1>
           <div class="search-container">
-            <input class="search-input" type="text" placeholder="검색어를 입력하세요" >
+            <input class="search-input" type="text" placeholder="검색어를 입력하세요" value= "${
+              this.searchText
+            }">
             <span class="search-icon material-icons">search</span>
           </div>
         </header>
@@ -82,7 +85,7 @@ class NoticePage extends Component {
       // 트리거 클릭 시 모달 열기
       trigger.forEach((card) => {
         card.addEventListener('click', (e) => {
-          // e.stopPropagation(); // 이벤트 전파 막기
+          e.stopPropagation(); // 이벤트 전파 막기
           this.openModal(card); // openModal 사용
           modal.style.display = 'flex';
           document.body.style.overflow = 'hidden';
