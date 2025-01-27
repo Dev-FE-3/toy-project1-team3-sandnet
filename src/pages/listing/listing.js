@@ -19,6 +19,7 @@ class ListingPage extends Component {
       totalPages: 0,
     };
 
+    // console.log('ListingPage ~ setup ~ this.state: ', this.state);
     // 초기 총 페이지 수 계산
     this.updateTotalPages();
 
@@ -30,6 +31,7 @@ class ListingPage extends Component {
           searchText: value,
           currentPage: 1,
         });
+        this.updateContent();
       },
     });
 
@@ -40,11 +42,14 @@ class ListingPage extends Component {
         this.setState({
           currentPage: page,
         });
+        // this.updateTotalPages(); // 페이지 변경 시 총 페이지 수 업데이트
+        this.updateContent();
       },
     });
   }
 
   updateContent() {
+    console.log('ListingPage ~ updateContent!!! ~ mainContent: ');
     const mainContent = this.target.querySelector('.main-content');
     if (mainContent) {
       const currentEmployees = this.getCurrentPageEmployees();
@@ -65,8 +70,9 @@ class ListingPage extends Component {
   }
 
   renderTableRow(employee) {
+    // console.log('ListingPage ~ renderTableRow ~ employee: ', employee);
     return `
-      <tr data-id="${employee.id}">
+      <tr data-userid="${employee.userId}">
         <td>
           <img src="${employee.profileImage}" alt="프로필" class="${styles.profileImage}">
         </td>
@@ -99,6 +105,7 @@ class ListingPage extends Component {
 
     // #으로 시작하는 검색어는 브랜치 전용 검색으로 처리
     if (searchTerm.startsWith('#')) {
+      console.log('ListingPage ~ # 검색');
       const branchNumber = searchTerm.slice(1); // # 제거
       if (!isNaN(branchNumber)) {
         return this.state.employees.filter((employee) => employee.branch === branchNumber);
@@ -143,6 +150,7 @@ class ListingPage extends Component {
 
   // 총 페이지 수 업데이트 메서드 개선
   updateTotalPages() {
+    // console.log('ListingPage ~ updateTotalPages ~ this.state: ', this.state);
     const filteredEmployees = this.filterEmployees();
 
     // 검색 결과가 8개 이하면 totalPages를 1로 설정
@@ -209,6 +217,7 @@ class ListingPage extends Component {
   setEvent() {
     // 검색바 이벤트
     this.searchBar.setEvent(this.target);
+    // console.log(this.searchBar);
 
     // 페이지네이션 이벤트
     if (this.filterEmployees().length > this.state.itemsPerPage) {
@@ -218,6 +227,7 @@ class ListingPage extends Component {
         onPageChange: (page) => {
           this.setState({ currentPage: page });
           this.updateTotalPages();
+          this.updateContent();
         },
       });
       this.pagination.setEvent(this.target);
@@ -227,24 +237,35 @@ class ListingPage extends Component {
     const deleteButtons = this.target.querySelectorAll('.delete-btn');
     deleteButtons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('delete-btn clicked');
         const row = e.target.closest('tr');
-        const id = Number(row.dataset.id);
-        const newEmployees = this.state.employees.filter((emp) => emp.id !== id);
+        // console.log('ListingPage ~ btn.addEventListener ~ row: ', row);
+        const id = Number(row.dataset.userid);
+        // console.log('ListingPage ~ btn.addEventListener ~ id: ', id);
+        const newEmployees = this.state.employees.filter((emp) => {
+          // console.log('ListingPage ~ btn.addEventListener ~ emp: ', emp.id);
+          if (emp.userId !== id) {
+            return emp;
+          }
+        });
         this.setState({
           employees: newEmployees,
           totalPages: Math.ceil(newEmployees.length / this.state.itemsPerPage),
         });
-        this.updateTotalPages();
+        console.log('ListingPage ~ btn.addEventListener ~ newEmployees: ', newEmployees);
+        // this.updateTotalPages();
+        this.updateContent();
       });
     });
 
     // Add 버튼 이벤트
-    const addButton = this.target.querySelector('button');
-    if (addButton) {
-      addButton.addEventListener('click', () => {
-        console.log('Add new employee');
-      });
-    }
+    // const addButton = this.target.querySelector('button');
+    // if (addButton) {
+    //   addButton.addEventListener('click', () => {
+    //     console.log('Add new employee');
+    //   });
+    // }
 
     // //프로필 페이지로 이동
     // const profileSections = document.querySelectorAll('tr');
@@ -258,8 +279,5 @@ class ListingPage extends Component {
     // });
   }
 }
-
-// 앱 실행
-// new ListingPage(document.querySelector('#page-container'));
 
 export default ListingPage;
