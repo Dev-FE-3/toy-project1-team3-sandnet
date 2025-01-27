@@ -8,6 +8,7 @@ import {
   deleteImage,
 } from '@/libs/firebase/firebaseService';
 import Component from '@/components/ComponentClass';
+import { userData } from '@/data/userData';
 
 class ProfilePage extends Component {
   constructor(target) {
@@ -42,12 +43,12 @@ class ProfilePage extends Component {
               <div class="${styles.imgContainer}">
                 <img id="profileImage" src="${this.state.profileImgs[0]?.imgUrl}" alt="프로필 사진" />
                 <i class="fa-solid fa-pen ${styles.imgEditIcon}" aria-hidden="true"></i>
-                <i class="fa-light fa-trash ${styles.imgDeleteIcon}"></i>
+                <i class="fas fa-trash ${styles.imgDeleteIcon}"></i>
               </div>
               <div class="${styles.profileInfo}">
-                <h1 id="profileName"></h1>
-                <p id="profileJob" class="${styles.jobTitle}"></p>
-                <address id="profileLocation" class="${styles.location}"></address>
+                <h1 id="profileName">${userData[0].name}</h1>
+                <p id="profileJob" class="${styles.jobTitle}">${userData[0].jobTitle}</p>
+                <address id="profileLocation" class="${styles.location}">${userData[0].location}</address>
               </div>
               <input type="file" accept="image/*" class="${styles.imgUpload}" />
             </header>
@@ -55,10 +56,7 @@ class ProfilePage extends Component {
           <article class="${styles.profileDetailContainer}"green-border>
             <header class="${styles.personalInfoHeader}">
               <h2>Personal information</h2>
-              <button type="button" class="${styles.editButton}">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                <span>Edit</span>
-              </button>
+              
             </header>
             <!-- 개인정보 -->
             <form class="${styles.personalInfoContent}">

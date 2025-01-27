@@ -7,7 +7,7 @@ const userData = [
     jobTitle: '지점장',
     location: '서울특별시 강남구 역삼동 123-45, 101호',
     profileImage: '/src/assets/images/employee1.jpg',
-    branch: '1호점',
+    branch: '1',
     rank: '지점장',
   },
   {
@@ -18,7 +18,7 @@ const userData = [
     jobTitle: '매니저',
     location: '서울특별시 마포구 서교동 234-56, 201호',
     profileImage: '/src/assets/images/employee2.jpg',
-    branch: '1호점',
+    branch: '1',
     rank: '매니저',
   },
   {
@@ -29,7 +29,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 송파구 잠실동 789-12, 301호',
     profileImage: '/src/assets/images/employee3.jpg',
-    branch: '1호점',
+    branch: '1',
     rank: '메이트',
   },
   {
@@ -40,7 +40,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 동대문구 휘경동 456-78, 102호',
     profileImage: '/src/assets/images/employee4.jpg',
-    branch: '1호점',
+    branch: '1',
     rank: '메이트',
   },
   {
@@ -51,7 +51,7 @@ const userData = [
     jobTitle: '지점장',
     location: '서울특별시 강남구 역삼동 123-45, 101호',
     profileImage: '/src/assets/images/employee1.jpg',
-    branch: '2호점',
+    branch: '2',
     rank: '지점장',
   },
   {
@@ -62,7 +62,7 @@ const userData = [
     jobTitle: '매니저',
     location: '서울특별시 마포구 서교동 234-56, 201호',
     profileImage: '/src/assets/images/employee2.jpg',
-    branch: '2호점',
+    branch: '2',
     rank: '매니저',
   },
   {
@@ -73,7 +73,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 송파구 잠실동 789-12, 301호',
     profileImage: '/src/assets/images/employee3.jpg',
-    branch: '2호점',
+    branch: '2',
     rank: '메이트',
   },
   {
@@ -84,7 +84,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 동대문구 휘경동 456-78, 102호',
     profileImage: '/src/assets/images/employee4.jpg',
-    branch: '2호점',
+    branch: '2',
     rank: '메이트',
   },
   {
@@ -95,7 +95,7 @@ const userData = [
     jobTitle: '지점장',
     location: '서울특별시 강서구 화곡동 567-89, 305호',
     profileImage: '/src/assets/images/employee1.jpg',
-    branch: '3호점',
+    branch: '3',
     rank: '지점장',
   },
   {
@@ -106,7 +106,7 @@ const userData = [
     jobTitle: '매니저',
     location: '서울특별시 서초구 방배동 678-90, 402호',
     profileImage: '/src/assets/images/employee2.jpg',
-    branch: '3호점',
+    branch: '3',
     rank: '매니저',
   },
   {
@@ -117,7 +117,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 노원구 상계동 321-45, 303호',
     profileImage: '/src/assets/images/employee3.jpg',
-    branch: '3호점',
+    branch: '3',
     rank: '메이트',
   },
   {
@@ -128,7 +128,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 강북구 미아동 432-56, 506호',
     profileImage: '/src/assets/images/employee4.jpg',
-    branch: '3호점',
+    branch: '3',
     rank: '메이트',
   },
   {
@@ -139,7 +139,7 @@ const userData = [
     jobTitle: '지점장',
     location: '서울특별시 용산구 한남동 321-98, 204호',
     profileImage: '/src/assets/images/employee1.jpg',
-    branch: '4호점',
+    branch: '4',
     rank: '지점장',
   },
   {
@@ -150,7 +150,7 @@ const userData = [
     jobTitle: '매니저',
     location: '서울특별시 성동구 성수동 567-12, 204호',
     profileImage: '/src/assets/images/employee2.jpg',
-    branch: '4호점',
+    branch: '4',
     rank: '매니저',
   },
   {
@@ -161,7 +161,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 강남구 신사동 123-89, 305호',
     profileImage: '/src/assets/images/employee3.jpg',
-    branch: '4호점',
+    branch: '4',
     rank: '메이트',
   },
   {
@@ -172,7 +172,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 중구 을지로 567-22, 701호',
     profileImage: '/src/assets/images/employee4.jpg',
-    branch: '4호점',
+    branch: '4',
     rank: '메이트',
   },
   {
@@ -183,7 +183,7 @@ const userData = [
     jobTitle: '지점장',
     location: '서울특별시 마포구 합정동 456-89, 403호',
     profileImage: '/src/assets/images/employee1.jpg',
-    branch: '5호점',
+    branch: '5',
     rank: '지점장',
   },
   {
@@ -194,7 +194,7 @@ const userData = [
     jobTitle: '매니저',
     location: '서울특별시 서대문구 충정로 345-67, 208호',
     profileImage: '/src/assets/images/employee2.jpg',
-    branch: '5호점',
+    branch: '5',
     rank: '매니저',
   },
   {
@@ -205,7 +205,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 동대문구 회기동 789-12, 302호',
     profileImage: '/src/assets/images/employee3.jpg',
-    branch: '5호점',
+    branch: '5',
     rank: '메이트',
   },
   {
@@ -216,7 +216,7 @@ const userData = [
     jobTitle: '메이트',
     location: '서울특별시 광진구 자양동 234-56, 103호',
     profileImage: '/src/assets/images/employee4.jpg',
-    branch: '5호점',
+    branch: '5',
     rank: '메이트',
   },
 ];

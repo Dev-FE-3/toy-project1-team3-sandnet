@@ -332,33 +332,7 @@ class ListingPage extends Component {
       });
       this.pagination.setEvent(this.target);
     }
-
-    // // 삭제 버튼 이벤트
-    // const deleteButtons = this.target.querySelectorAll('.delete-btn');
-    // deleteButtons.forEach((btn) => {
-    //   btn.addEventListener('click', (e) => {
-    //     const row = e.target.closest('tr');
-    //     const id = Number(row.dataset.id);
-    //     const newEmployees = this.state.employees.filter((emp) => emp.id !== id);
-    //     this.setState({
-    //       employees: newEmployees,
-    //       totalPages: Math.ceil(newEmployees.length / this.state.itemsPerPage),
-    //     });
-    //     this.updateTotalPages();
-    //   });
-    // });
-
-    // // Add 버튼 이벤트
-    // const addButton = this.target.querySelector('button');
-    // if (addButton) {
-    //   addButton.addEventListener('click', () => {
-    //     console.log('Add new employee');
-    //   });
-    // }
   }
 }
-
-// 앱 실행
-// new ListingPage(document.querySelector('#page-container'));
 
 export default ListingPage;

@@ -5,6 +5,7 @@ export default class Pagination {
     this.currentPage = options.currentPage || 1;
     this.totalPages = options.totalPages || 1;
     this.onPageChange = options.onPageChange || (() => {});
+    // this.setEvent();
   }
 
   template() {
@@ -41,11 +42,14 @@ export default class Pagination {
   }
 
   setEvent(target) {
+    // console.log('Pagination ~ setEvent ~ target:시작 ');
     const pagination = target.querySelector('.pagination');
     if (!pagination) return;
 
     pagination.addEventListener('click', (e) => {
       const btn = e.target.closest('.page-btn');
+      console.log('Pagination ~ pagination.addEventListener ~ btn: ', btn, this.onPageChange);
+
       if (!btn || btn.classList.contains('disabled')) return;
 
       let newPage = this.currentPage;
