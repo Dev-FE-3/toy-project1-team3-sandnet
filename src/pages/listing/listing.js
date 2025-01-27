@@ -1,13 +1,67 @@
 import styles from './listing.module.css';
-import SearchBar from '@/components/searchBar';
-import Pagination from '@/components/pagination';
-import Component from '@/components/ComponentClass';
+import SearchBar from '@/components/SearchBar';
+import Pagination from '@/components/Pagination';
+
+class Component {
+  constructor(target) {
+    this.target = target;
+  }
+
+  setup() {}
+  template() {
+    return '';
+  }
+  render() {
+    this.target.innerHTML = this.template();
+  }
+  setEvent() {}
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
+    this.updateContent();
+  }
+
+  updateContent() {
+    const mainContent = this.target.querySelector('.main-content');
+    if (mainContent) {
+      const currentEmployees = this.getCurrentPageEmployees();
+      const tableBody = mainContent.querySelector('tbody');
+      if (tableBody) {
+        tableBody.innerHTML = currentEmployees
+          .map((employee) => this.renderTableRow(employee))
+          .join('');
+
+        // 페이지네이션 업데이트
+        const paginationContainer = mainContent.querySelector('.pagination');
+        if (paginationContainer && this.pagination) {
+          paginationContainer.outerHTML = this.pagination.template();
+        }
+      }
+      this.setEvent();
+    }
+  }
+
+  renderTableRow(employee) {
+    return `
+      <tr data-id="${employee.id}">
+        <td>
+          <img src="${employee.image}" alt="프로필" class="${styles.profileImage}">
+        </td>
+        <td>${employee.name}</td>
+        <td>${employee.phone}</td>
+        <td>${employee.branch}</td>
+        <td>${employee.rank}</td>
+        <td class="${styles.actions}">
+          <button class="delete-btn">삭제</button>
+        </td>
+      </tr>
+    `;
+  }
+}
 
 class ListingPage extends Component {
   constructor(target) {
     super(target);
     this.setup();
-    this.updateContent();
   }
 
   setup() {
@@ -121,7 +175,7 @@ class ListingPage extends Component {
     this.updateTotalPages();
 
     this.searchBar = new SearchBar({
-      placeholder: '검색어를 입력하세요.(#숫자:브랜치 검색)',
+      placeholder: '검색어를 입력하세요.',
       value: this.state.searchText,
       onSearch: (value) => {
         this.setState({
@@ -140,43 +194,6 @@ class ListingPage extends Component {
         });
       },
     });
-  }
-
-  updateContent() {
-    const mainContent = this.target.querySelector('.main-content');
-    if (mainContent) {
-      const currentEmployees = this.getCurrentPageEmployees();
-      const tableBody = mainContent.querySelector('tbody');
-      if (tableBody) {
-        tableBody.innerHTML = currentEmployees
-          .map((employee) => this.renderTableRow(employee))
-          .join('');
-
-        // 페이지네이션 업데이트
-        const paginationContainer = mainContent.querySelector('.pagination');
-        if (paginationContainer && this.pagination) {
-          paginationContainer.outerHTML = this.pagination.template();
-        }
-      }
-      this.setEvent();
-    }
-  }
-
-  renderTableRow(employee) {
-    return `
-      <tr data-id="${employee.id}">
-        <td>
-          <img src="${employee.image}" alt="프로필" class="${styles.profileImage}">
-        </td>
-        <td>${employee.name}</td>
-        <td>${employee.phone}</td>
-        <td>${employee.branch}</td>
-        <td>${employee.rank}</td>
-        <td class="${styles.actions}">
-          <button class="delete-btn">삭제</button>
-        </td>
-      </tr>
-    `;
   }
 
   // 현재 페이지에 표시할 직원 목록 가져오기
@@ -285,7 +302,7 @@ class ListingPage extends Component {
                     <th>전화번호</th>
                     <th>지점</th>
                     <th>직급</th>
-                    <th>삭제</th>
+                    <th></th>
                   </tr>
                 </thead>
               </table>

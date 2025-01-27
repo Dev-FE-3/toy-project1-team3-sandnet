@@ -1,4 +1,4 @@
-import './pagination.css';
+import './Pagination.css';
 
 export default class Pagination {
   constructor(options = {}) {
