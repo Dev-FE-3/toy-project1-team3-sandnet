@@ -1,29 +1,7 @@
 import styles from './mypage.module.css';
-import ProfilePage from '../profile/profile.js';
-
-class Component {
-  constructor(target) {
-    this.target = target;
-    // this.setup();
-    // this.render();
-    // this.setEvent();
-    // this.setState();
-  }
-
-  setup() {}
-  template() {
-    return '';
-  }
-  render() {
-    this.target.innerHTML = this.template();
-  }
-  setEvent() {}
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    // this.render();
-    // this.setEvent();
-  }
-}
+// import ProfilePage from '../profile/profile.js';
+import Component from '@/components/ComponentClass';
+import { userData } from '../../data/userData';
 
 class MyPage extends Component {
   constructor(target) {
@@ -46,11 +24,24 @@ class MyPage extends Component {
   }
 
   setup() {
+    // 세션 스토리지에서 현재 선택된 사용자 가져오기
+    const selectedUser = sessionStorage.getItem('currentUser') || 'user1';
+    console.log('Selected User:', selectedUser); // 어떤 값이 저장되었는지 확인
+
+    // 선택된 사용자 ID에 맞는 숫자로 변환
+    const userId = parseInt(selectedUser.replace('user', ''), 10);
+    console.log('User ID:', userId); // 변환된 숫자 확인
+
+    // userData에서 해당 ID의 사용자 찾기
+    const user = userData.find((user) => user.userId === userId) || userData[0];
+    console.log('Found User:', user); // 찾아진 사용자 확인
+
     //const profileData = this.profilePage.getProfileData();
 
     this.state = {
       attendance: [], // 근태 내역
-      writer: '장은혜', // 작성자
+      writer: user.name, // 작성자
+      user,
 
       workStartTime: null, // 근무 시작 시간
       workEndTime: null, // 근무 종료 시간
@@ -59,7 +50,7 @@ class MyPage extends Component {
   }
 
   template() {
-    const { attendance, writer, workStartTime, workEndTime, isWorking } = this.state;
+    const { attendance, user, writer, workStartTime, workEndTime, isWorking } = this.state;
     console.log('MyPage ~ template ~ workStartTime: ', workStartTime);
 
     return `
@@ -70,21 +61,27 @@ class MyPage extends Component {
         <div class="my-content green-border">
       <div class = "${styles.wrapper}">
         <!-- 프로필 -->
-        <div class="${styles.gridItem} ${styles.section} ${styles.profileSection} ${
-      styles.modalTrigger
-    }">
+        <div class="${styles.gridItem} ${styles.section} ${styles.profileSection}">
           <p class="${styles.sectionTitle}">프로필</p>
           <!-- 프로필 이미지, 정보 -->
           <div class="${styles.profileContainer}">
             <div class="${styles.profileImageName}">
-              <img class="${styles.myprofileImage}" src="" alt="사용자 프로필 이미지"></img>
-              <div class="${styles.profileName}"></div>
+              <img class="${styles.myprofileImage}" src="${
+      user.profileImage
+    }" alt="사용자 프로필 이미지"></img>
+              <div class="${styles.profileName}">${user.name}</div>
             </div>
             <div>
               <ul class="${styles.profileInfo}">
-                <li><span class="${styles.materialIcons} material-icons">phone</span></li>
-                <li><span class="${styles.materialIcons} material-icons">work</span></li>
-                <li><span class="${styles.materialIcons} material-icons">email</span></li>
+                <li><span class="${styles.materialIcons} material-icons">phone</span>${
+      user.phone
+    }</li>
+                <li><span class="${styles.materialIcons} material-icons">work</span>${
+      user.jobTitle
+    }</li>
+                <li><span class="${styles.materialIcons} material-icons">email</span>${
+      user.email
+    }</li>
                 
               </ul>
             </div>
@@ -124,14 +121,14 @@ class MyPage extends Component {
           <p class="${styles.sectionTitle}">근태 목록</p>
           <select class="${styles.attendanceListSelect} ${styles.attendanceTypeSelect}">
               <option value="all">전체</option>
-              <option value="vacation">연차</option>
-              <option value="halfday">반차</option>
+              <option value="vacation">휴가</option>
+              <option value="sick">병가</option>
               <option value="early">조퇴</option>
               <option value="other">기타</option>
             </select>
             <div class="${styles.attendanceHeader}">
-            <div class="${styles.headerItem} ${styles.profileImage}"></div>
-            <div class="${styles.headerItem} ${styles.writer}">작성자</div>
+            <div class="${styles.headerItem} ${styles.profileImage} ${user.profileImage}"></div>
+            <div class="${styles.headerItem} ${user.name}">작성자</div>
             <div class="${styles.headerItem} ${styles.type}">종류</div>
             <div class="${styles.headerItem} ${styles.date}">일자</div>
             <div class="${styles.headerItem} ${styles.applyDate}">신청일</div>
@@ -140,7 +137,9 @@ class MyPage extends Component {
             </div>
           </div>
           <!-- 근태신청버튼 -->
-          <button class="${styles.addAttendanceBtn} ${styles.btn} ${styles.modalTrigger}">
+          <button data-modal-type='addAttendanceBtnModal' class="commonModal ${
+            styles.addAttendanceBtn
+          } ${styles.btn} ${styles.modalTrigger}" id="addAttendanceBtn">
             <p>+</p>
           </button>
       </main>
@@ -175,8 +174,8 @@ class MyPage extends Component {
             <h2>근태 목록</h2>
             <select class="${styles.attendanceList} ${styles.attendanceTypeSelect}">
               <option value="all">전체</option>
-              <option value="vacation">연차</option>
-              <option value="halfday">반차</option>
+              <option value="vacation">휴가</option>
+              <option value="sick">병가</option>
               <option value="early">조퇴</option>
               <option value="other">기타</option>
             </select>
@@ -196,10 +195,16 @@ class MyPage extends Component {
                   (item) => `
                 <div class="${styles.attendanceItem}">
                   <div class="${styles.itemContent} ${styles.profileImage}">
-                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지"/>
+                  <img src="${item.image}" alt="프로필 이미지"/>
                   </div>
                   <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
-                  <div class="${styles.itemContent} ${styles.type}">${item.type}</div>
+                  <div class="${styles.itemContent} ${styles.type}">
+                    ${
+                      document.querySelector(
+                        `.${styles.attendanceTypeSelect} option[value="${item.type}"]`,
+                      )?.textContent || item.type
+                    }
+                  </div>
                   <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
                   <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
                 </div>
@@ -213,94 +218,221 @@ class MyPage extends Component {
           </div>
         </div>
       </div>
-
-      <!-- 근태신청모달 -->
-      <div class="${styles.modal} ${styles.addAttendanceBtnModal}">
-        <div class="${styles.modalContent}">
-          <button class="${styles.close}">&times;</button>
-          <div class="${styles.addAttendanceForm}">
-            <h2>근태 신청</h2>
-            <div class="${styles.attendanceTypeButtons}">
-              <button value="vacation" class="${styles.typeBtn}">연차</button>
-              <button value="halfday" class="${styles.typeBtn}">반차</button>
-              <button value="early" class="${styles.typeBtn}">조퇴</button>
-              <button value="other" class="${styles.typeBtn}">기타</button>
-            </div>
-            <div class="${styles.addAttendanceForm}">
-              <div class="${styles.datePickerContainer}">
-                <label for="start-date">시작일</label>
-                <input type="date" id="start-date" class="${styles.datePicker}" />
-
-                <label for="end-date">종료일</label>
-                <input type="date" id="end-date" class="${styles.datePicker}" />
-              </div>
-              <button class="${styles.submitBtn}">신청</button>
-            
-          </div>
-        </div>
     
     `;
   }
 
   setEvent() {
-    this.initModals();
     this.initTimeUpdate();
     this.initWorkManagement();
     this.initAddAttendanceManagement();
     this.initAttendanceManagement();
 
-    //프로필 클릭 시 페이지 이동
-    const profileSection = document.querySelector(`.${styles.profileSection}`);
-    if (profileSection) {
-      profileSection.addEventListener('click', () => {
-        window.location.href = '/profile';
-        handleRouting();
+    document.querySelectorAll(`.commonModal`).forEach((modal) => {
+      modal.addEventListener('click', (e) => {
+        const clickedElement = e.target.closest('[data-modal-type]'); // 가장 가까운 data-modal-type 속성을 가진 상위 요소 찾기
+        if (!clickedElement) return; // 해당 요소가 없으면 종료
+
+        e.stopPropagation();
+        const modalType = clickedElement.getAttribute('data-modal-type');
+        this.commonModalController(modalType);
+      });
+    });
+
+    // 근무 시작/종료 버튼 클릭 이벤트 추가
+    const workBtn = document.getElementById('workBtn');
+    if (workBtn) {
+      workBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const modalType = clickedElement.getAttribute('data-modal-type');
+        this.commonModalController(modalType);
       });
     }
+
+    // 근무 시작/종료 버튼 클릭 이벤트 추가
+    // const workBtn = document.getElementById('workBtn');
+    // const addAttendanceBtn = document.getElementById('addAttendanceBtn');
+
+    // if (workBtn) {
+    //   workBtn.addEventListener('click', (e) => {
+    //     e.stopPropagation();
+    //     this.commonModalController(e.target.getAttribute('data-modal-type'));
+    //   });
+    // }
   }
 
-  // 모달 초기화
-  initModals() {
-    const modals = {
-      workBtn: {
-        trigger: document.querySelector(`.${styles.workBtn}`),
-        modal: document.querySelector(`.${styles.workBtnModal}`),
-      },
-      // attendance: {
-      //   trigger: document.querySelector(`.${styles.attendanceListSection}`),
-      //   modal: document.querySelector(`.${styles.attendanceModal}`),
-      // },
-      addAttendance: {
-        trigger: document.querySelector(`.${styles.addAttendanceBtn}`),
-        modal: document.querySelector(`.${styles.addAttendanceBtnModal}`),
-      },
-    };
+  commonModalController(modalType) {
+    const modal = document.querySelector(`.${styles.modal}`);
 
-    Object.values(modals).forEach(({ trigger, modal }) => {
-      if (!trigger || !modal) return;
-      const closeBtn = modal.querySelector(`.${styles.close}`);
+    if (!modal) return;
 
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      });
+    // 모달 활성화
+    document.body.style.overflow = 'hidden';
+    modal.style.display = 'flex';
 
-      if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-          console.log('MyPage ~ closeBtn.addEventListener ~ closeBtn: ');
-          modal.style.display = 'none';
-          document.body.style.overflow = 'auto';
+    const workBtnModalHTML = `
+      <span class="${styles.close}">&times;</span>
+      <h2 class="${styles.currentTimeTitle}">현재시각</h2>
+      <div class="${styles.currentTimeValue}">
+        <span>-</span>:<span>-</span>:<span>-</span>
+      </div>
+      <p class="${styles.workStartQuestion}">근무를 ${
+      this.state.isWorking ? '종료' : '시작'
+    }하시겠습니까?</p>
+      <div class="${styles.modalButtons}">
+        <button class="${styles.confirmBtn}">확인</button>
+        <button class="${styles.cancelBtn}">취소</button>
+      </div>
+    `;
+
+    const addAttendanceBtnModalHTML = `
+        <button class="${styles.close}">&times;</button>
+        <div class="${styles.addAttendanceForm}">
+          <h2>근태 신청</h2>
+          <div class="${styles.attendanceTypeButtons}">
+            <button value="vacation" class="${styles.typeBtn}">휴가</button>
+            <button value="sick" class="${styles.typeBtn}">병가</button>
+            <button value="early" class="${styles.typeBtn}">조퇴</button>
+            <button value="other" class="${styles.typeBtn}">기타</button>
+          </div>
+          <div class="${styles.addAttendanceForm}">
+            <div class="${styles.datePickerContainer}">
+              <label for="start-date">시작일</label>
+              <input type="date" id="start-date" class="${styles.datePicker}" />
+
+              <label for="end-date">종료일</label>
+              <input type="date" id="end-date" class="${styles.datePicker}" />
+            </div>
+            <button class="${styles.submitBtn}">신청</button>
+          </div>
+        </div>
+    `;
+
+    if (modalType === 'workBtnModal') {
+      // 모달 콘텐츠 기본 설정 및 콘텐츠 준비
+      const modalContent = document.createElement('div');
+      modal.classList.add(`${styles.workBtnModal}`);
+      modalContent.className = `${styles.modalContent}`;
+      modalContent.innerHTML = workBtnModalHTML;
+
+      // View
+      this.setModalContent(modal, modalContent);
+
+      // Event
+      // 시간 업데이트
+      this.initTimeUpdate();
+
+      // 모달 닫기 버튼
+      const modalCloseBtn = modal.querySelector(`.${styles.close}`);
+      if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', () => {
+          this.closeModal(modal);
+        });
+
+        // 모달 외부 클릭 시 모달 닫기
+        window.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            this.closeModal(modal);
+          }
+        });
+
+        // 확인 버튼
+        const confirmBtn = modal.querySelector(`.${styles.confirmBtn}`);
+        if (confirmBtn) {
+          confirmBtn.addEventListener('click', () => {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const currentTime = `${hours}:${minutes}`;
+
+            if (!this.state.isWorking) {
+              // 근무 시작
+              this.setState({
+                workStartTime: currentTime,
+                workEndTime: null,
+                isWorking: true,
+                test: true,
+              });
+
+              document.querySelector('.work-start-time').textContent = currentTime;
+            } else {
+              // 근무 종료
+              this.setState({
+                workEndTime: currentTime,
+                isWorking: false,
+              });
+              document.querySelector('.work-end-time').textContent = currentTime;
+              // document.querySelector(".work-btn-text").textContent = this.state.isWorking ? "근무 시작" : "근무 종료";
+            }
+
+            this.updateWorkUI();
+            this.closeModal(modal);
+          });
+
+          // 취소 버튼
+          const cancelBtn = modal.querySelector(`.${styles.cancelBtn}`);
+          if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+              this.closeModal(modal);
+            });
+          }
+        }
+      }
+      return;
+    }
+    if (modalType === 'addAttendanceBtnModal') {
+      const modalContent = document.createElement('div');
+      modal.classList.add(`${styles.addAttendanceBtnModal}`);
+      modalContent.className = `${styles.modalContent}`;
+      modalContent.innerHTML = addAttendanceBtnModalHTML;
+
+      // 기존 모달 초기화 및 새 모달콘텐츠 추가
+      this.setModalContent(modal, modalContent);
+
+      // 모달 닫기 버튼
+      const modalCloseBtn = modal.querySelector(`.${styles.close}`);
+      if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', () => {
+          this.closeModal(modal);
+        });
+
+        // 모달 외부 클릭 시 모달 닫기
+        window.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            this.closeModal(modal);
+          }
         });
       }
 
-      window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.style.display = 'none';
-          document.body.style.overflow = 'auto';
-        }
-      });
-    });
+      this.initAddAttendanceManagement();
+      this.initAttendanceManagement();
+    }
+  }
+
+  // 모달 콘텐츠 삽입
+  setModalContent(modal, modalContent) {
+    if (modal.firstChild) {
+      modal.replaceChild(modalContent, modal.firstChild);
+    } else {
+      modal.appendChild(modalContent);
+    }
+  }
+
+  // 근무 시작/종료 UI 업데이트
+  updateWorkUI() {
+    const workQuestion = document.querySelector(`.${styles.workStartQuestion}`);
+    const workBtnText = document.querySelector('.work-btn-text');
+
+    workQuestion.textContent = this.state.isWorking
+      ? '근무를 종료하시겠습니까?'
+      : '근무를 시작하시겠습니까?';
+    workBtnText.textContent = this.state.isWorking ? '근무 종료' : '근무 시작';
+  }
+
+  // 모달 닫기
+  closeModal(modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
   }
 
   // 시간 업데이트 초기화
@@ -330,8 +462,6 @@ class MyPage extends Component {
 
   // 근무 시작/종료 관리
   initWorkManagement() {
-    console.log('MyPage ~ 근무 시작');
-
     const workBtnModal = document.querySelector(`.${styles.workBtnModal}`);
     if (!workBtnModal) return;
     console.log('MyPage ~ initWorkManagement ~ workBtnModal: ', workBtnModal);
@@ -434,11 +564,12 @@ class MyPage extends Component {
 
         this.renderAttendanceList(this.state.attendance);
 
-        // 모달 닫기 및 초기화
-        addAttendanceModal.style.display = 'none';
+        //초기화
         document.querySelector('#start-date').value = '';
         document.querySelector('#end-date').value = '';
         typeButtons.forEach((btn) => btn.classList.remove(`${styles.selected}`));
+        //모달 닫기
+        this.closeModal(addAttendanceModal);
       });
     }
 
@@ -478,12 +609,16 @@ class MyPage extends Component {
           (item) => `
             <div class="${styles.attendanceItem}">
               <div class="${styles.itemContent} ${styles.profileImage}">
-                  <img src="src/assets/images/profile.jpg" alt="프로필 이미지"/>
+                  <img src="${this.state.user.profileImage}" alt="프로필 이미지"/>
                   </div>
               <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
-              <div class="${styles.itemContent} ${styles.type}">${this.getTypeInKorean(
-            item.type,
-          )}</div>
+              <div class="${styles.itemContent} ${styles.type}">
+                ${
+                  document.querySelector(
+                    `.${styles.attendanceTypeSelect} option[value="${item.type}"]`,
+                  )?.textContent || item.type
+                }
+              </div>
               <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
               <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
             </div>
@@ -509,7 +644,7 @@ class MyPage extends Component {
     const startDay = start.getDate().toString().padStart(2, '0');
 
     if (!endDate) {
-      return `${startYear}${startMonth}${startDay}`;
+      return `${startYear}.${startMonth}.${startDay}`;
     }
 
     const end = new Date(endDate);
@@ -517,20 +652,10 @@ class MyPage extends Component {
     const endMonth = (end.getMonth() + 1).toString().padStart(2, '0');
     const endDay = end.getDate().toString().padStart(2, '0');
 
-    if (startMonth === endMonth) {
-      return `${startYear}${startMonth}${startDay}`;
+    if (startDate === endDate) {
+      return `${startYear}.${startMonth}.${startDay}`;
     }
-    return `${startYear}${startMonth}${startDay}~${endYear}${endMonth}${endDay}`;
-  }
-
-  getTypeInKorean(type) {
-    const typeMap = {
-      vacation: '연차',
-      halfday: '반차',
-      early: '조퇴',
-      other: '기타',
-    };
-    return typeMap[type] || type;
+    return `${startYear}.${startMonth}.${startDay}~${endYear}.${endMonth}.${endDay}`;
   }
 }
 

@@ -20,6 +20,7 @@ class ProfilePage extends Component {
 
   setup() {
     this.MAX_FILE_SIZE = 2 * 1024 * 1024; // 업로드 이미지 최대 파일 크기(2MB)
+
     this.state = {
       profileImgs: [],
     };

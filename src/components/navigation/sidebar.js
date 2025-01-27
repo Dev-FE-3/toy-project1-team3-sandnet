@@ -100,6 +100,7 @@ export default class Sidebar extends Component {
 
   linkToPage() {
     const links = document.querySelectorAll('.link');
+    let url = '';
 
     links.forEach((link) => {
       link.addEventListener('click', (e) => {
@@ -110,11 +111,25 @@ export default class Sidebar extends Component {
           e.target.tagName.toLowerCase() === 'li'
             ? e.target.querySelector('a').getAttribute('data-link')
             : e.target.getAttribute('data-link');
+        console.log('Sidebar ~ link.addEventListener ~ path: ', path);
 
         if (this.checkRoleAndUser()) {
-          window.history.pushState({}, '', `${this.state.roleAndUserPath}/${path}`);
+          switch (path) {
+            case 'listing':
+              url = `${this.state.roleAndUserPath}/${path}`;
+              break;
+            case 'notice':
+              url = `/${path}`;
+              break;
+            case 'mypage':
+              url = `/${path}`;
+              break;
+            default:
+          }
+          window.history.pushState({}, '', url);
           handleRouting();
         }
+
         // window.history.pushState({}, '', `/${path}`);
 
         // 활성 메뉴 업데이트

@@ -12,6 +12,7 @@ class NoticePage extends Component {
   setup() {
     this.cards = noticeData.slice(0);
     this.filteredCards = [...this.cards];
+    this.searchText = '';
   }
 
   createCardHTML(card) {
@@ -78,7 +79,7 @@ class NoticePage extends Component {
       // 트리거 클릭 시 모달 열기
       trigger.forEach((card) => {
         card.addEventListener('click', (e) => {
-          // e.stopPropagation(); // 이벤트 전파 막기
+          e.stopPropagation(); // 이벤트 전파 막기
           this.openModal(card); // openModal 사용
           modal.style.display = 'flex';
           document.body.style.overflow = 'hidden';
@@ -117,7 +118,7 @@ class NoticePage extends Component {
     }
   }
 
-  //모달 열기기
+  //모달 열기
   openModal(card) {
     const modalElements = this.getModalElements();
     const cardImage = card.querySelector(`.${styles.imagePlaceholder}`).cloneNode(true);

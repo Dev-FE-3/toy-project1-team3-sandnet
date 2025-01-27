@@ -35,10 +35,10 @@ export default class Home {
             <div class="${styles.roleSelectionContainer}">
               <div class="${styles.userSelection}">
                 <select class="${styles.userSelect}">
-                  <option value="장샌드">장샌드</option>
-                  <option value="최샌드">최샌드</option>
-                  <option value="안샌드">안샌드</option>
-                  <option value="이샌드">이샌드</option>
+                  <option value="user1">안샌드</option>
+                  <option value="user2">장샌드</option>
+                  <option value="user3">이샌드</option>
+                  <option value="user4">최샌드</option>
                 </select>
                 <p>유저를 선택하세요</p>
               </div>

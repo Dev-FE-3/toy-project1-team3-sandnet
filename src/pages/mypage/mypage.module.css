@@ -28,8 +28,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  /* gap: 50px; */
   height: auto;
+  min-height: 200px;
   margin: 20px 0;
   flex-wrap: wrap;
 }
@@ -37,6 +38,7 @@
 .profileImageName {
   display: flex;
   flex-direction: column;
+  margin: 0 50px;
 }
 
 .myprofileImage {
@@ -65,15 +67,15 @@
     margin: 10px;
     align-items: flex-start;
     justify-content: flex-start;
-    line-height: 40px;
+    line-height: 2vw;
     color: #333;
     font-size: 0.9vw;
   }
 
   .materialIcons {
     margin-right: 20px;
-    color: #055d20;
-    line-height: 40px;
+    color: var(--color-dark-green);
+    line-height: 2vw;
     font-size: 1.3vw;
   }
 }
@@ -152,7 +154,7 @@
   position: relative;
   display: flex;
   grid-column: 1 / span 2; /* 그리드 아이템 너비 설정 */
-  overflow-y: auto;
+  overflow: hidden;
   padding: 0;
   height: 100%;
 }
@@ -171,7 +173,7 @@
   position: absolute;
   width: 80px;
   top: 20px;
-  right: 20px;
+  left: 2rem;
   padding: 5px;
   border: 1px solid var(--color-dark-green);
   border-radius: 5px;
@@ -195,7 +197,6 @@
 .headerItem {
   align-items: center;
   display: flex;
-  padding: 5px 0 5px 5px;
   margin-bottom: 10px;
 }
 
@@ -223,6 +224,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.attendanceList {
+  height: calc(100% - 5rem); /* 전체 높이에서 헤더(약 60px)와 제목(약 60px) 높이를 뺌 */
+  overflow-y: auto;
+}
+
+.attendanceList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.attendanceList::-webkit-scrollbar-thumb {
+  background-color: #b1b1b1;
+  border-radius: 10px;
+}
+
+.attendanceList::-webkit-scrollbar-track {
+  background-color: #ffffff;
 }
 
 .attendanceItem {
@@ -387,7 +406,6 @@
   width: 80%;
   max-width: 500px;
   max-height: 800px;
-  overflow-y: auto;
 }
 
 .modal .attendanceList {
