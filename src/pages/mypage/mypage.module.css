@@ -4,12 +4,12 @@
   display: grid;
   height: calc(100% - 100px);
   grid-template-rows: minmax(200px, 1fr) minmax(200px, 1fr); /* 각 행의 높이를 minmax로 조정 */
-  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr); /* 각 열의 너비 최소 300px, 최대 1fr */
   gap: 2rem; /* 그리드 아이템 간격 추가 */
 }
 
 .gridItem {
-  background-color: var(--color-beige);
+  background-color: var(--color-white);
+  border: 4px solid #055d20;
   border-radius: 2rem;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -20,7 +20,7 @@
 }
 
 .sectionTitle {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 /* 프로필 */
@@ -87,8 +87,13 @@
   justify-content: center; /* 수평 중앙 정렬 */
   height: 100%;
 }
+
 .currentTime {
   margin-bottom: 20px;
+}
+
+.currentTime p {
+  font-size: 20px;
 }
 
 .currentTimeValue {
@@ -124,17 +129,24 @@
 }
 
 .workBtn {
-  background-color: var(--color-dark-green);
-  color: var(--color-white);
-  border: none;
-  border-radius: 30px;
-  width: 100px; /* 버튼 너비 고정 */
+  background-color: var(--color-white);
+  color: var(--color-dark-green);
+  border: 4px solid var(--color-dark-green);
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 1rem;
+  width: auto; /* 버튼 너비 고정 */
   display: block; /* 블록 요소로 변경 */
   position: absolute; /* 화면에 고정 */
   bottom: 40px; /* 아래에서 20px 띄움 */
   left: 50%; /* 부모 요소의 가로 중앙에 위치 */
   transform: translateX(-50%); /* 중앙 정렬 */
   padding: 10px;
+}
+.workBtn:hover {
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
+  transition: background-color 0.3s ease;
 }
 
 /* 근태*/
@@ -163,10 +175,10 @@
   top: 20px;
   left: 2rem;
   padding: 5px;
-  border: none;
+  border: 1px solid var(--color-dark-green);
   border-radius: 5px;
-  background-color: var(--color-dark-green);
-  color: var(--color-white);
+  background-color: var(--color-white);
+  color: var(--color-dark-green);
   cursor: pointer;
 }
 
@@ -245,9 +257,9 @@
   right: 20px;
   width: 60px;
   height: 60px;
-  border-radius: 50%;
-  background-color: var(--color-dark-green);
-  color: var(--color-white);
+  border-radius: 1rem;
+  background-color: var(--color-white);
+  color: var(--color-dark-green);
   border: none;
   display: flex;
   align-items: center; /* 수직 중앙 정렬 */
@@ -262,7 +274,8 @@
   padding-top: 10px;
 }
 .addAttendanceBtn:hover {
-  background-color: var(--color-light-green);
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
 }
 
 /* 모달 트리거 */
@@ -270,10 +283,12 @@
   cursor: pointer;
 }
 .modalTrigger:hover {
-  background-color: var(--color-hover-beige);
+  transform: scale(1.03);
+  transition: all 0.3s ease;
 }
 .modalTrigger.btn:hover {
-  background-color: var(--color-light-green);
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
 }
 
 /* 모달 */
@@ -290,10 +305,10 @@
 
 .modal .modalContent {
   width: 40%;
-  background-color: var(--color-beige); /* 베이지 배경으로 변경 */
+  background-color: var(--color-white); /* 베이지 배경으로 변경 */
   padding: 20px;
   border: 3px solid var(--color-dark-green);
-  border-radius: 1rem;
+  border-radius: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 50%; /* 뷰포트의 50% 아래 */
@@ -482,18 +497,20 @@
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: var(--color-light-green);
-  color: var(--color-white);
+  background-color: var(--color-yellow);
+  color: var(--color-black);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .modal .typeBtn:hover {
   background-color: var(--color-dark-green);
+  color: var(--color-white);
 }
 
 .modal .typeBtn.selected {
   background-color: var(--color-dark-green);
+  color: var(--color-white);
 }
 
 .modal .addAttendanceForm {

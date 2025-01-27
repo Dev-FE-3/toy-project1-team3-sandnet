@@ -18,14 +18,10 @@ const routes = {
 };
 
 export const getRoute = (path) => {
-  // routes[/contact]
-  // console.log("getRoute ~ path: ", path, typeof routes[path]);
   return routes[path];
 };
 
 export const handleRouting = () => {
-  // console.log("handleRouting ~ path: ", path)
   const path = window.location.pathname;
-  // const item = getRoute(/admin);
   renderController(path, app);
 };

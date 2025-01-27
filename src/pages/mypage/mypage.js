@@ -8,12 +8,19 @@ class MyPage extends Component {
     super(target);
     //this.profilePage = new ProfilePage(target);
     this.setup();
-    // this.setEvent();
+    this.setEvent();
     this.setState();
+  }
+
+  render() {
+    this.target.innerHTML = this.template();
   }
 
   setState(newState) {
     this.state = { ...this.state, ...newState };
+
+    // this.render();
+    // this.setEvent();
   }
 
   setup() {
@@ -102,19 +109,15 @@ class MyPage extends Component {
             </li>
           </ul>
           <!-- 근무 시작 버튼 -->
-          <button data-modal-type='workBtnModal' class="commonModal ${styles.modalTrigger} ${
-      styles.btn
-    } ${styles.workBtn}" id="workBtn">
-            <p class="work-btn-text" data-modal-type='workBtnModal'>${
-              isWorking ? '근무 종료' : '근무 시작'
-            }</p>
+          <button class="${styles.btn} ${styles.workBtn}" id="workBtn">
+            <p class="work-btn-text">${isWorking ? '근무 종료' : '근무 시작'}</p>
           </button>
         </div>
 
         <!-- 근태관리 -->
         <div class="${styles.gridItem} ${styles.section} ${styles.attendanceSection}">
           <!-- 근태 신청 내역 -->
-          <div class="${styles.attendanceListSection} ${styles.section} ${styles.modalTrigger}">
+          <div class="${styles.attendanceListSection} ${styles.section}">
           <p class="${styles.sectionTitle}">근태 목록</p>
           <select class="${styles.attendanceListSelect} ${styles.attendanceTypeSelect}">
               <option value="all">전체</option>
@@ -140,10 +143,27 @@ class MyPage extends Component {
             <p>+</p>
           </button>
       </main>
-     
-      <!-- modal -->
-      <div class="${styles.modal}">
-        <!-- insert workBtnModal, attendanceBtnModal -->
+
+      <!-- 모달들을 여기로 이동 -->
+      <!-- 프로필모달 -->
+
+      <!-- 근무모달 -->
+      <div class="${styles.modal} ${styles.workBtnModal}">
+        <div class="${styles.modalContent} ${styles.workBtnModal}">
+          <span class="${styles.close}">&times;</span>
+          <!-- 모달 내용 -->
+          <h2 class="${styles.currentTimeTitle}">현재시각</h2>
+          <div class="${styles.currentTimeValue}">
+            <span>-</span>:<span>-</span>:<span>-</span>
+          </div>
+          <p class="${styles.workStartQuestion}">근무를 ${
+      this.state.isWorking ? '종료' : '시작'
+    }하시겠습니까?</p>
+          <div class="${styles.modalButtons}">
+            <button class="${styles.confirmBtn}">확인</button>
+            <button class="${styles.cancelBtn}">취소</button>
+          </div>
+        </div>
       </div>
 
       <!-- 근태모달 -->
@@ -444,6 +464,57 @@ class MyPage extends Component {
   initWorkManagement() {
     const workBtnModal = document.querySelector(`.${styles.workBtnModal}`);
     if (!workBtnModal) return;
+    console.log('MyPage ~ initWorkManagement ~ workBtnModal: ', workBtnModal);
+
+    // 확인 버튼 이벤트
+    const confirmBtn = workBtnModal.querySelector(`.${styles.confirmBtn}`);
+    const cancelBtn = workBtnModal.querySelector(`.${styles.cancelBtn}`);
+    // console.log("MyPage ~ initWorkManagement ~ confirmBtn: ", confirmBtn)
+
+    if (confirmBtn) {
+      console.log('MyPage ~ initWorkManagement ~ confirmBtn: ', confirmBtn);
+      confirmBtn.addEventListener('click', () => {
+        console.log('MyPage ~ initWorkManagement ~ confirmBtn: 클릭!!!!!!!');
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const currentTime = `${hours}:${minutes}`;
+
+        if (!this.state.isWorking) {
+          this.setState({
+            workStartTime: currentTime,
+            workEndTime: null,
+            isWorking: true,
+            test: true,
+          });
+
+          document.querySelector('.work-start-time').textContent = currentTime;
+        } else {
+          this.setState({
+            workEndTime: currentTime,
+            isWorking: false,
+          });
+          document.querySelector('.work-end-time').textContent = currentTime;
+          // document.querySelector(".work-btn-text").textContent = this.state.isWorking ? "근무 시작" : "근무 종료";
+        }
+
+        document.querySelector(`.${styles.workStartQuestion}`).textContent = this.state.isWorking
+          ? '근무를 종료하시겠습니까?'
+          : '근무를 시작하시겠습니까?';
+        document.querySelector('.work-btn-text').textContent = this.state.isWorking
+          ? '근무 종료'
+          : '근무 시작';
+        workBtnModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      });
+    }
+
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', () => {
+        workBtnModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      });
+    }
   }
 
   // 근태 관리

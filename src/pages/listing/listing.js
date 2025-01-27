@@ -8,7 +8,6 @@ class ListingPage extends Component {
   constructor(target) {
     super(target);
     this.setup();
-    this.updateContent();
   }
 
   setup() {
@@ -24,7 +23,7 @@ class ListingPage extends Component {
     this.updateTotalPages();
 
     this.searchBar = new SearchBar({
-      placeholder: '검색어를 입력하세요.(#숫자:브랜치 검색)',
+      placeholder: '검색어를 입력하세요.',
       value: this.state.searchText,
       onSearch: (value) => {
         this.setState({
@@ -188,7 +187,7 @@ class ListingPage extends Component {
                     <th>전화번호</th>
                     <th>지점</th>
                     <th>직급</th>
-                    <th>삭제</th>
+                    <th></th>
                   </tr>
                 </thead>
               </table>

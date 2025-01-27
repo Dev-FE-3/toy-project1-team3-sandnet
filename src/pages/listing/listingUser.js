@@ -1,13 +1,64 @@
 import styles from './listing.module.css';
-import SearchBar from '@/components/searchBar';
-import Pagination from '@/components/pagination';
-import Component from '@/components/ComponentClass';
+import SearchBar from '@/components/SearchBar';
+import Pagination from '@/components/Pagination';
+
+class Component {
+  constructor(target) {
+    this.target = target;
+  }
+
+  setup() {}
+  template() {
+    return '';
+  }
+  render() {
+    this.target.innerHTML = this.template();
+  }
+  setEvent() {}
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
+    this.updateContent();
+  }
+
+  updateContent() {
+    const mainContent = this.target.querySelector('.main-content');
+    if (mainContent) {
+      const currentEmployees = this.getCurrentPageEmployees();
+      const tableBody = mainContent.querySelector('tbody');
+      if (tableBody) {
+        tableBody.innerHTML = currentEmployees
+          .map((employee) => this.renderTableRow(employee))
+          .join('');
+
+        // 페이지네이션 업데이트
+        const paginationContainer = mainContent.querySelector('.pagination');
+        if (paginationContainer && this.pagination) {
+          paginationContainer.outerHTML = this.pagination.template();
+        }
+      }
+      this.setEvent();
+    }
+  }
+
+  renderTableRow(employee) {
+    return `
+      <tr data-id="${employee.id}">
+        <td>
+          <img src="${employee.image}" alt="프로필" class="${styles.profileImage}">
+        </td>
+        <td>${employee.name}</td>
+        <td>${employee.phone}</td>
+        <td>${employee.branch}</td>
+        <td>${employee.rank}</td>
+      </tr>
+    `;
+  }
+}
 
 class ListingPage extends Component {
   constructor(target) {
     super(target);
     this.setup();
-    this.updateContent();
   }
 
   setup() {
@@ -121,7 +172,7 @@ class ListingPage extends Component {
     this.updateTotalPages();
 
     this.searchBar = new SearchBar({
-      placeholder: '검색어를 입력하세요.(#숫자:브랜치 검색)',
+      placeholder: '검색어를 입력하세요.',
       value: this.state.searchText,
       onSearch: (value) => {
         this.setState({
@@ -200,41 +251,6 @@ class ListingPage extends Component {
       `;
     }
     return pages;
-  }
-
-  updateContent() {
-    const mainContent = this.target.querySelector('.main-content');
-    if (mainContent) {
-      const currentEmployees = this.getCurrentPageEmployees();
-      const tableBody = mainContent.querySelector('tbody');
-      if (tableBody) {
-        tableBody.innerHTML = currentEmployees
-          .map((employee) => this.renderTableRow(employee))
-          .join('');
-
-        // 페이지네이션 업데이트
-        const paginationContainer = mainContent.querySelector('.pagination');
-        if (paginationContainer && this.pagination) {
-          paginationContainer.outerHTML = this.pagination.template();
-        }
-      }
-      this.setEvent();
-    }
-  }
-
-  renderTableRow(employee) {
-    return `
-      <tr data-id="${employee.id}">
-        <td>
-          <img src="${employee.image}" alt="프로필" class="${styles.profileImage}">
-        </td>
-        <td>${employee.name}</td>
-        <td>${employee.phone}</td>
-        <td>${employee.branch}</td>
-        <td>${employee.rank}</td>
-       
-      </tr>
-    `;
   }
 
   // 총 페이지 수 업데이트 메서드 개선
@@ -317,28 +333,28 @@ class ListingPage extends Component {
       this.pagination.setEvent(this.target);
     }
 
-    // 삭제 버튼 이벤트
-    const deleteButtons = this.target.querySelectorAll('.delete-btn');
-    deleteButtons.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        const row = e.target.closest('tr');
-        const id = Number(row.dataset.id);
-        const newEmployees = this.state.employees.filter((emp) => emp.id !== id);
-        this.setState({
-          employees: newEmployees,
-          totalPages: Math.ceil(newEmployees.length / this.state.itemsPerPage),
-        });
-        this.updateTotalPages();
-      });
-    });
+    // // 삭제 버튼 이벤트
+    // const deleteButtons = this.target.querySelectorAll('.delete-btn');
+    // deleteButtons.forEach((btn) => {
+    //   btn.addEventListener('click', (e) => {
+    //     const row = e.target.closest('tr');
+    //     const id = Number(row.dataset.id);
+    //     const newEmployees = this.state.employees.filter((emp) => emp.id !== id);
+    //     this.setState({
+    //       employees: newEmployees,
+    //       totalPages: Math.ceil(newEmployees.length / this.state.itemsPerPage),
+    //     });
+    //     this.updateTotalPages();
+    //   });
+    // });
 
-    // Add 버튼 이벤트
-    const addButton = this.target.querySelector('button');
-    if (addButton) {
-      addButton.addEventListener('click', () => {
-        console.log('Add new employee');
-      });
-    }
+    // // Add 버튼 이벤트
+    // const addButton = this.target.querySelector('button');
+    // if (addButton) {
+    //   addButton.addEventListener('click', () => {
+    //     console.log('Add new employee');
+    //   });
+    // }
   }
 }
 

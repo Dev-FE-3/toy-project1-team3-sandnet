@@ -1,4 +1,4 @@
-import './searchBar.css';
+import './SearchBar.css';
 
 export default class SearchBar {
   constructor(options = {}) {

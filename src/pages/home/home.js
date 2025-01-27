@@ -9,11 +9,10 @@ export default class Home {
     return `
       <main class="main-content">
         <header>
-          <h1>SandNet</h1>
         </header>
         <section class="my-content green-border">
           <div class="${styles.content}">
-            <h2 class="${styles.welcomeTitle}">SandNet에 오신 것을 환영합니다</h2>
+            <h2 class="${styles.welcomeTitle}">SANDNET에 오신 것을 환영합니다</h2>
             <div class="${styles.dashboard}">
               <article class="${styles.dashboardItem}">
                 <i class="fas fa-store"></i>
@@ -33,22 +32,25 @@ export default class Home {
                 <p>3건</p>
               </article>
             </div>
-            <div class="role-selection-container">
-              <div class="role-selection">
-                <button class="${styles.roleButton}" data-role="admin">Admin</button>
-                <button class="${styles.roleButton}" data-role="user">User</button>
-              </div>
-              <div class="user-selection">
+            <div class="${styles.roleSelectionContainer}">
+              <div class="${styles.userSelection}">
                 <select class="${styles.userSelect}">
                   <option value="user1">안샌드</option>
                   <option value="user2">장샌드</option>
                   <option value="user3">이샌드</option>
                   <option value="user4">최샌드</option>
                 </select>
+                <p>유저를 선택하세요</p>
               </div>
+              <div class="${styles.roleSelection}">
+                <button class="${styles.roleButton}" data-role="admin">관리자</button>
+                <button class="${styles.roleButton}" data-role="user">사용자</button>
+              </div>
+              <p>유형을 선택하세요</p>
             </div>
           </div>
         </section>
+
       </main>
     `;
   }
@@ -59,6 +61,12 @@ export default class Home {
 
     roleButtons.forEach((button) => {
       button.addEventListener('click', (e) => {
+        // 모든 버튼에서 'active' 클래스 제거
+        roleButtons.forEach((btn) => btn.classList.remove(styles.active));
+
+        // 클릭한 버튼에 'active' 클래스 추가
+        e.target.classList.add(styles.active);
+
         const selectedRole = e.target.getAttribute('data-role');
         console.log(
           'Home ~ button.addEventListener ~ selectedRole: ',
