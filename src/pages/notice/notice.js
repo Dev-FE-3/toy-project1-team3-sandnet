@@ -1,6 +1,7 @@
 import styles from './notice.module.css';
 import { noticeData } from '@/data/noticeData';
 import Component from '@/components/ComponentClass';
+import SearchBar from '@/components/searchBar';
 
 class NoticePage extends Component {
   constructor(target) {
@@ -136,7 +137,7 @@ class NoticePage extends Component {
     modalElements.title.textContent = cardTitle;
     modalElements.text.textContent = fullText;
 
-    modalElements.container.classList.remove(styles.hidden);
+    modalElements.contaianer.classList.remove(styles.hidden);
   }
 
   //모달 요소 가져오기
