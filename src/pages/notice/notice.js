@@ -130,7 +130,7 @@ class NoticePage extends Component {
     modalElements.title.textContent = cardTitle;
     modalElements.text.textContent = fullText;
 
-    modalElements.contaianer.classList.remove(styles.hidden);
+    modalElements.container.classList.remove(styles.hidden);
   }
 
   //모달 요소 가져오기
