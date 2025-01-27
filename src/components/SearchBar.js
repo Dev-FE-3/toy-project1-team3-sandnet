@@ -24,11 +24,13 @@ export default class SearchBar {
   setEvent(target) {
     const searchInput = target.querySelector('.search-input');
     if (!searchInput) return;
+    // console.log('SearchBar!!', target);
 
     let debounceTimer;
 
     // 입력 이벤트
     searchInput.addEventListener('input', (e) => {
+      // console.log('SearchBar ~ searchInput.addEventListener ~ e: ', e.target.value);
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
         this.onSearch(e.target.value);
@@ -37,6 +39,7 @@ export default class SearchBar {
 
     // 엔터 이벤트
     searchInput.addEventListener('keydown', (e) => {
+      // console.log('SearchBar ~ searchInput.addEventListener ~ keydown');
       if (e.key === 'Enter') {
         clearTimeout(debounceTimer);
         this.onSearch(e.target.value);
