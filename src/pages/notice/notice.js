@@ -1,7 +1,6 @@
 import styles from './notice.module.css';
 import { noticeData } from '@/data/noticeData';
 import Component from '@/components/ComponentClass';
-import SearchBar from '@/components/searchBar';
 
 class NoticePage extends Component {
   constructor(target) {
