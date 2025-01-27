@@ -177,17 +177,6 @@ class MyPage extends Component {
         this.commonModalController(modalType);
       });
     }
-
-    // 근무 시작/종료 버튼 클릭 이벤트 추가
-    // const workBtn = document.getElementById('workBtn');
-    // const addAttendanceBtn = document.getElementById('addAttendanceBtn');
-
-    // if (workBtn) {
-    //   workBtn.addEventListener('click', (e) => {
-    //     e.stopPropagation();
-    //     this.commonModalController(e.target.getAttribute('data-modal-type'));
-    //   });
-    // }
   }
 
   commonModalController(modalType) {
