@@ -3,6 +3,7 @@ import SearchBar from '@/components/searchBar';
 import Pagination from '@/components/pagination';
 import Component from '@/components/ComponentClass';
 import { userData } from '../../data/userData';
+import { handleRouting } from '@/app/router/router';
 
 class ListingPage extends Component {
   constructor(target) {
@@ -267,13 +268,15 @@ class ListingPage extends Component {
     //   });
     // }
 
-    //프로필 페이지로 이동동
+    //프로필 페이지 이동
     const profileSections = document.querySelectorAll('tr');
     profileSections.forEach((profileSection) => {
-      profileSection.addEventListener('click', () => {
+      profileSection.addEventListener('click', (e) => {
+        // console.log('tr', e.target.parentElement.dataset.userid);
+        const currentUserId = e.target.parentElement.dataset.userid;
         // 세션 스토리지에 사용자 데이터 저장
-        //sessionStorage.setItem('currentUser', JSON.stringify(userData));
-        window.location.href = '/profile';
+        sessionStorage.setItem('currentUser', JSON.stringify(currentUserId));
+        window.history.pushState({}, '', '/profile');
         handleRouting();
       });
     });

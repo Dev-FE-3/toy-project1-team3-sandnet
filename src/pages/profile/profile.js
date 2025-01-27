@@ -24,6 +24,7 @@ class ProfilePage extends Component {
 
     this.state = {
       profileImgs: [],
+      currentUserId: sessionStorage.getItem('currentUser').replace(/"/g, ''),
     };
   }
 
@@ -41,14 +42,20 @@ class ProfilePage extends Component {
           <article class="${styles.primaryProfileContainer} green-border">
             <header>
               <div class="${styles.imgContainer}">
-                <img id="profileImage" src="${this.state.profileImgs[0]?.imgUrl}" alt="프로필 사진" />
+                <img id="profileImage" src="${
+                  this.state.profileImgs[0]?.imgUrl
+                }" alt="프로필 사진" />
                 <i class="fa-solid fa-pen ${styles.imgEditIcon}" aria-hidden="true"></i>
                 <i class="fas fa-trash ${styles.imgDeleteIcon}"></i>
               </div>
               <div class="${styles.profileInfo}">
-                <h1 id="profileName">${userData[0].name}</h1>
-                <p id="profileJob" class="${styles.jobTitle}">${userData[0].jobTitle}</p>
-                <address id="profileLocation" class="${styles.location}">${userData[0].location}</address>
+                <h1 id="profileName">${userData[this.state.currentUserId]?.name}</h1>
+                <p id="profileJob" class="${styles.jobTitle}">${
+      userData[this.state.currentUserId]?.jobTitle
+    }</p>
+                <address id="profileLocation" class="${styles.location}">${
+      userData[this.state.currentUserId]?.location
+    }</address>
               </div>
               <input type="file" accept="image/*" class="${styles.imgUpload}" />
             </header>
@@ -63,22 +70,28 @@ class ProfilePage extends Component {
               <fieldset class="${styles.infoGroup}">
                 <div class="${styles.infoItem}">
                   <label for="firstName">이름</label>
-                  <output id="firstName" name="firstName">최정훈</output>
+                  <output id="firstName" name="firstName">${
+                    userData[this.state.currentUserId]?.name
+                  }</output>
                 </div>
                 <div class="${styles.infoItem}">
                   <label for="email">직무</label>
-                  <output name="job-role">프론트엔드 개발자</output>
+                  <output name="job-role">${userData[this.state.currentUserId]?.jobTitle}</output>
                 </div>
               </fieldset>
               
               <fieldset class="${styles.infoGroup}">
                 <div class="${styles.infoItem}">
                   <label for="email">Email</label>
-                  <output id="email" name="email">jackadams@gmail.com</output>
+                  <output id="email" name="email">${
+                    userData[this.state.currentUserId]?.email
+                  }</output>
                 </div>
                 <div class="${styles.infoItem}">
                   <label for="phone">전화번호</label>
-                  <output id="phone" name="phone">(010) 1234-5678</output>
+                  <output id="phone" name="phone">${
+                    userData[this.state.currentUserId]?.phone
+                  }</output>
                 </div>
               </fieldset>
             </form>
@@ -112,12 +125,6 @@ class ProfilePage extends Component {
 
   // 파일 크기 검증
   validateFileSize(file) {
-    console.log(
-      'ProfilePage ~ validateFileSize ~ file: ',
-      file.size,
-      this.MAX_FILE_SIZE,
-      file.size > this.MAX_FILE_SIZE,
-    );
     if (file.size > this.MAX_FILE_SIZE) {
       alert('파일 크기가 너무 큽니다. 최대 2MB까지 업로드 가능합니다.');
       return false;
@@ -136,6 +143,7 @@ class ProfilePage extends Component {
   }
 
   isProfileImgs() {
+    console.log('ProfilePage ~ isProfileImgs ~ this.state.profileImgs: ', this.state.profileImgs);
     return this.state.profileImgs.length > 0 ? true : false;
   }
 
@@ -144,8 +152,6 @@ class ProfilePage extends Component {
     const imgUploadBtn = document.querySelector(`.${styles.imgUpload}`);
     const editIcon = document.querySelector(`.${styles.imgEditIcon}`);
     const deleteIcon = document.querySelector(`.${styles.imgDeleteIcon}`);
-
-    console.log('setEvent: img ', this.state.profileImgs);
 
     // 프로필 이미지 클릭 시 파일 업로드 창 열기
     // profileImage.addEventListener('click', () => {
@@ -184,12 +190,13 @@ class ProfilePage extends Component {
           // 파일을 Base64로 변환
           const base64String = await this.convertFileToBase64(file);
           profileImage.src = URL.createObjectURL(file); // 미리보기용 blob url
-          console.log('click', this.state, this.isProfileImgs(), this.state.profileImgs[0].id);
+          console.log('click');
 
           if (this.isProfileImgs()) {
-            await updateImage(this.state.profileImgs[0].id, base64String); // 이미지 Base64 문자열로 저장
+            // await updateImage(this.state.profileImgs[0].id, base64String); // 이미지 Base64 문자열로 저장
           } else {
-            // await createImage(base64String); // 이미지 Base64 문자열로 저장
+            console.log('createImage 출발');
+            await createImage(base64String); // 이미지 Base64 문자열로 저장
           }
         } catch (error) {
           console.error('이미지 업로드 중 오류 발생:', error);

@@ -60,6 +60,7 @@ const convertToBlob = async () => {
 
 // 이미지 생성
 const createImage = async (imgUrl) => {
+  console.log('createImage');
   if (!imgCollectionRef) {
     alert('faild initialzed');
     return;
