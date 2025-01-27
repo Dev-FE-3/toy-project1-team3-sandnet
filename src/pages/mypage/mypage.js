@@ -54,171 +54,100 @@ class MyPage extends Component {
     console.log('MyPage ~ template ~ workStartTime: ', workStartTime);
 
     return `
-      <main class="main-content">
-        <header>
-          <h1>마이 페이지</h1>
-        </header>
-        <div class="my-content green-border">
-      <div class = "${styles.wrapper}">
-        <!-- 프로필 -->
-        <div class="${styles.gridItem} ${styles.section} ${styles.profileSection}">
-          <p class="${styles.sectionTitle}">프로필</p>
-          <!-- 프로필 이미지, 정보 -->
-          <div class="${styles.profileContainer}">
-            <div class="${styles.profileImageName}">
-              <img class="${styles.myprofileImage}" src="${
-      user.profileImage
-    }" alt="사용자 프로필 이미지"></img>
-              <div class="${styles.profileName}">${user.name}</div>
-            </div>
-            <div>
-              <ul class="${styles.profileInfo}">
-                <li><span class="${styles.materialIcons} material-icons">phone</span>${
-      user.phone
-    }</li>
-                <li><span class="${styles.materialIcons} material-icons">work</span>${
-      user.jobTitle
-    }</li>
-                <li><span class="${styles.materialIcons} material-icons">email</span>${
-      user.email
-    }</li>
-                
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- 시간관리 -->
-        <div class="${styles.gridItem} ${styles.section} ${styles.timeManagementSection}">
-          <div class="${styles.currentTime}">
-            <p>현재시각</p>
-            <div class="${styles.currentTimeValue}">
-              <span>-</span>:<span>-</span>:<span>-</span>
+    <main class="main-content">
+      <header>
+        <h1>마이 페이지</h1>
+      </header>
+      <div class="my-content green-border">
+        <div class="${styles.wrapper}">
+          <!-- 프로필 -->
+          <div class="${styles.gridItem} ${styles.section}">
+            <p class="${styles.sectionTitle}">프로필</p>
+            <!-- 프로필 이미지, 정보 -->
+            <div class="${styles.profileContainer}">
+              <div class="${styles.profileImageName}">
+                <img
+                  class="${styles.myprofileImage}"
+                  src="${user.profileImage}"
+                  alt="사용자 프로필 이미지"
+                />
+                <div class="${styles.profileName}">${user.name}</div>
+              </div>
+              <div>
+                <ul class="${styles.profileInfo}">
+                  <li>
+                    <span class="${styles.materialIcons} material-icons">phone</span>${user.phone}
+                  </li>
+                  <li>
+                    <span class="${styles.materialIcons} material-icons">work</span>${user.jobTitle}
+                  </li>
+                  <li>
+                    <span class="${styles.materialIcons} material-icons">email</span>${user.email}
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-          <ul class="${styles.workTimeList}">
-            <li class="${styles.workTimeItem}">
-              <!-- 근무 시작 시간 -->
-              <p class="${styles.timeLabel}">근무 시작</p>
-              <p class="${styles.timeValue} work-start-time">${workStartTime || '-'}</p>
-            </li>
-            <li class="${styles.workTimeItem}">
-              <!-- 근무 종료 시간 -->
-              <p class="${styles.timeLabel}">근무 종료</p>
-              <p class="${styles.timeValue} work-end-time">${workEndTime || '-'}</p>
-            </li>
-          </ul>
-          <!-- 근무 시작 버튼 -->
-          <button class="${styles.btn} ${styles.workBtn}" id="workBtn">
-            <p class="work-btn-text">${isWorking ? '근무 종료' : '근무 시작'}</p>
-          </button>
-        </div>
 
-        <!-- 근태관리 -->
-        <div class="${styles.gridItem} ${styles.section} ${styles.attendanceSection}">
-          <!-- 근태 신청 내역 -->
-          <div class="${styles.attendanceListSection} ${styles.section}">
-          <p class="${styles.sectionTitle}">근태 목록</p>
-          <select class="${styles.attendanceListSelect} ${styles.attendanceTypeSelect}">
-              <option value="all">전체</option>
-              <option value="vacation">휴가</option>
-              <option value="sick">병가</option>
-              <option value="early">조퇴</option>
-              <option value="other">기타</option>
-            </select>
-            <div class="${styles.attendanceHeader}">
-            <div class="${styles.headerItem} ${styles.profileImage} ${user.profileImage}"></div>
-            <div class="${styles.headerItem} ${user.name}">작성자</div>
-            <div class="${styles.headerItem} ${styles.type}">종류</div>
-            <div class="${styles.headerItem} ${styles.date}">일자</div>
-            <div class="${styles.headerItem} ${styles.applyDate}">신청일</div>
+          <!-- 시간관리 -->
+          <div class="${styles.gridItem} ${styles.section} ${styles.timeManagementSection}">
+            <div class="${styles.currentTime}">
+              <p>현재시각</p>
+              <div class="${styles.currentTimeValue}">
+                <span>-</span>:<span>-</span>:<span>-</span>
+              </div>
             </div>
-            <div class="${styles.attendanceList} attendance-list">
+            <ul class="${styles.workTimeList}">
+              <li class="${styles.workTimeItem}">
+                <p class="${styles.timeLabel}">근무 시작</p>
+                <p class="${styles.timeValue} work-start-time">${workStartTime || '-'}</p>
+              </li>
+              <li class="${styles.workTimeItem}">
+                <p class="${styles.timeLabel}">근무 종료</p>
+                <p class="${styles.timeValue} work-end-time">${workEndTime || '-'}</p>
+              </li>
+            </ul>
+            <button data-modal-type='workBtnModal' class="commonModal ${styles.modalTrigger} ${styles.btn} ${styles.workBtn}" id="workBtn">
+              <p class="work-btn-text">${isWorking ? '근무 종료' : '근무 시작'}</p>
+            </button>
+          </div>
+
+          <!-- 근태관리 -->
+          <div class="${styles.gridItem} ${styles.section} ${styles.attendanceSection}">
+            <div class="${styles.attendanceListSection} ${styles.section}">
+              <p class="${styles.sectionTitle}">근태 목록</p>
+              <select class="${styles.attendanceListSelect} ${styles.attendanceTypeSelect}">
+                <option value="all">전체</option>
+                <option value="vacation">휴가</option>
+                <option value="sick">병가</option>
+                <option value="early">조퇴</option>
+                <option value="other">기타</option>
+              </select>
+              <div class="${styles.attendanceHeader}">
+                <div class="${styles.headerItem} ${styles.profileImage} ${user.profileImage}"></div>
+                <div class="${styles.headerItem} ${user.name}">작성자</div>
+                <div class="${styles.headerItem} ${styles.type}">종류</div>
+                <div class="${styles.headerItem} ${styles.date}">일자</div>
+                <div class="${styles.headerItem} ${styles.applyDate}">신청일</div>
+              </div>
+              <div class="${styles.attendanceList} attendance-list"></div>
             </div>
-          </div>
-          <!-- 근태신청버튼 -->
-          <button data-modal-type='addAttendanceBtnModal' class="commonModal ${
-            styles.addAttendanceBtn
-          } ${styles.btn} ${styles.modalTrigger}" id="addAttendanceBtn">
-            <p>+</p>
-          </button>
-      </main>
-
-      <!-- 모달들을 여기로 이동 -->
-      <!-- 프로필모달 -->
-
-      <!-- 근무모달 -->
-      <div class="${styles.modal} ${styles.workBtnModal}">
-        <div class="${styles.modalContent} ${styles.workBtnModal}">
-          <span class="${styles.close}">&times;</span>
-          <!-- 모달 내용 -->
-          <h2 class="${styles.currentTimeTitle}">현재시각</h2>
-          <div class="${styles.currentTimeValue}">
-            <span>-</span>:<span>-</span>:<span>-</span>
-          </div>
-          <p class="${styles.workStartQuestion}">근무를 ${
-      this.state.isWorking ? '종료' : '시작'
-    }하시겠습니까?</p>
-          <div class="${styles.modalButtons}">
-            <button class="${styles.confirmBtn}">확인</button>
-            <button class="${styles.cancelBtn}">취소</button>
+            <!-- 근태신청버튼 -->
+            <button
+              data-modal-type="addAttendanceBtnModal"
+              class="commonModal ${styles.addAttendanceBtn} ${styles.btn} ${styles.modalTrigger}"
+              id="addAttendanceBtn">
+              <p>+</p>
+            </button>
           </div>
         </div>
       </div>
+    </main>
 
-      <!-- 근태모달 -->
-      <div class="${styles.modal} ${styles.attendanceModal}">
-        <div class="${styles.modalContent}">
-          <button class="${styles.close}">&times;</button>
-          <div class="${styles.attendanceList}">
-            <h2>근태 목록</h2>
-            <select class="${styles.attendanceList} ${styles.attendanceTypeSelect}">
-              <option value="all">전체</option>
-              <option value="vacation">휴가</option>
-              <option value="sick">병가</option>
-              <option value="early">조퇴</option>
-              <option value="other">기타</option>
-            </select>
-            <div class="${styles.attendanceList} ${styles.attendanceListContainer}">
-              <div class="${styles.listHeader}">
-                <span class="${styles.headerItem} ${styles.writer}">작성자</span>
-                <span class="${styles.headerItem} ${styles.type}">종류</span>
-                <span class="${styles.headerItem} ${styles.date}">일자</span>
-                <span class="${styles.headerItem} ${styles.applyDate}">신청일</span>
-              </div>
-
-            <div class="${styles.attendanceList} attendance-list">
-              ${attendance
-                .slice() // 원본 배열을 변경하지 않기 위해 복사본을 생성
-                .reverse() // 배열을 역순으로 뒤집음
-                .map(
-                  (item) => `
-                <div class="${styles.attendanceItem}">
-                  <div class="${styles.itemContent} ${styles.profileImage}">
-                  <img src="${item.image}" alt="프로필 이미지"/>
-                  </div>
-                  <div class="${styles.itemContent} ${styles.writer}">${item.writer}</div>
-                  <div class="${styles.itemContent} ${styles.type}">
-                    ${
-                      document.querySelector(
-                        `.${styles.attendanceTypeSelect} option[value="${item.type}"]`,
-                      )?.textContent || item.type
-                    }
-                  </div>
-                  <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
-                  <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
-                </div>
-              `,
-                )
-                .join('')}
-              </div>
-              </div>
-            </div>
-          </div>
-          </div>
-        </div>
+     <!-- modal -->
+      <div class="${styles.modal}">
+        <!-- insert workBtnModal, attendanceBtnModal -->
       </div>
-    
     `;
   }
 
