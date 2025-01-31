@@ -29,7 +29,7 @@ class MyPage extends Component {
     // userData에서 해당 ID의 사용자 찾기
     const user = userData.find((user) => user.userId === userId) || userData[0];
     //const profileData = this.profilePage.getProfileData();
-    
+
     this.state = {
       attendance: [], // 근태 내역
       user, // 사용자 정보(프로필)
@@ -345,16 +345,18 @@ class MyPage extends Component {
   AttendanceFilter() {
     const attendanceTypeSelect = document.querySelector(`.${styles.attendanceTypeSelect}`);
     if (attendanceTypeSelect) {
-      attendanceTypeSelect.addEventListener('change', (e) => {
-        const selectedType = e.target.value;
-        const filteredAttendance = this.state.attendance.filter((item) => {
-          return selectedType === 'all' || item.type === selectedType;
-        });
-    
-        this.renderAttendanceList(filteredAttendance);
-      });
+      attendanceTypeSelect.removeEventListener('change', this.handleAttendanceFilter(e));
+      attendanceTypeSelect.addEventListener('change', this.handleAttendanceFilter(e));
     }
   }
+  handleAttendanceFilter(e) {
+    const selectedType = e.target.value;
+    const filteredAttendance = this.state.attendance.filter((item) => {
+      return selectedType === 'all' || item.type === selectedType;
+    });
+    this.renderAttendanceList(filteredAttendance);
+  }
+
   // 근태 목록을 출력하는 함수
   renderAttendanceList(attendance) {
     const attendanceListElements = document.querySelectorAll('.attendance-list');
