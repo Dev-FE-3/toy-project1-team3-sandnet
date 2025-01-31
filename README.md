@@ -1,4 +1,8 @@
-<h1 align="center">🔎 About SANDNET 🔍</h1>
+<img src="src/assets/images/로고.png">
+
+<br>
+
+<h2 align="center">🔎 About SANDNET 🔍</h2>
 
 <div align="center">
 
@@ -22,7 +26,7 @@
 
 <br />
 
-## 🚀 Features
+# 🚀 Features
 
 1.  **마이페이지**
 
@@ -39,13 +43,12 @@
 3.  **직원 목록**
 
     - 직원 목록 확인
-    - 직원 검색
+    - 직원 검색 <img src="src/assets/images/직원목록.gif">
 
-      <img src="src/assets/images/직원목록.gif">
+4.  **공지사항**
 
-4.  **공지사항** - 공지 미리보기 - 모달을 활용한 공지 상세보기\*\*
-
-          <img src="src/assets/images/공지사항.gif">
+    - 공지 미리보기
+    - 모달을 활용한 공지 상세보기 <img src="src/assets/images/공지사항.gif">
 
     <br />
 
@@ -57,7 +60,6 @@
     <img src="https://img.shields.io/badge/HTML5-E34F26?style=plastic&logo=HTML5&logoColor=white">
     <img src="https://img.shields.io/badge/CSS3-1572B6?style=plastic&logo=CSS3&logoColor=white">
     <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=plastic&logo=Javascript&logoColor=white">
-    <img src="https://img.shields.io/badge/React.js-61DAFB?style=plastic&logo=React&logoColor=white">
   </div>
 
   <h3>Backend</h3>
@@ -67,13 +69,9 @@
 
   <h3>Database</h3>
   <div align="center">
-    <img src="https://img.shields.io/badge/MongoDB-47A248?style=plastic&logo=MongoDB&logoColor=white">
+    <img src="https://img.shields.io/badge/Firebase-47A248?style=plastic&logo=Firebase&logoColor=white">
   </div>
 
-  <h3>Cloud & Deployment</h3>
-  <div align="center">
-    <img src="https://img.shields.io/badge/AWS-232F3E?style=plastic&logo=Amazon-AWS&logoColor=white">
-  </div>
 </div>
 
 <br />
@@ -95,7 +93,7 @@
 
 <br />
 <div align="center">
- <h1>팀소개</h1>
+ <h1>📢 대화가 필요해 📢</h1>
   <table>
     <tr>
       <td align="center">
@@ -125,7 +123,7 @@
         <br />
         <strong>장은혜</strong>
         <br />
-        <p>ISTP</p>
+        <p>INFP</p>
         <p>마이 페이지</p>
       </td>
       <td align="center">
@@ -135,7 +133,7 @@
         <br />
         <strong>최정훈</strong>
         <br />
-        <p>ISTP</p>
+        <p>INFP</p>
         <p>프로필 페이지</p>
       </td>
     </tr>
@@ -144,33 +142,60 @@
 
 <br />
 
----
+# 🤝 Collaboration
 
-<br />
-
-## 🤝 Collaboration
-
-### **Git 워크플로우**
+### 1. **Git 워크플로우**
 
 1. **Main Branch**: 안정된 배포 버전.
 2. **Dev Branch**: 기능 개발 브랜치.
 3. **Feature Branches**: 각 기능별 작업.
 
-<br />
+---
 
-## 🌟 Future Enhancements
+### 2. **Directory Structure**
 
-- **맛집 추천 알고리즘**: 사용자의 찜과 리뷰 데이터를 분석하여 추천 맛집 제공.
-- **예약 기능 추가**: 맛집 예약 기능 연동.
-- **커뮤니티 기능**: 사용자 간 소통 및 리뷰 공유.
+```
+📦src
+┣ 📂app
+┃ ┗ 🌏router
+┣ 📂assets
+┃ ┣ ✏️fonts
+┃ ┗ 🖼️images
+┣ ♻️components
+┣ 📂data
+┣ 📂libs
+┣ 📂pages
+┃ ┣ 🏚️home
+┃ ┣ 👥listing
+┃ ┣ 👤mypage
+┃ ┣ 📣notice
+┃ ┗ 🔍profile
+┣ 📂styles
+┗ 📘main.js
+```
 
-## 📚 Installation
+---
+
+### 3. **Commit Convention**
+
+![Image](https://github.com/user-attachments/assets/da189e53-5392-43fc-9c69-b340f58edf73)
+
+### 4. **Issue Convention**
+
+![Image](https://github.com/user-attachments/assets/3c69bd4b-e055-4ed6-88a1-fcd749232065)
+
+### 5. **PR Convention**
+
+![Image](https://github.com/user-attachments/assets/6c7fcf32-9cbe-499f-99e6-d9b02e8d9954)
+
+---
+
+# 📚 Installation
 
 1. 저장소 클론:
 
    ```bash
-   git clone https://github.com/Dev-FE-3/team1-woowahaniz-jjinmat.git
-   cd team1-woowahaniz-jjinmat
+   git clone https://github.com/Dev-FE-3/toy-project1-team3-sandnet.git
    ```
 
 2. 의존성 설치:
@@ -179,180 +204,8 @@
    npm install
    ```
 
-3. 환경 변수 설정:
-
-   - 프로젝트 루트에 있는 `.env.example` 파일을 복사하여 `.env` 파일로 이름을 변경합니다.
-   - `.env` 파일에서 프로젝트에 필요한 환경 변수를 설정합니다.
-
-   Example:
+3. 개발 환경 실행:
 
    ```bash
-   REACT_APP_API_URL=https://your-api-endpoint.com
-   REACT_APP_GOOGLE_MAPS_API_KEY=your-google-maps-key
+   npm run dev
    ```
-
----
-
-<br />
-
-## 🧑‍💻 Run Locally
-
-### 개발 환경 실행:
-
-```bash
-npm run dev
-```
-
-### 운영 환경 빌드:
-
-```bash
-npm run build:production
-```
-
----
-
-<br />
-
-## 📖 Document
-
-프로젝트 설계 문서는 design 디렉토리에 마크다운 파일로 기록되어있습니다. 각각의 설계 문서는 다음과 같습니다.
-
-- 요구사항 정의서
-  - 제품이 제공해야되는 기능 요구 정의서입니다.
-  - 요구사항 정의서에 기술된 기능은 최소 기능 요구사항이며 추상적일 수 있으며 기능의 구체화는 제품 구현 단계에서 이루어집니다.
-- 프로젝트 설계서
-  - 요구사항 정의서를 기반으로 프로젝트를 설계합니다.
-- 기능 정의서
-  - 사용자 스토리 기반으로 세부 기능을 정의합니다.
-
----
-
-<br />
-
----
-
-# Toy Project 1 template
-
-이 프로젝트는 토이 프로젝트 1 을 위한 템플릿 프로젝트입니다. 템플릿에는 vite 기반 프론트앤드 프로젝트 구조와 express 기반 node 서버를 포함하고 있습니다.
-
-## 설치
-
-```
-npm install
-```
-
-## 실행
-
-### 서버 실행
-
-```
-npm run server
-```
-
-### 클라이언트 실행
-
-```
-npm run dev
-```
-
-## 🤝 Collaboration
-
-### **Git 워크플로우**
-
-1. **Main Branch**: 안정된 배포 버전.
-2. **Dev Branch**: 기능 개발 브랜치.
-3. **Feature Branches**: 각 기능별 작업.
-
-<br />
-
-## 🌟 Future Enhancements
-
-- **맛집 추천 알고리즘**: 사용자의 찜과 리뷰 데이터를 분석하여 추천 맛집 제공.
-- **예약 기능 추가**: 맛집 예약 기능 연동.
-- **커뮤니티 기능**: 사용자 간 소통 및 리뷰 공유.
-
-## 📚 Installation
-
-1. 저장소 클론:
-
-   ```bash
-   git clone https://github.com/Dev-FE-3/team1-woowahaniz-jjinmat.git
-   cd team1-woowahaniz-jjinmat
-   ```
-
-2. 의존성 설치:
-
-   ```bash
-   npm install
-   ```
-
-3. 환경 변수 설정:
-
-   - 프로젝트 루트에 있는 `.env.example` 파일을 복사하여 `.env` 파일로 이름을 변경합니다.
-   - `.env` 파일에서 프로젝트에 필요한 환경 변수를 설정합니다.
-
-   Example:
-
-   ```bash
-   REACT_APP_API_URL=https://your-api-endpoint.com
-   REACT_APP_GOOGLE_MAPS_API_KEY=your-google-maps-key
-   ```
-
----
-
-<br />
-## 설치
-
-```
-npm install
-```
-
-## 실행
-
-### 서버 실행
-
-```
-npm run server
-```
-
-### 클라이언트 실행
-
-```
-npm run dev
-```
-
-## 🧑‍💻 Run Locally
-
-### 개발 환경 실행:
-
-```bash
-npm run dev
-```
-
-### 운영 환경 빌드:
-
-```bash
-npm run build:production
-```
-
----
-
-<br />
-
-## 📖 Document
-
-프로젝트 설계 문서는 design 디렉토리에 마크다운 파일로 기록되어있습니다. 각각의 설계 문서는 다음과 같습니다.
-
-- 요구사항 정의서
-  - 제품이 제공해야되는 기능 요구 정의서입니다.
-  - 요구사항 정의서에 기술된 기능은 최소 기능 요구사항이며 추상적일 수 있으며 기능의 구체화는 제품 구현 단계에서 이루어집니다.
-- 프로젝트 설계서
-  - 요구사항 정의서를 기반으로 프로젝트를 설계합니다.
-- 기능 정의서
-  - 사용자 스토리 기반으로 세부 기능을 정의합니다.
-
----
-
-<br />
-
----
