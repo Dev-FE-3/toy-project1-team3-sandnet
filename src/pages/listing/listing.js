@@ -15,7 +15,7 @@ class ListingPage extends Component {
       employees: userData,
       searchText: '',
       currentPage: 1,
-      itemsPerPage: 8, // 한 페이지당 8개로 수정
+      itemsPerPage: 10, // 한 페이지당 8개로 수정
       totalPages: 0,
     };
 
@@ -267,16 +267,16 @@ class ListingPage extends Component {
     //   });
     // }
 
-    // //프로필 페이지로 이동
-    // const profileSections = document.querySelectorAll('tr');
-    // profileSections.forEach((profileSection) => {
-    //   profileSection.addEventListener('click', () => {
-    //     // 세션 스토리지에 사용자 데이터 저장
-    //     //sessionStorage.setItem('currentUser', JSON.stringify(userData));
-    //     window.location.href = '/profile';
-    //     handleRouting();
-    //   });
-    // });
+    //프로필 페이지로 이동
+    const profileSections = document.querySelectorAll('tr');
+    profileSections.forEach((profileSection) => {
+      profileSection.addEventListener('click', () => {
+        // 세션 스토리지에 사용자 데이터 저장
+        //sessionStorage.setItem('currentUser', JSON.stringify(userData));
+        window.location.href = '/profile';
+        handleRouting();
+      });
+    });
   }
 }
 

@@ -55,7 +55,7 @@ class ProfilePage extends Component {
           </article>
           <article class="${styles.profileDetailContainer}"green-border>
             <header class="${styles.personalInfoHeader}">
-              <h2>Personal information</h2>
+              <h2>직원 정보</h2>
               
             </header>
             <!-- 개인정보 -->
@@ -63,22 +63,22 @@ class ProfilePage extends Component {
               <fieldset class="${styles.infoGroup}">
                 <div class="${styles.infoItem}">
                   <label for="firstName">이름</label>
-                  <output id="firstName" name="firstName">최정훈</output>
+                  <output id="firstName" name="firstName">${userData[0].name}</output>
                 </div>
                 <div class="${styles.infoItem}">
                   <label for="email">직무</label>
-                  <output name="job-role">프론트엔드 개발자</output>
+                  <output name="job-role">${userData[0].jobTitle}</output>
                 </div>
               </fieldset>
               
               <fieldset class="${styles.infoGroup}">
                 <div class="${styles.infoItem}">
                   <label for="email">Email</label>
-                  <output id="email" name="email">jackadams@gmail.com</output>
+                  <output id="email" name="email">${userData[0].email}</output>
                 </div>
                 <div class="${styles.infoItem}">
                   <label for="phone">전화번호</label>
-                  <output id="phone" name="phone">(010) 1234-5678</output>
+                  <output id="phone" name="phone">${userData[0].phone}</output>
                 </div>
               </fieldset>
             </form>
