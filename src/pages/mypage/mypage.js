@@ -206,6 +206,14 @@ class MyPage extends Component {
               <label for="end-date">종료일</label>
               <input type="date" id="end-date" class="${styles.datePicker}" />
             </div>
+            <div class="${styles.reasonContainer}">
+                <textarea 
+                    id="attendance-reason" 
+                    class="${styles.reasonTextarea}"
+                    placeholder="사유를 입력해주세요."
+                    rows="4"
+                ></textarea>
+            </div>
             <button class="${styles.submitBtn}">신청</button>
           </div>
         </div>
@@ -388,10 +396,30 @@ class MyPage extends Component {
               </div>
               <div class="${styles.itemContent} ${styles.date}">${item.date}</div>
               <div class="${styles.itemContent} ${styles.applyDate}">${item.applyDate}</div>
+              <button class="${styles.toggleBtn}">
+                <span class="material-icons">expand_more</span>
+              </button>
+              <div class="${styles.reasonContent} ${styles.hidden}">
+              <p>${item.reason || '사유가 없습니다.'}</p>
+              </div>
             </div>
           `,
         )
         .join('');
+      // 토글 버튼에 이벤트 리스너 추가
+      const toggleBtns = attendanceListElement.querySelectorAll(`.${styles.toggleBtn}`);
+      toggleBtns.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const reasonContent = e.target
+            .closest(`.${styles.attendanceItem}`)
+            .querySelector(`.${styles.reasonContent}`);
+          reasonContent.classList.toggle(`${styles.hidden}`);
+          const icon = btn.querySelector('.material-icons');
+          icon.textContent = reasonContent.classList.contains(`${styles.hidden}`)
+            ? 'expand_more'
+            : 'expand_less';
+        });
+      });
     });
   }
 
@@ -426,7 +454,6 @@ class MyPage extends Component {
           alert('근태 유형과 날짜를 선택해주세요.');
           return; // 함수 종료
         }
-
         // 새로운 근태 추가
         const newAttendance = {
           writer: `${this.state.writer}`,
@@ -434,6 +461,7 @@ class MyPage extends Component {
           type: this.state.selectedAttendanceType,
           date: this.formatDate(startDate.value, endDate.value),
           applyDate: this.formatDate(new Date()),
+          reason: document.querySelector('#attendance-reason')?.value || '', // 사유 추가
         };
 
         // 상태 업데이트
@@ -447,6 +475,7 @@ class MyPage extends Component {
         //초기화
         startDate.value = '';
         endDate.value = '';
+        document.querySelector('#attendance-reason').value = '';
         typeButtons.forEach((btn) => btn.classList.remove(`${styles.selected}`));
 
         //모달 닫기
