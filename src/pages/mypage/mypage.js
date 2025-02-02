@@ -43,7 +43,7 @@ class MyPage extends Component {
   }
 
   template() {
-    const {user, workStartTime, workEndTime, isWorking } = this.state;
+    const { user, workStartTime, workEndTime, isWorking } = this.state;
 
     return `
     <main class="main-content">
@@ -157,11 +157,11 @@ class MyPage extends Component {
   initCommonModalEvent() {
     document.querySelectorAll(`.commonModal`).forEach((modal) => {
       modal.addEventListener('click', (e) => {
-      const clickedElement = e.target.closest('[data-modal-type]'); // 가장 가까운 data-modal-type 속성을 가진 상위 요소 찾기
-      if (!clickedElement) return;
-      const modalType = clickedElement.getAttribute('data-modal-type');
-      if (!modalType) return;
-      this.commonModalController(modalType);
+        const clickedElement = e.target.closest('[data-modal-type]'); // 가장 가까운 data-modal-type 속성을 가진 상위 요소 찾기
+        if (!clickedElement) return;
+        const modalType = clickedElement.getAttribute('data-modal-type');
+        if (!modalType) return;
+        this.commonModalController(modalType);
       });
     });
   }
@@ -264,7 +264,7 @@ class MyPage extends Component {
     const cancelBtn = modal.querySelector(`.${styles.cancelBtn}`);
     const workStartTime = document.querySelector('.work-start-time');
     const workEndTime = document.querySelector('.work-end-time');
-    
+
     if (confirmBtn) {
       confirmBtn.addEventListener('click', () => {
         const now = new Date();
@@ -315,8 +315,16 @@ class MyPage extends Component {
 
   // 시간 업데이트
   initTimeUpdate() {
-    const currentTimeElements = document.querySelectorAll(`.${styles.currentTimeValue}`);
-    if (!currentTimeElements.length) return;
+    // 즉시 실행해보고
+    let currentTimeElements = document.querySelectorAll(`.${styles.currentTimeValue}`);
+
+    // 요소가 없다면 약간의 지연 후 다시 시도
+    if (!currentTimeElements.length) {
+      setTimeout(() => {
+        currentTimeElements = document.querySelectorAll(`.${styles.currentTimeValue}`);
+        if (!currentTimeElements.length) return;
+      }, 0);
+    }
 
     const updateTime = () => {
       const now = new Date();
@@ -395,9 +403,9 @@ class MyPage extends Component {
     const endDate = document.querySelector('#end-date');
     const typeButtons = addAttendanceModal.querySelectorAll(`.${styles.typeBtn}`);
     const submitBtn = addAttendanceModal.querySelector(`.${styles.submitBtn}`);
-    
+
     if (!addAttendanceBtn || !addAttendanceModal) return;
-    
+
     // 근태 유형 버튼 이벤트
     typeButtons.forEach((typeBtn) => {
       typeBtn.addEventListener('click', (e) => {
@@ -469,7 +477,7 @@ class MyPage extends Component {
     }
     return `${startYear}.${startMonth}.${startDay}~${endYear}.${endMonth}.${endDay}`;
   }
-  
+
   // 모달 닫기 이벤트
   closeModalEvent(modal) {
     const modalCloseBtn = modal.querySelector(`.${styles.close}`);
