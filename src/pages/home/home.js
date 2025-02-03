@@ -56,33 +56,51 @@ export default class Home {
   }
 
   setEvent() {
-    // 계정 권한 선택(admin || user)
+    this.roleCheck();
+    this.userCheck();
+    this.roleClickEvent();
+    this.userChangeEvent();
+  }
+
+  roleCheck() { // 기존 선택 권한 확인(admin || user)
     const roleButtons = document.querySelectorAll(`.${styles.roleButton}`);
+    const savedRole = sessionStorage.getItem('currentRole');
+    if (savedRole) {
+        roleButtons.forEach(button => {
+            if (button.getAttribute('data-role') === savedRole) {
+                button.classList.add(styles.active);
+            }
+        });
+    }
+  }
+  userCheck() { // 기존 선택 유저 확인
+    const userSelect = this.target.querySelector(`.${styles.userSelect}`);
+    const savedUser = sessionStorage.getItem('currentUser');
+    if (savedUser) {
+      userSelect.value = savedUser;
+    }else {
+      sessionStorage.setItem('currentUser', 'user1'); 
+    }
+  }
 
-    roleButtons.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        // 모든 버튼에서 'active' 클래스 제거
-        roleButtons.forEach((btn) => btn.classList.remove(styles.active));
-
-        // 클릭한 버튼에 'active' 클래스 추가
-        e.target.classList.add(styles.active);
-
-        const selectedRole = e.target.getAttribute('data-role');
-        console.log(
-          'Home ~ button.addEventListener ~ selectedRole: ',
-          selectedRole,
-          e.target.textContent,
-        );
-        sessionStorage.setItem('currentRole', selectedRole); // 세션 스토리지에 저장
-      });
+  roleClickEvent() { // 권한 클릭 이벤트
+    const roleSelection = this.target.querySelector(`.${styles.roleSelection}`);
+    roleSelection.addEventListener('click', (e) => {
+      {
+        if (e.target.classList.contains(styles.roleButton)) {
+          roleSelection.querySelector(`.${styles.active}`)?.classList.remove(styles.active); //선택된 버튼의 'active' 클래스 제거
+          e.target.classList.add(styles.active); //
+          const selectedRole = e.target.getAttribute('data-role');
+          sessionStorage.setItem('currentRole', selectedRole); // 세션 스토리지에 저장
+        }
+      }
     });
+  }
 
-    // 유저 선택
-    const userSelect = document.querySelector(`.${styles.userSelect}`);
-
+  userChangeEvent() { // 유저 변경 이벤트
+    const userSelect = this.target.querySelector(`.${styles.userSelect}`);
     userSelect.addEventListener('change', (e) => {
       const selectedUser = e.target.value;
-      console.log('Home ~ userSelect.addEventListener ~ selectedUser: ', selectedUser);
       sessionStorage.setItem('currentUser', selectedUser); // 세션 스토리지에 저장
     });
   }
