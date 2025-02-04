@@ -15,7 +15,7 @@ class ListingPage extends Component {
       employees: userData,
       searchText: '',
       currentPage: 1,
-      itemsPerPage: 8, // 한 페이지당 8개로 수정
+      itemsPerPage: 10, // 한 페이지당 10개로 수정
       totalPages: 0,
     };
 

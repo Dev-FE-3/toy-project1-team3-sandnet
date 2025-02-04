@@ -252,7 +252,42 @@
   padding: 1rem 0;
   border-bottom: 1px solid var(--color-gray);
   text-align: left;
+  position: relative; /* 버튼과 메모의 기준점 */
 }
+
+.toggleBtn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  color: var(--color-light-green);
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  z-index: 1; /* 메모 위에 버튼이 보이도록 */
+}
+
+.toggleBtn:hover {
+  color: var(--color-dark-green);
+}
+
+.reasonContent {
+  position: absolute; /* 절대 위치로 변경 */
+  top: 100%; /* 항목 바로 아래에 위치 */
+  right: 0; /* 오른쪽 정렬 */
+  width: 300px; /* 적절한 너비 설정 */
+  padding: 1rem;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2; /* 다른 항목들 위에 표시 */
+}
+
+.reasonContent.hidden {
+  display: none;
+}
+
 .addAttendanceBtn {
   position: absolute;
   bottom: 20px;
@@ -404,7 +439,7 @@
 }
 
 /* 근태목록 모달 */
-.modal .attendanceModal .modalContent {
+/* .modal .attendanceModal .modalContent {
   width: 80%;
   max-width: 500px;
   max-height: 800px;
@@ -474,7 +509,7 @@
 
 .modal .itemContent.title {
   flex: 1.5;
-}
+} */
 
 /* 근태신청 모달 스타일 */
 .modal .addAttendanceBtnModal {
@@ -527,6 +562,10 @@
   flex-direction: column;
   justify-content: center;
   gap: 5px;
+}
+
+.modal .reasonTextarea:focus::placeholder {
+  color: transparent;
 }
 
 .modal .submitBtn {

@@ -41,7 +41,8 @@ export default class Sidebar extends Component {
   }
 
   logoInit() {
-    const logo = document.querySelector(`.${styles.sidebarLogo}`);
+    //this.targer을 기준으로 검색 - 해당 sidebar 내부에서만 요소를 찾음음
+    const logo = this.target.querySelector(`.${styles.sidebarLogo}`);
 
     if (logo) {
       logo.addEventListener('click', () => {
@@ -50,7 +51,6 @@ export default class Sidebar extends Component {
         this.setState({
           currentPage: 'home',
         });
-        console.log('Sidebar ~ logo.addEventListener ~ currentPage: ', this.state);
 
         // this.currentPage = 'home';
         this.updateActiveMenu();
@@ -78,19 +78,20 @@ export default class Sidebar extends Component {
     const { roleAndUserPath } = this.state;
 
     if (currentRole && currentUser) {
-      switch (currentRole) {
-        case 'admin':
-          this.setState({
-            roleAndUserPath: `${roleAndUserPath}admin`,
-          });
-          break;
-        case 'user':
-          this.setState({
-            roleAndUserPath: `${roleAndUserPath}user`,
-          });
-          break;
-        default:
-      }
+      // 역할에 맞는 경로를 정의하는 객체
+      const rolePaths = {
+        admin: `${roleAndUserPath}admin`,
+        user: `${roleAndUserPath}user`,
+      };
+
+      // currentRole에 해당하는 경로를 설정하거나 기본 경로 사용
+      const updatedPath = rolePaths[currentRole] || roleAndUserPath;
+
+      // 상태 업데이트
+      this.setState({
+        roleAndUserPath: updatedPath,
+      });
+
       return true;
     } else {
       alert('권한과 유저 정보를 선택해 주세요.');
@@ -99,44 +100,40 @@ export default class Sidebar extends Component {
   }
 
   linkToPage() {
-    const links = document.querySelectorAll('.link');
-    let url = '';
+    const navMenu = this.target.querySelector(`.${styles.navMenu}`);
 
-    links.forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.stopPropagation();
+    if (navMenu) {
+      navMenu.addEventListener('click', (e) => {
         e.preventDefault();
 
-        const path =
-          e.target.tagName.toLowerCase() === 'li'
-            ? e.target.querySelector('a').getAttribute('data-link')
-            : e.target.getAttribute('data-link');
-        console.log('Sidebar ~ link.addEventListener ~ path: ', path);
+        const link = e.target.closest('.link');
+        if (!link) return; // 클릭한 요소가 .link 내부가 아니면 무시
+
+        const path = link.querySelector('a').getAttribute('data-link');
+        if (!path) return;
 
         if (this.checkRoleAndUser()) {
+          let url = '';
+
           switch (path) {
             case 'listing':
               url = `${this.state.roleAndUserPath}/${path}`;
               break;
             case 'notice':
-              url = `/${path}`;
-              break;
             case 'mypage':
               url = `/${path}`;
               break;
             default:
           }
+
           window.history.pushState({}, '', url);
           handleRouting();
         }
 
-        // window.history.pushState({}, '', `/${path}`);
-
-        // 활성 메뉴 업데이트
         this.currentPage = path;
         this.updateActiveMenu();
       });
-    });
+    }
   }
 
   setEvent() {
