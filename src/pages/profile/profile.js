@@ -24,13 +24,9 @@ class ProfilePage extends Component {
 
     this.state = {
       profileImgs: [],
-      currentUserId: sessionStorage.getItem('currentUser').replace(/"/g, ''),
+      currentUserId: JSON.parse(sessionStorage.getItem('currentUser')),
     };
   }
-
-  //  getProfileData() {
-  //    return this.state.profileData;
-  //  }
 
   template() {
     return `
@@ -101,17 +97,40 @@ class ProfilePage extends Component {
     `;
   }
 
+  // Base64 문자열을 Blob으로 변환하는 함수
+  base64ToBlob(base64, mimeType = 'image/png') {
+    const byteCharacters = atob(base64.split(',')[1]); // Base64 디코딩
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers); // Uint8Array로 변환
+    return new Blob([byteArray], { type: mimeType }); // Blob 생성 후 반환
+  }
+
   async profileInit() {
     try {
       const images = await getImagesByUser();
       this.setState({ profileImgs: images });
-      console.log('ProfilePage ~ profileInit ~ images: ', images);
+      console.log('ProfilePage ~ profileInit ~ images: ', this.state.profileImgs);
 
+      // if (images && images.length > 0) {
+      //   // Base64를 Blob으로 변환
+      //   const response = await fetch(images[0].imgUrl);
+      //   console.log('ProfilePage ~ profileInit ~ response: ', response);
+      //   const blob = await response.blob();
+      //   const blobUrl = URL.createObjectURL(blob);
+
+      //   const profileImage = document.getElementById('profileImage');
+
+      //   if (profileImage) {
+      //     profileImage.src = blobUrl;
+      //   }
+      // }
       if (images && images.length > 0) {
-        // Base64를 Blob으로 변환
-        const response = await fetch(images[0].imgUrl);
-        const blob = await response.blob();
-        const blobUrl = URL.createObjectURL(blob);
+        const base64String = images[0].imgUrl; // 이미지 Base64 문자열
+        const blob = this.base64ToBlob(base64String, 'image/webp'); // Blob 변환
+        const blobUrl = URL.createObjectURL(blob); // Blob URL 생성
 
         const profileImage = document.getElementById('profileImage');
         if (profileImage) {
@@ -126,7 +145,6 @@ class ProfilePage extends Component {
   // 파일 크기 검증
   validateFileSize(file) {
     if (file.size > this.MAX_FILE_SIZE) {
-      alert('파일 크기가 너무 큽니다. 최대 2MB까지 업로드 가능합니다.');
       return false;
     }
     return true;
@@ -143,39 +161,35 @@ class ProfilePage extends Component {
   }
 
   isProfileImgs() {
-    console.log('ProfilePage ~ isProfileImgs ~ this.state.profileImgs: ', this.state.profileImgs);
     return this.state.profileImgs.length > 0 ? true : false;
   }
 
   setEvent() {
+    const imgContainer = document.querySelector(`.${styles.imgContainer}`);
     const profileImage = document.getElementById('profileImage');
     const imgUploadBtn = document.querySelector(`.${styles.imgUpload}`);
     const editIcon = document.querySelector(`.${styles.imgEditIcon}`);
     const deleteIcon = document.querySelector(`.${styles.imgDeleteIcon}`);
 
-    // 프로필 이미지 클릭 시 파일 업로드 창 열기
-    // profileImage.addEventListener('click', () => {
-    //   imgUploadBtn.click(); // 파일 입력 필드 클릭
-    // });
+    imgContainer.addEventListener('click', async (e) => {
+      e.stopPropagation();
 
-    // 이미지 호버시 에디트 아이콘 클릭 시 파일 업로드 창 열기
-    editIcon.addEventListener('click', (e) => {
-      e.stopPropagation(); // 클릭 이벤트 전파 방지
-      imgUploadBtn.click(); // 파일 입력 필드 클릭
-    });
+      // 프로필 이미지 편집
+      if (e.target.classList.contains(styles.imgEditIcon)) {
+        imgUploadBtn.click();
+      }
 
-    // 삭제 아이콘 클릭 시 이미지 삭제 처리
-    deleteIcon.addEventListener('click', async (e) => {
-      e.stopPropagation(); // 클릭 이벤트 전파 방지
-      // 이미지 삭제 로직 추가
-      if (this.isProfileImgs()) {
-        await deleteImage(this.state.profileImgs[0].id); // 이미지 삭제 함수 호출
-        this.setState({
-          profileImgs: this.state.profileImgs.filter(
-            (img) => img.id !== this.state.profileImgs[0].id,
-          ),
-        }); // 상태 업데이트
-        profileImage.src = ''; // 이미지 미리보기 초기화
+      // 프로필 이미지 삭제
+      if (e.target.classList.contains(styles.imgDeleteIcon)) {
+        if (this.isProfileImgs()) {
+          await deleteImage(this.state.profileImgs[0].id); // 이미지 삭제 함수 호출
+          this.setState({
+            profileImgs: this.state.profileImgs.filter(
+              (img) => img.id !== this.state.profileImgs[0].id,
+            ),
+          }); // 상태 업데이트
+          profileImage.src = ''; // 이미지 미리보기 초기화
+        }
       }
     });
 
@@ -184,18 +198,19 @@ class ProfilePage extends Component {
       const file = e.target.files[0];
 
       if (file) {
-        if (!this.validateFileSize(file)) return;
+        if (!this.validateFileSize(file)) {
+          alert('파일 크기가 너무 큽니다. 최대 2MB까지 업로드 가능합니다.');
+          return;
+        }
 
         try {
           // 파일을 Base64로 변환
           const base64String = await this.convertFileToBase64(file);
           profileImage.src = URL.createObjectURL(file); // 미리보기용 blob url
-          console.log('click');
 
           if (this.isProfileImgs()) {
             // await updateImage(this.state.profileImgs[0].id, base64String); // 이미지 Base64 문자열로 저장
           } else {
-            console.log('createImage 출발');
             await createImage(base64String); // 이미지 Base64 문자열로 저장
           }
         } catch (error) {
@@ -208,7 +223,7 @@ class ProfilePage extends Component {
   // 컴포넌트가 언마운트될 때 Blob URL 해제 필요
   componentWillUnmount() {
     const profileImage = document.getElementById('profileImage');
-    if (profileImage && profileImage.src.startsWith('blob:')) {
+    if (profileImage?.src?.startsWith('blob:')) {
       URL.revokeObjectURL(profileImage.src);
     }
   }
