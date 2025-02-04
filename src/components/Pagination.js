@@ -14,14 +14,14 @@ export default class Pagination {
     return `
       <div class="pagination">
         <button class="page-btn prev-btn ${this.currentPage === 1 ? 'disabled' : ''}"
-                ${this.currentPage === 1 ? 'disabled' : ''}>
+                ${this.currentPage === 1 ? 'disabled aria-disabled="true"' : ''}>
           <i class="fas fa-chevron-left"></i>
         </button>
         <div class="page-numbers">
           ${this.renderPageNumbers()}
         </div>
         <button class="page-btn next-btn ${this.currentPage === this.totalPages ? 'disabled' : ''}"
-                ${this.currentPage === this.totalPages ? 'disabled' : ''}>
+                ${this.currentPage === this.totalPages ? 'disabled aria-disabled="true"' : ''}>
           <i class="fas fa-chevron-right"></i>
         </button>
       </div>
@@ -29,27 +29,34 @@ export default class Pagination {
   }
 
   renderPageNumbers() {
-    let pages = '';
-    for (let i = 1; i <= this.totalPages; i++) {
-      pages += `
-        <button class="page-btn number-btn ${i === this.currentPage ? 'active' : ''}" 
-                data-page="${i}">
-          ${i}
-        </button>
-      `;
+    const { totalPages, currentPage } = this;
+    if (totalPages <= 1) return '';
+
+    const range = 3;
+    let pages = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
+        pages.push(
+          `<button class="page-btn number-btn ${
+            i === currentPage ? 'active' : ''
+          }" data-page="${i}">${i}</button>`,
+        );
+      } else if (pages[pages.length - 1] !== '...') {
+        pages.push('...');
+      }
     }
-    return pages;
+
+    return pages.join('');
   }
 
   setEvent(target) {
-    // console.log('Pagination ~ setEvent ~ target:시작 ');
     const pagination = target.querySelector('.pagination');
     if (!pagination) return;
 
-    pagination.addEventListener('click', (e) => {
-      const btn = e.target.closest('.page-btn');
-      console.log('Pagination ~ pagination.addEventListener ~ btn: ', btn, this.onPageChange);
-
+    // 기존 이벤트 리스너 제거 없이, 한 번만 등록되는 이벤트 위임 방식 적용
+    target.addEventListener('click', (e) => {
+      const btn = e.target.closest('.page-btn, .prev-btn, .next-btn');
       if (!btn || btn.classList.contains('disabled')) return;
 
       let newPage = this.currentPage;
@@ -59,39 +66,27 @@ export default class Pagination {
       } else if (btn.classList.contains('next-btn')) {
         newPage = Math.min(this.totalPages, this.currentPage + 1);
       } else {
-        newPage = parseInt(btn.dataset.page);
+        newPage = parseInt(btn.dataset.page, 10);
       }
 
       if (newPage !== this.currentPage) {
-        // 현재 활성화된 버튼의 active 클래스 제거
-        const currentActiveBtn = pagination.querySelector('.page-btn.active');
-        if (currentActiveBtn) {
-          currentActiveBtn.classList.remove('active');
-        }
-
-        // 새로 선택된 버튼에 active 클래스 추가
-        const newActiveBtn = pagination.querySelector(`[data-page="${newPage}"]`);
-        if (newActiveBtn) {
-          newActiveBtn.classList.add('active');
-        }
-
-        // 이전/다음 버튼 상태 업데이트
-        const prevBtn = pagination.querySelector('.prev-btn');
-        const nextBtn = pagination.querySelector('.next-btn');
-
-        if (prevBtn) {
-          prevBtn.disabled = newPage === 1;
-          prevBtn.classList.toggle('disabled', newPage === 1);
-        }
-
-        if (nextBtn) {
-          nextBtn.disabled = newPage === this.totalPages;
-          nextBtn.classList.toggle('disabled', newPage === this.totalPages);
-        }
-
         this.currentPage = newPage;
+        this.updatePaginationUI(pagination);
         this.onPageChange(newPage);
       }
     });
+  }
+
+  // ✅ UI 업데이트 로직 분리 (코드 재사용성을 높임)
+  updatePaginationUI(pagination) {
+    pagination.querySelectorAll('.page-btn').forEach((btn) => {
+      btn.classList.toggle('active', parseInt(btn.dataset.page, 10) === this.currentPage);
+    });
+
+    const prevBtn = pagination.querySelector('.prev-btn');
+    const nextBtn = pagination.querySelector('.next-btn');
+
+    if (prevBtn) prevBtn.classList.toggle('disabled', this.currentPage === 1);
+    if (nextBtn) nextBtn.classList.toggle('disabled', this.currentPage === this.totalPages);
   }
 }

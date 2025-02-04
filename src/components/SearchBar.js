@@ -24,31 +24,43 @@ export default class SearchBar {
   setEvent(target) {
     const searchInput = target.querySelector('.search-input');
     if (!searchInput) return;
-    // console.log('SearchBar!!', target);
 
     let debounceTimer;
+    let previousValue = this.value; // Store the initial value
 
     // 입력 이벤트
     searchInput.addEventListener('input', (e) => {
-      // console.log('SearchBar ~ searchInput.addEventListener ~ e: ', e.target.value);
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        this.onSearch(e.target.value);
-      }, 300);
+      const currentValue = e.target.value;
+
+      // If the value has changed, execute onSearch
+      if (currentValue !== previousValue) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          this.onSearch(currentValue);
+          previousValue = currentValue; // Update the previous value
+        }, 300);
+      }
     });
 
     // 엔터 이벤트
     searchInput.addEventListener('keydown', (e) => {
-      // console.log('SearchBar ~ searchInput.addEventListener ~ keydown');
       if (e.key === 'Enter') {
-        clearTimeout(debounceTimer);
-        this.onSearch(e.target.value);
+        const currentValue = e.target.value;
+
+        // If the value has changed, execute onSearch
+        if (currentValue !== previousValue) {
+          clearTimeout(debounceTimer);
+          this.onSearch(currentValue);
+          previousValue = currentValue; // Update the previous value
+        }
       }
     });
 
     // 검색창 클리어
     searchInput.addEventListener('search', () => {
+      searchInput.value = '';
       this.onSearch('');
+      previousValue = ''; // Reset previous value on clear
     });
   }
 }

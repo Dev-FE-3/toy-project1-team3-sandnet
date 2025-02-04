@@ -3,7 +3,8 @@
   flex: 1;
   display: grid;
   height: calc(100% - 100px);
-  grid-template-rows: minmax(200px, 1fr) minmax(200px, 1fr); /* 각 행의 높이를 minmax로 조정 */
+  grid-template-rows: minmax(200px, 1fr) minmax(200px, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 2rem; /* 그리드 아이템 간격 추가 */
 }
 
@@ -31,7 +32,7 @@
   /* gap: 50px; */
   height: auto;
   min-height: 200px;
-  margin: 20px 0;
+  margin: auto 0;
   flex-wrap: wrap;
 }
 
@@ -139,9 +140,10 @@
   display: block; /* 블록 요소로 변경 */
   position: absolute; /* 화면에 고정 */
   bottom: 40px; /* 아래에서 20px 띄움 */
-  left: 50%; /* 부모 요소의 가로 중앙에 위치 */
-  transform: translateX(-50%); /* 중앙 정렬 */
+  left: calc(50% - 60px); /* 부모 요소의 가로 중앙에 위치 */
+  align-items: center;
   padding: 10px;
+  margin: auto;
 }
 .workBtn:hover {
   background-color: var(--color-dark-green);
@@ -250,7 +252,42 @@
   padding: 1rem 0;
   border-bottom: 1px solid var(--color-gray);
   text-align: left;
+  position: relative; /* 버튼과 메모의 기준점 */
 }
+
+.toggleBtn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  color: var(--color-light-green);
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  z-index: 1; /* 메모 위에 버튼이 보이도록 */
+}
+
+.toggleBtn:hover {
+  color: var(--color-dark-green);
+}
+
+.reasonContent {
+  position: absolute; /* 절대 위치로 변경 */
+  top: 100%; /* 항목 바로 아래에 위치 */
+  right: 0; /* 오른쪽 정렬 */
+  width: 300px; /* 적절한 너비 설정 */
+  padding: 1rem;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2; /* 다른 항목들 위에 표시 */
+}
+
+.reasonContent.hidden {
+  display: none;
+}
+
 .addAttendanceBtn {
   position: absolute;
   bottom: 20px;
@@ -402,7 +439,7 @@
 }
 
 /* 근태목록 모달 */
-.modal .attendanceModal .modalContent {
+/* .modal .attendanceModal .modalContent {
   width: 80%;
   max-width: 500px;
   max-height: 800px;
@@ -472,7 +509,7 @@
 
 .modal .itemContent.title {
   flex: 1.5;
-}
+} */
 
 /* 근태신청 모달 스타일 */
 .modal .addAttendanceBtnModal {
@@ -525,6 +562,10 @@
   flex-direction: column;
   justify-content: center;
   gap: 5px;
+}
+
+.modal .reasonTextarea:focus::placeholder {
+  color: transparent;
 }
 
 .modal .submitBtn {

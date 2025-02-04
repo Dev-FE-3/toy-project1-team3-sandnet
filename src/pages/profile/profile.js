@@ -7,7 +7,7 @@ import {
   getImagesByUser,
   deleteImage,
 } from '@/libs/firebase/firebaseService';
-import Component from '@/components/ComponentClass';
+import Component from '@/components/componentClass';
 import { userData } from '@/data/userData';
 
 class ProfilePage extends Component {
@@ -58,7 +58,7 @@ class ProfilePage extends Component {
           </article>
           <article class="${styles.profileDetailContainer}"green-border>
             <header class="${styles.personalInfoHeader}">
-              <h2>Personal information</h2>
+              <h2>직원 정보</h2>
               
             </header>
             <!-- 개인정보 -->
