@@ -1,5 +1,6 @@
-<img src="src/assets/images/로고.png">
-
+<div align="center">
+    <img src="src/assets/images/로고.png">
+</div>
 <br>
 
 <h2 align="center">🔎 About SANDNET 🔍</h2>
@@ -69,7 +70,7 @@
 
   <h3>Database</h3>
   <div align="center">
-    <img src="https://img.shields.io/badge/Firebase-47A248?style=plastic&logo=Firebase&logoColor=white">
+    <img src="https://img.shields.io/badge/Firebase-ff9900?style=plastic&logo=Firebase&logoColor=white">
   </div>
 
 </div>
@@ -86,7 +87,6 @@
         <img src="https://img.shields.io/badge/Slack-4A154B?style=plastic&logo=Slack&logoColor=white">
         <img src="https://img.shields.io/badge/Notion-000000?style=plastic&logo=Notion&logoColor=white">
   </div>
-  <br />
 </div>
 
 ---
@@ -150,8 +150,6 @@
 2. **Dev Branch**: 기능 개발 브랜치.
 3. **Feature Branches**: 각 기능별 작업.
 
----
-
 ### 2. **Directory Structure**
 
 ```
@@ -174,8 +172,6 @@
 ┗ 📘main.js
 ```
 
----
-
 ### 3. **Commit Convention**
 
 ![Image](https://github.com/user-attachments/assets/da189e53-5392-43fc-9c69-b340f58edf73)
@@ -188,7 +184,6 @@
 
 ![Image](https://github.com/user-attachments/assets/6c7fcf32-9cbe-499f-99e6-d9b02e8d9954)
 
----
 
 # 📚 Installation
 
